@@ -1,0 +1,124 @@
+// $Id: $
+// File name:   scheduler.sv
+// Created:     4/25/2015
+// Author:      James Alliger
+// Lab Section: 337-05
+// Version:     1.0  Initial Design Entry
+// Description: This is the wrapper and connecter for all scheduling logic in the floating point-co processor.
+// This is where the internal blocks reside and work togerther
+
+module scheduler
+#(
+  parameter INSTRUCT_WIDTH = 16
+)
+(
+  input wire n_rst,
+  input wire clk,
+  input wire [INSTRUCT_WIDTH - 1:0]instruction,
+  input wire add_instruction,
+  input wire [15:0]drop_dependency,
+  
+  output wire buffer_full,
+  
+  output wire [7:0]sram_address_store,
+  output wire [7:0]sram_address_load,
+  output wire [3:0]source1,
+  output wire [3:0]source2,
+  
+  output wire store2_enable,
+  output wire store1_enable,
+  output wire load_enable,
+  output wire add_enable,
+  output wire sub_enable,
+  output wire mul_enable,
+  output wire sin_enable,
+  output wire neg_enable,
+  output wire abs_enable,
+  output wire move_enable,
+  
+  output wire [3:0]load_dest,
+  output wire [3:0]add_dest,
+  output wire [3:0]sub_dest,
+  output wire [3:0]mul_dest,
+  output wire [3:0]sin_dest,
+  output wire [3:0]neg_dest,
+  output wire [3:0]abs_dest,
+  output wire [3:0]move_dest 
+);
+
+wire [INSTRUCT_WIDTH - 1:0]buffer_head;
+wire [15:0]curr_dependents;
+wire [15:0]dependnecy_add;
+wire buff_read_enable;
+wire instruction_available;
+
+
+
+scheduling_logic Logic(
+  .instruction1(buffer_head),
+  .dependency(curr_dependents),
+  .instruction_available(instruction_available),
+  
+  .dependency_add(dependnecy_add),
+  .sram_address_store(sram_address_store),
+  .sram_address_load(sram_address_load),
+  .source1(source1),
+  .source2(source2),
+  
+  .read_instruction1(buff_read_enable),
+  
+  .store2_enable(store2_enable),
+  .store1_enable(store1_enable),
+  .load_enable(load_enable),
+  .add_enable(add_enable),
+  .sub_enable(sub_enable),
+  .mul_enable(mul_enable),
+  .sin_enable(sin_enable),
+  .neg_enable(neg_enable),
+  .abs_enable(abs_enable),
+  .move_enable(move_enable),
+  
+  .load_dest(load_dest),
+  .add_dest(add_dest),
+  .sub_dest(sub_dest),
+  .mul_dest(mul_dest),
+  .sin_dest(sin_dest),
+  .neg_dest(neg_dest),
+  .abs_dest(abs_dest),
+  .move_dest(move_dest)
+);
+wire empty;
+assign instruction_available = ! empty;
+
+flex_fifo 
+#(
+  .WIDTH(16),
+  .DEPTH(10),
+  .BITS_WIDTH(4),//this is the number of bits needed to make this work
+  .BITS_DEPTH(4)
+)
+Input_Buffer
+(
+  .clk(clk),
+  .n_rst(n_rst),
+  .r_enable(buff_read_enable),
+  
+  .w_enable(add_instruction),
+  .w_data(instruction),
+  
+  .r_data(buffer_head),
+  .full(buffer_full),
+  .empty(empty)
+);
+
+dependancy_reg Dependency_reg
+(
+  .clk(clk),// clock signal
+  .n_rst(n_rst), //reset
+  .dependency_set(dependnecy_add), //inputs to set the dependancies
+  .dependency_remove(drop_dependency), //iputs to remove dependancies
+  .dependency_exists(curr_dependents) //the output back to the user
+);
+
+
+endmodule

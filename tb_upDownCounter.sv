@@ -1,0 +1,124 @@
+// $Id: $
+// File name:   tb_upDownCounter.sv
+// Created:     4/25/2015
+// Author:      James Alliger
+// Lab Section: 337-05
+// Version:     1.0  Initial Design Entry
+// Description: a test bech to make sure the up down counter works correctly
+// ,
+
+
+`timescale 1ns / 10ps
+module tb_upDownCounter();
+  localparam NUM_TEST_CASES = 8;
+  parameter CLK_PERIOD = 10;
+  parameter BITSIZE = 4;
+  
+  reg tb_clk;
+  reg tb_n_rst;
+  reg tb_up;
+  reg tb_down;
+  wire [BITSIZE -1:0]tb_count_out;
+  
+  integer tb_test_case;
+  integer test_case_num;
+
+  reg [1:NUM_TEST_CASES]test_up;
+  reg [1:NUM_TEST_CASES]test_down;
+  reg [1:NUM_TEST_CASES][BITSIZE -1:0]test_count_out;
+  
+  upDownCounter DUT
+  (
+    .clk(tb_clk),
+    .n_rst(tb_n_rst),
+    .up(tb_up),
+    .down(tb_down),
+    .count_out(tb_count_out)
+  );
+  always
+	begin : CLK_GEN
+		tb_clk = 1'b0;
+		#(CLK_PERIOD / 2);
+		tb_clk = 1'b1;
+		#(CLK_PERIOD / 2);
+	end
+	
+	initial
+	begin 
+	  //reset the test bench
+	  tb_n_rst = 1'b1;
+	  tb_up= 0;
+	  tb_down = 0;
+	  #0.2;
+	  tb_n_rst = 1'b0;
+	  #0.5;
+	  tb_n_rst = 1'b1;
+	  @(posedge tb_clk);
+	  for(tb_test_case = 1; tb_test_case <= NUM_TEST_CASES; tb_test_case++)
+	  begin
+	    //avoid thr rising edge
+	    @(negedge tb_clk);
+	    tb_up= test_up[tb_test_case];
+	    tb_down = test_down[tb_test_case];
+	    //go to the next clk to check
+	    @(posedge tb_clk);
+	    //go a bit away
+	    #1.5;
+	    if(tb_count_out != test_count_out[tb_test_case])
+	      $info("ERROR: count not correct for case %0d", tb_test_case);
+	  end
+	  end
+	
+	initial
+	begin
+	  //1 see if it remains at o for a no count
+	  test_case_num = 1;
+	  test_up[test_case_num] = 0;
+	  test_down[test_case_num] = 0;
+	  test_count_out[test_case_num] = 4'h0;
+	  
+	  //2 count up
+	  test_case_num = test_case_num + 1;
+	  test_up[test_case_num] = 1;
+	  test_down[test_case_num] = 0;
+	  test_count_out[test_case_num] = 4'h1;
+	  
+	  //3 count up
+	  test_case_num = test_case_num + 1;
+	  test_up[test_case_num] = 1;
+	  test_down[test_case_num] = 0;
+	  test_count_out[test_case_num] = 4'h2;
+	  
+	  //4 count up
+	  test_case_num = test_case_num + 1;
+	  test_up[test_case_num] = 1;
+	  test_down[test_case_num] = 0;
+	  test_count_out[test_case_num] = 4'h3;
+	  
+	  //5 hold both at once
+	  test_case_num = test_case_num + 1;
+	  test_up[test_case_num] = 1;
+	  test_down[test_case_num] = 1;
+	  test_count_out[test_case_num] = 4'h3;
+	   
+	  //6 count down
+	  test_case_num = test_case_num + 1;
+	  test_up[test_case_num] = 0;
+	  test_down[test_case_num] = 1;
+	  test_count_out[test_case_num] = 4'h2;
+	  
+	  //7 count down
+	  test_case_num = test_case_num + 1;
+	  test_up[test_case_num] = 0;
+	  test_down[test_case_num] = 1;
+	  test_count_out[test_case_num] = 4'h1;
+	  
+	  //8 count down again
+	  test_case_num = test_case_num + 1;
+	  test_up[test_case_num] = 0;
+	  test_down[test_case_num] = 1;
+	  test_count_out[test_case_num] = 4'h0;  
+	  end
+	  
+  
+endmodule
