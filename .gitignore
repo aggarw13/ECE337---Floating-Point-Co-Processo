@@ -1,0 +1,4 @@
+# ignore html files
+*.html
+# ignore files that are backups
+*.bak
