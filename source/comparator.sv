@@ -1,0 +1,50 @@
+// Verilog for ECE337 Lab 1
+// The Following code is used to compare 2 16-bit quantites, a and b. The code 
+// determines whether or not:
+// a is greater than b, gt = 1, lt = 0, eq = 0
+// a is less than b, gt = 0, lt = 1, eq = 0
+// a is equal to b, gt = 0, lt = 0, eq = 1
+
+// Use a tab size of 2 spaces for best viewing results
+
+
+module comparator
+(
+	input wire [22:0] a,
+	input wire [22:0] b,
+	output logic gt,
+	output logic lt,
+	output logic eq
+);
+
+	reg gte;
+	reg lte;
+  assign eq = (a == b)? 1'b1 : 1'b0;
+  assign lt = !({1'b0, a} > {1'b0, b}) & !eq; 
+  assign gt = !({1'b0, b} > {1'b0, a}) & !eq;
+
+	/*always @ (a, b) begin: COM
+    lte = 0;
+    gte = 0;
+		if (!(a > b)) begin
+			lte = 1'b1;
+		end
+		if (!(b > a)) begin
+			gte = 1'b1;
+		end
+		if (!(lte == 1'b1))  begin
+			gt = 1'b1;
+			lt = 1'b0;
+			eq = 1'b0;
+		end else if (!(gte == 1)) begin
+			gt = 1'b0;
+			lt = 1'b1;
+			eq = 1'b0;
+		end
+		else begin
+			gt = 1'b0;
+			lt = 1'b0;
+			eq = 1'b1;
+		end
+	end*/
+endmodule

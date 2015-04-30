@@ -1,0 +1,20 @@
+//Basic Barrel Shifter Multiplexer module
+// 1 for right shift and -1 for left shift
+module barrel_mux 
+#(
+  NUM_SHIFT_BITS = 8
+  )
+ (
+ input wire [NUM_SHIFT_BITS - 1:0] shift,
+  input wire [23:0] mantissa,
+  input wire shift_dir, 
+  output logic m
+  );
+
+assign m = (shift_dir == 1)? mantissa[shift] : mantissa[23 - shift];
+
+endmodule
+    
+      
+       
+       

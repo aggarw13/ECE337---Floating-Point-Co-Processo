@@ -1,0 +1,10 @@
+module LOD_1bit(
+  input wire [1:0] res,
+  output wire status,
+  output wire count
+  );   
+  
+  assign status = res[1] ^ res[0];
+  assign count = !res[1];
+  
+endmodule

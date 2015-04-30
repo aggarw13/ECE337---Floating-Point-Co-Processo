@@ -1,0 +1,40 @@
+# //  ModelSim SE-64 10.1b Apr 26 2012 Linux 2.6.32-504.12.2.el6.x86_64
+# //
+# //  Copyright 1991-2012 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+vlog source/Floating_point_co_processor.sv
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# -- Compiling module Floating_point_co_processor
+# ** Error: source/Floating_point_co_processor.sv(73): near "wire": syntax error, unexpected wire, expecting IDENTIFIER or TYPE_IDENTIFIER
+# ** Error: source/Floating_point_co_processor.sv(140): near "=": syntax error, unexpected '=', expecting ++ or --
+# ** Error: source/Floating_point_co_processor.sv(163): (vlog-2730) Undefined variable: 'remove_enable'.
+# /package/eda/mg/modeltech_10.1b/modeltech/linux_x86_64/vlog failed.
+vlog source/Floating_point_co_processor.sv
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# -- Compiling module Floating_point_co_processor
+# ** Error: source/Floating_point_co_processor.sv(73): near "wire": syntax error, unexpected wire, expecting IDENTIFIER or TYPE_IDENTIFIER
+# ** Error: source/Floating_point_co_processor.sv(140): near "=": syntax error, unexpected '=', expecting ++ or --
+# ** Error: source/Floating_point_co_processor.sv(163): (vlog-2730) Undefined variable: 'remove_enable'.
+# /package/eda/mg/modeltech_10.1b/modeltech/linux_x86_64/vlog failed.
+vlog source/Floating_point_co_processor.sv
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# -- Compiling module Floating_point_co_processor
+# ** Error: source/Floating_point_co_processor.sv(140): near "=": syntax error, unexpected '=', expecting ++ or --
+# /package/eda/mg/modeltech_10.1b/modeltech/linux_x86_64/vlog failed.
+vlog source/Floating_point_co_processor.sv
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# -- Compiling module Floating_point_co_processor
+# 
+# Top level modules:
+# 	Floating_point_co_processor
+vlog source/Floating_point_co_processor.sv
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# -- Compiling module Floating_point_co_processor
+# 
+# Top level modules:
+# 	Floating_point_co_processor
