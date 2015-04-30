@@ -26,7 +26,7 @@ always
 		#(CLK_PERIOD / 2);
 	end
 
-subtract_block ADD 
+add_block ADD 
 (
  .opA(opA),
  .opB(opB),
@@ -50,10 +50,12 @@ subtract_block ADD
  
 initial begin //Can add an overflow case (underflow is already present)
   //Test Case 1 : Basic Addition of Same Exponent FP numbers
-  mantissa_A[1] = 23'b00000000001000100000000;
-  mantissa_B[1] = 23'b00000000010001000000010;
-  exp_A[1] = 8'h04;
-  exp_B[1] = 8'h04;
+  //mantissa_A[1] = 23'b00000000001000100000000;
+  //mantissa_B[1] = 23'b00000000010001000000010;
+  mantissa_A[1] = 23'b01001100110011001100110;
+  mantissa_B[1]= 23'b00110011001100110011010;
+  exp_A[1] = 8'h7f;
+  exp_B[1] = 8'h80;
   sign_A[1] = 0;
   sign_B[1] = 0; 
   expected_sign[1] = 1'b0;

@@ -32,15 +32,15 @@ module shifter #(
         for(index = 0; index < eff_shift; index++) begin
           guard_bits_out[0] = guard_bits_out[0] | mantissa[index];
         end
-      end
       guard_bits_out[2:1] = eop? 2'b00 : ((mant_shift > 1)?  {mantissa[mant_shift - 1], mantissa[mant_shift - 2]} : {mantissa[mant_shift - 1], 1'b0});
+    end
       /*if(!eop) begin
         eff_shift = (mant_shift > 2)? 0 : mant_shift - 3; 
        for(index = 2; index >= 0; index--) begin
          guard_bits_out[index] = !guard_bits_out[index];
       end
-      guard_bits_out = guard_bits_out + 1;*/
-    end
+      guard_bits_out = guard_bits_out + 1;
+    end*/
     end
     else if(ovf && !SHIFT_MODE) begin
       guard_bits_out[2] = guard_bits_in[2] | guard_bits_in[1];

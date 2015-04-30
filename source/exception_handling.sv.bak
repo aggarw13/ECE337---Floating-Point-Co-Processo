@@ -22,10 +22,10 @@ module exception_handling(
       mantissa = (sel_exp == 254)? '0 : norm_mant;
       exp = (sel_exp ^ 8'hff)? sel_exp + ovf : 8'hff;
     end  
-    else if(res_exp > 0) 
+    else if(res_exp <= 0) 
       mantissa = 0;
     else begin 
-      exp = eop? sel_exp : sel_exp - lzc_shift;
+      exp = eop? sel_exp : {1'b0, sel_exp} - lzc_shift;
     end
   end
 endmodule

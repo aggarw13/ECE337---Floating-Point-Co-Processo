@@ -10,7 +10,7 @@ module exception_handling(
   );
   
   logic [8:0] res_exp;
-  assign res_exp = {1'b0, sel_exp} - {'0, lzc_shift};
+  assign res_exp = {1'b0, sel_exp} - lzc_shift;
   
   always_comb begin
     mantissa = norm_mant;
@@ -25,7 +25,7 @@ module exception_handling(
     else if(res_exp <= 0) 
       mantissa = 0;
     else begin 
-      exp = eop? sel_exp : sel_exp - lzc_shift;
+      exp = eop? sel_exp : {1'b0, sel_exp} - lzc_shift;
     end
   end
 endmodule
