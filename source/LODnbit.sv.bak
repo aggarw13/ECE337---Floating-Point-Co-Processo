@@ -1,0 +1,45 @@
+module LODnbit #(
+   NUM_BITS = 8
+   )
+  (
+    input wire [7:0] exp_diff,
+    input wire [NUM_BITS - 1 : 0] op1,
+    input wire [NUM_BITS - 1 : 0] op2,
+    output wire [NUM_BITS - 1 : 0] shift,
+    input wire sign1, input wire sign2
+  );
+  
+  wire [NUM_BITS - 1 : 0] prop, indicator, kill, gen ;
+  genvar i;
+  integer in,j;
+  reg pos_check;  
+  
+  generate  
+  for(i = 0; i < NUM_BITS; i++) begin
+      assign prop[i] = op1[i] ^ op2[i];
+      assign kill[i] = !op1[i] & !op2[i];
+      assign gen[i] = op1[i] & op2[i];
+      assign indicator[i] = (i == 0)? (op1[i] | op2[i]) : prop[i] ^ !kill[i + 1];
+    end
+  endgenerate
+  
+ 
+  assign shift = indicator[NUM_BITS - 1 : 3];
+  always_comb begin    
+    /*for(i = 0; i < NUM_BITS; i++) begin
+      prop[i] = op1[i] ^ op2[i];
+      kill[i] = !op1[i] & !op2[i];
+      gen[i] = op1[i] & op2[i];
+      indicator[i] = (i == 0)? (op1[i] | op2[i]) : prop[i] ^ !kill[i + 1];
+    end*/
+    
+    
+  
+    end
+        
+  endmodule
+      
+   
+    
+    
+     

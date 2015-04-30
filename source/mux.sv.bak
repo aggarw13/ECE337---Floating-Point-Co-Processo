@@ -1,0 +1,21 @@
+
+module demux #(
+  parameter NUM_BITS = 6
+  )
+(
+  input wire [31:0] op1,
+  input wire [31:0] op2,
+  input wire [2:0] select,
+  output wire [31:0][NUM_BITS - 1 : 0] op1_o,
+  output wire [31:0][NUM_BITS - 1 : 0] op2_o
+  );
+  integer i;
+  
+  always_comb begin 
+    for(i = 0; i < 32; i++)  
+    begin
+        op1_o[i] = (select == i) & op1 | !(select == i) & '0;
+        op2_o[i] = (select == i) & op2 | !(select == i) &'0;
+    end        
+  end
+endmodule
