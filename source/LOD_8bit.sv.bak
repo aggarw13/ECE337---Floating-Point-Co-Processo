@@ -1,0 +1,27 @@
+module LOD_nbit #(
+  NUM_BITS = 2,
+  COUNT_BITS = 1
+  )
+  (
+  input wire status1,
+  input wire status2,
+  input wire [COUNT_BITS - 2:0] count1,
+  input wire [COUNT_BITS - 2:0] count2,
+  output wire [COUNT_BITS - 1 : 0] count,
+  output wire status
+  );   
+  
+  
+  genvar i;
+  //assign status = res[1] | res[0];
+  //assign count = !res[1];
+  assign status = status1 | status2;
+  generate
+     for(i = COUNT_BITS - 1; i <= 0; i--) begin
+      if(i == 0)
+        count[i] = !status1;
+      else 
+        assign count[i] = (status1 == 1)? count1[i] : count2[i];
+     end
+   endgenerate
+endmodule
