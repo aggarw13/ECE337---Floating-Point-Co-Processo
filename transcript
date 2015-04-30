@@ -7,3 +7,22 @@
 # //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
 # //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
 # //
+# vsim +no_glitch_msg -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB -Lf /home/ecegrid/a/ece337/Class0.5u/ECE337_IP/vsim -coverage -i -t ps source_work.tb_scheduler 
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: source/flex_fifo.sv(49): (vopt-2685) [TFMPC] - Too few port connections for 'Write_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(49): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2685) [TFMPC] - Too few port connections for 'Read_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# Loading sv_std.std
+# Loading work.tb_scheduler(fast)
+# Loading work.flex_indexer(fast)
+# ** Warning: (vsim-3017) source/flex_fifo.sv(49): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_scheduler/DUT/Input_Buffer/Write_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(49): [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: (vsim-3017) source/flex_fifo.sv(59): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_scheduler/DUT/Input_Buffer/Read_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(59): [TFMPC] - Missing connection for port 'rollover_flag'.
+add wave -position insertpoint sim:/tb_scheduler/*
+run 340ns
+coverage report -html -htmldir covhtmlreport -threshL 50 -threshH 90
+# Report created in covhtmlreport/index.html

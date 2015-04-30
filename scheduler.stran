@@ -23,5 +23,6 @@
 #         Region: /tb_scheduler/DUT/Input_Buffer/Read_pointer
 # ** Warning: (vsim-3722) source/flex_fifo.sv(59): [TFMPC] - Missing connection for port 'rollover_flag'.
 add wave -position insertpoint sim:/tb_scheduler/*
-add wave -position insertpoint sim:/tb_scheduler/DUT/*
-run 330ns
+run 340ns
+coverage report -html -htmldir covhtmlreport -threshL 50 -threshH 90
+# Report created in covhtmlreport/index.html
