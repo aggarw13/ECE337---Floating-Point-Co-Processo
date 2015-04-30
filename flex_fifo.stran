@@ -1,0 +1,39 @@
+# //  ModelSim SE-64 10.1b Apr 26 2012 Linux 2.6.32-504.12.2.el6.x86_64
+# //
+# //  Copyright 1991-2012 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim +no_glitch_msg -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB -Lf /home/ecegrid/a/ece337/Class0.5u/ECE337_IP/vsim -coverage -i -t ps source_work.tb_flex_fifo 
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: source/flex_fifo.sv(49): (vopt-2685) [TFMPC] - Too few port connections for 'Write_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(49): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2685) [TFMPC] - Too few port connections for 'Read_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# Loading sv_std.std
+# Loading work.tb_flex_fifo(fast)
+# Loading work.flex_indexer(fast)
+# ** Warning: (vsim-3017) source/flex_fifo.sv(49): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_flex_fifo/DUT/Write_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(49): [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: (vsim-3017) source/flex_fifo.sv(59): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_flex_fifo/DUT/Read_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(59): [TFMPC] - Missing connection for port 'rollover_flag'.
+add wave -position insertpoint sim:/tb_flex_fifo/*
+add wave -position insertpoint sim:/tb_flex_fifo/DUT/*
+run 300ns
+# ** Info: ERROR: fifo full not correct for case 9
+#    Time: 96500 ps  Scope: tb_flex_fifo File: source/tb_flex_fifo.sv Line: 253
+# ** Info: ERROR: fifo empty not correct for case 11
+#    Time: 116500 ps  Scope: tb_flex_fifo File: source/tb_flex_fifo.sv Line: 251
+# ** Info: ERROR: fifo full not correct for case 11
+#    Time: 116500 ps  Scope: tb_flex_fifo File: source/tb_flex_fifo.sv Line: 253
+# ** Info: ERROR: read data not correct for case 19
+#    Time: 196500 ps  Scope: tb_flex_fifo File: source/tb_flex_fifo.sv Line: 249
+# ** Info: ERROR: read data not correct for case 20
+#    Time: 206500 ps  Scope: tb_flex_fifo File: source/tb_flex_fifo.sv Line: 249
+# ** Info: ERROR: read data not correct for case 21
+#    Time: 216500 ps  Scope: tb_flex_fifo File: source/tb_flex_fifo.sv Line: 249

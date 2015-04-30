@@ -1,0 +1,143 @@
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>ModelSim Coverage Report</title>
+  <link rel="StyleSheet" media="screen" href="../css/hdl2html.css"/>
+</head>
+<body id="hdl2html">
+  <tt><a name="1"/><span style="color:red">%s%%s%%s%%s%%s%1%s%%s%</span><span class="comment">//%s%$Id:%s%$</span><br/>
+<a name="2"/><span style="color:red">%s%%s%%s%%s%%s%2%s%%s%</span><span class="comment">//%s%File%s%name:%s%%s%%s%instruction_parser.sv</span><br/>
+<a name="3"/><span style="color:red">%s%%s%%s%%s%%s%3%s%%s%</span><span class="comment">//%s%Created:%s%%s%%s%%s%%s%4/26/2015</span><br/>
+<a name="4"/><span style="color:red">%s%%s%%s%%s%%s%4%s%%s%</span><span class="comment">//%s%Author:%s%%s%%s%%s%%s%%s%James%s%Alliger</span><br/>
+<a name="5"/><span style="color:red">%s%%s%%s%%s%%s%5%s%%s%</span><span class="comment">//%s%Lab%s%Section:%s%337-05</span><br/>
+<a name="6"/><span style="color:red">%s%%s%%s%%s%%s%6%s%%s%</span><span class="comment">//%s%Version:%s%%s%%s%%s%%s%1.0%s%%s%Initial%s%Design%s%Entry</span><br/>
+<a name="7"/><span style="color:red">%s%%s%%s%%s%%s%7%s%%s%</span><span class="comment">//%s%Description:%s%a%s%Preprocessing%s%of%s%instructions%s%before%s%they%s%go%s%to%s%the%s%scheduling%s%logic</span><br/>
+<a name="8"/><span style="color:red">%s%%s%%s%%s%%s%8%s%%s%</span><br/>
+<a name="9"/><span style="color:red">%s%%s%%s%%s%%s%9%s%%s%</span><span class="keyword">module</span>%s%instruction_parser<br/>
+<a name="10"/><span style="color:red">%s%%s%%s%%s%10%s%%s%</span>%s%%s%#(<br/>
+<a name="11"/><span style="color:red">%s%%s%%s%%s%11%s%%s%</span>%s%%s%<span class="keyword">parameter</span>%s%t%s%=%s%0<br/>
+<a name="12"/><span style="color:red">%s%%s%%s%%s%12%s%%s%</span>%s%%s%)<br/>
+<a name="13"/><span style="color:red">%s%%s%%s%%s%13%s%%s%</span>%s%%s%(<br/>
+<a name="14"/><span style="color:red">%s%%s%%s%%s%14%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%clk,<br/>
+<a name="15"/><span style="color:red">%s%%s%%s%%s%15%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%n_rst,<br/>
+<a name="16"/><span style="color:red">%s%%s%%s%%s%16%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%[31:0]address_bus,<br/>
+<a name="17"/><span style="color:red">%s%%s%%s%%s%17%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>[31:0]data_bus,<br/>
+<a name="18"/><span style="color:red">%s%%s%%s%%s%18%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%read_instruction,%s%<span class="comment">//this%s%is%s%a%s%read%s%cycle</span><br/>
+<a name="19"/><span style="color:red">%s%%s%%s%%s%19%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%valid_data,%s%<span class="comment">//this%s%instruction%s%can%s%be%s%paid%s%attention%s%too</span><br/>
+<a name="20"/><span style="color:red">%s%%s%%s%%s%20%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%[15:0]dependency_remove,<br/>
+<a name="21"/><span style="color:red">%s%%s%%s%%s%21%s%%s%</span>%s%%s%<span class="keyword">output</span>%s%<span class="keyword">wire</span>%s%[31:0]read_data_buff,<br/>
+<a name="22"/><span style="color:red">%s%%s%%s%%s%22%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%read_data_enable,%s%<span class="comment">//%s%this%s%should%s%be%s%tied%s%to%s%the%s%store%s%1%s%enable%s%</span><br/>
+<a name="23"/><span style="color:red">%s%%s%%s%%s%23%s%%s%</span>%s%%s%<span class="keyword">input</span>%s%<span class="keyword">wire</span>%s%instruction_buffer_full,<br/>
+<a name="24"/><span style="color:red">%s%%s%%s%%s%24%s%%s%</span>%s%%s%<br/>
+<a name="25"/><span style="color:red">%s%%s%%s%%s%25%s%%s%</span>%s%%s%<span class="keyword">output</span>%s%<span class="keyword">wire</span>%s%[15:0]instruction_out,<br/>
+<a name="26"/><span style="color:red">%s%%s%%s%%s%26%s%%s%</span>%s%%s%<span class="keyword">output</span>%s%<span class="keyword">reg</span>%s%add_instruction,<span class="comment">//%s%conmmand%s%to%s%add%s%the%s%instruction%s%to%s%the%s%fifo</span><br/>
+<a name="27"/><span style="color:red">%s%%s%%s%%s%27%s%%s%</span>%s%%s%<span class="keyword">output</span>%s%<span class="keyword">wire</span>%s%[3:0]out_reg,<span class="comment">//this%s%is%s%the%s%regester%s%to%s%otput%s%data%s%to%s%the%s%master</span><br/>
+<a name="28"/><span style="color:red">%s%%s%%s%%s%28%s%%s%</span>%s%%s%<span class="keyword">output</span>%s%<span class="keyword">reg</span>%s%read_error,<br/>
+<a name="29"/><span style="color:red">%s%%s%%s%%s%29%s%%s%</span>%s%%s%<span class="keyword">output</span>%s%<span class="keyword">reg</span>%s%write_error<br/>
+<a name="30"/><span style="color:red">%s%%s%%s%%s%30%s%%s%</span>%s%%s%);<br/>
+<a name="31"/><span style="color:red">%s%%s%%s%%s%31%s%%s%</span>%s%%s%<span class="keyword">typedef</span>%s%<span class="keyword">enum</span>%s%<span class="keyword">bit</span>[3:0]%s%{STORE1=4'hA,%s%STORE2=4'h1,%s%LOAD=4'h2,ADD=4'h3,%s%SUB=4'h4,%s%<span class="comment">//enumerateed%s%types%s%of%s%different%s%opcodes</span><br/>
+<a name="32"/><span style="color:red">%s%%s%%s%%s%32%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%MUL=4'h5,%s%SIN=4'h6,%s%NEG=4'h7,%s%ABS=4'h8,%s%MOVE=4'h9,%s%NOP=4'h0}%s%opcode_type;<br/>
+<a name="33"/><span style="color:red">%s%%s%%s%%s%33%s%%s%</span>%s%%s%opcode_type%s%opcode;<span class="comment">//%s%this%s%is%s%the%s%iternal%s%opcode%s%to%s%deal%s%with%s%</span><br/>
+<a name="34"/><span style="color:red">%s%%s%%s%%s%34%s%%s%</span>%s%%s%<span class="keyword">wire</span>%s%[3:0]dest;%s%<span class="comment">//%s%this%s%is%s%the%s%destination%s%regester</span><br/>
+<a name="35"/><span style="color:red">%s%%s%%s%%s%35%s%%s%</span>%s%%s%<span class="keyword">genvar</span>%s%i;<br/>
+<a name="36"/><span style="color:red">%s%%s%%s%%s%36%s%%s%</span>%s%%s%<br/>
+<a name="37"/><span style="color:red">%s%%s%%s%%s%37%s%%s%</span>%s%%s%<span class="keyword">reg</span>%s%[15:0]cnt_up;<br/>
+<a name="38"/><span style="color:red">%s%%s%%s%%s%38%s%%s%</span>%s%%s%<span class="keyword">wire</span>%s%[15:0][3:0]count;<br/>
+<a name="39"/><span style="color:red">%s%%s%%s%%s%39%s%%s%</span>%s%%s%<span class="keyword">reg</span>%s%prev_fifo;<br/>
+<a name="40"/><span style="color:red">%s%%s%%s%%s%40%s%%s%</span>%s%%s%<span class="keyword">wire</span>%s%write_state;<br/>
+<a name="41"/><span style="color:red">%s%%s%%s%%s%41%s%%s%</span>%s%%s%<br/>
+<a name="42"/><span style="color:red">%s%%s%%s%%s%42%s%%s%</span>%s%%s%<span class="keyword">wire</span>%s%fifo_full;<br/>
+<a name="43"/><span style="color:red">%s%%s%%s%%s%43%s%%s%</span>%s%%s%<br/>
+<a name="44"/><span style="color:red">%s%%s%%s%%s%44%s%%s%</span>%s%%s%<span class="keyword">reg</span>%s%add_data;%s%<span class="comment">//this%s%adds%s%data%s%to%s%the%s%data%s%buffer</span><br/>
+<a name="45"/><span style="color:red">%s%%s%%s%%s%45%s%%s%</span>%s%%s%<br/>
+<a name="46"/><span style="color:red">%s%%s%%s%%s%46%s%%s%</span>%s%%s%<span class="keyword">assign</span>%s%instruction_out%s%=%s%address_bus[31:16];%s%<span class="comment">//strip%s%out%s%the%s%head%s%to%s%pass%s%to%s%the%s%result%s%regester</span><br/>
+<a name="47"/><span style="color:red">%s%%s%%s%%s%47%s%%s%</span>%s%%s%<span class="keyword">assign</span>%s%out_reg%s%=%s%address_bus[3:0];%s%<span class="comment">//this%s%is%s%the%s%value%s%to%s%push%s%to%s%the%s%output%s%fifo</span><br/>
+<a name="48"/><span style="color:red">%s%%s%%s%%s%48%s%%s%</span>%s%%s%<span class="keyword">assign</span>%s%opcode%s%=%s%opcode_type'(address_bus[31:28]);<span class="comment">//%s%pull%s%off%s%the%s%opcode</span><br/>
+<a name="49"/><span style="color:red">%s%%s%%s%%s%49%s%%s%</span>%s%%s%<span class="keyword">assign</span>%s%dest%s%=%s%address_bus[27:24];<br/>
+<a name="50"/><span style="color:red">%s%%s%%s%%s%50%s%%s%</span>%s%%s%<span class="keyword">assign</span>%s%add_instruction%s%=%s%valid_data%s%&amp;%s%!read_instruction%s%&amp;%s%!instruction_buffer_full%s%&amp;%s%!write_error;%s%<span class="comment">//%s%this%s%is%s%when%s%to%s%add%s%the%s%value%s%to%s%the%s%input%s%fifo</span><br/>
+<a name="51"/><span style="color:red">%s%%s%%s%%s%51%s%%s%</span>%s%%s%<span class="keyword">assign</span>%s%write_state%s%=%s%valid_data%s%&amp;%s%!read_instruction%s%&amp;%s%!instruction_buffer_full;%s%<span class="comment">//%s%this%s%is%s%when%s%to%s%evaluate%s%new%s%data</span><br/>
+<a name="52"/><span style="color:red">%s%%s%%s%%s%52%s%%s%</span>%s%%s%<span class="keyword">generate</span>%s%<br/>
+<a name="53"/><span style="color:red">%s%%s%%s%%s%53%s%%s%</span>%s%%s%%s%%s%%s%%s%<span class="keyword">for</span>%s%(i%s%=%s%0;i%s%&lt;16;%s%i=%s%i+1)%s%<span class="comment">//make%s%16%s%updown%s%counters%s%to%s%keep%s%track%s%of%s%all%s%dependant%s%values</span><br/>
+<a name="54"/><span style="color:red">%s%%s%%s%%s%54%s%%s%</span>%s%%s%%s%%s%%s%%s%<span class="keyword">begin</span><br/>
+<a name="55"/><span style="color:red">%s%%s%%s%%s%55%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%upDownCounter%s%IX<br/>
+<a name="56"/><span style="color:red">%s%%s%%s%%s%56%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%(<br/>
+<a name="57"/><span style="color:red">%s%%s%%s%%s%57%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%.clk(clk),<br/>
+<a name="58"/><span style="color:red">%s%%s%%s%%s%58%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%.n_rst(n_rst),<br/>
+<a name="59"/><span style="color:red">%s%%s%%s%%s%59%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%.up(cnt_up[i]),<br/>
+<a name="60"/><span style="color:red">%s%%s%%s%%s%60%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%.down(dependency_remove[i]),%s%<span class="comment">//%s%this%s%is%s%the%s%signal%s%from%s%alu%s%that%s%istruction%s%is%s%finished</span><br/>
+<a name="61"/><span style="color:red">%s%%s%%s%%s%61%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%.count_out(count[i])%s%<br/>
+<a name="62"/><span style="color:red">%s%%s%%s%%s%62%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%);<br/>
+<a name="63"/><span style="color:red">%s%%s%%s%%s%63%s%%s%</span>%s%%s%%s%%s%%s%%s%<span class="keyword">end</span><br/>
+<a name="64"/><span style="color:red">%s%%s%%s%%s%64%s%%s%</span>%s%%s%<span class="keyword">endgenerate</span><br/>
+<a name="65"/><span style="color:red">%s%%s%%s%%s%65%s%%s%</span>%s%%s%<br/>
+<a name="66"/><span style="color:red">%s%%s%%s%%s%66%s%%s%</span>%s%%s%<span class="comment">//the%s%buffer%s%that%s%is%s%used%s%to%s%hold%s%the%s%input%s%data</span><br/>
+<a name="67"/><span style="color:red">%s%%s%%s%%s%67%s%%s%</span>%s%%s%flex_fifo%s%<br/>
+<a name="68"/><span style="color:red">%s%%s%%s%%s%68%s%%s%</span>%s%%s%#(<br/>
+<a name="69"/><span style="color:red">%s%%s%%s%%s%69%s%%s%</span>%s%%s%%s%%s%.WIDTH(32),<br/>
+<a name="70"/><span style="color:red">%s%%s%%s%%s%70%s%%s%</span>%s%%s%%s%%s%.DEPTH(4),<br/>
+<a name="71"/><span style="color:red">%s%%s%%s%%s%71%s%%s%</span>%s%%s%%s%%s%.BITS_WIDTH(5),<br/>
+<a name="72"/><span style="color:red">%s%%s%%s%%s%72%s%%s%</span>%s%%s%%s%%s%.BITS_DEPTH(2)<br/>
+<a name="73"/><span style="color:red">%s%%s%%s%%s%73%s%%s%</span>%s%%s%%s%%s%)<br/>
+<a name="74"/><span style="color:red">%s%%s%%s%%s%74%s%%s%</span>%s%%s%Data_buffer<br/>
+<a name="75"/><span style="color:red">%s%%s%%s%%s%75%s%%s%</span>%s%%s%%s%%s%(<br/>
+<a name="76"/><span style="color:red">%s%%s%%s%%s%76%s%%s%</span>%s%%s%%s%%s%%s%%s%.clk(clk),<br/>
+<a name="77"/><span style="color:red">%s%%s%%s%%s%77%s%%s%</span>%s%%s%%s%%s%%s%%s%.n_rst(n_rst),<br/>
+<a name="78"/><span style="color:red">%s%%s%%s%%s%78%s%%s%</span>%s%%s%%s%%s%%s%%s%.r_enable(read_data_enable),<br/>
+<a name="79"/><span style="color:red">%s%%s%%s%%s%79%s%%s%</span>%s%%s%%s%%s%%s%%s%<br/>
+<a name="80"/><span style="color:red">%s%%s%%s%%s%80%s%%s%</span>%s%%s%%s%%s%%s%%s%.w_enable(add_data),<br/>
+<a name="81"/><span style="color:red">%s%%s%%s%%s%81%s%%s%</span>%s%%s%%s%%s%%s%%s%.w_data(data_bus),<br/>
+<a name="82"/><span style="color:red">%s%%s%%s%%s%82%s%%s%</span>%s%%s%%s%%s%%s%%s%<br/>
+<a name="83"/><span style="color:red">%s%%s%%s%%s%83%s%%s%</span>%s%%s%%s%%s%%s%%s%.r_data(read_data_buff),<br/>
+<a name="84"/><span style="color:red">%s%%s%%s%%s%84%s%%s%</span>%s%%s%%s%%s%%s%%s%.full(fifo_full),<br/>
+<a name="85"/><span style="color:red">%s%%s%%s%%s%85%s%%s%</span>%s%%s%%s%%s%%s%%s%.empty()<br/>
+<a name="86"/><span style="color:red">%s%%s%%s%%s%86%s%%s%</span>%s%%s%%s%%s%);<br/>
+<a name="87"/><span style="color:red">%s%%s%%s%%s%87%s%%s%</span>%s%%s%<span class="keyword">always_ff</span>%s%@(<span class="keyattr">posedge</span>%s%clk,%s%<span class="keyattr">negedge</span>%s%n_rst)<br/>
+<a name="88"/><span style="color:red">%s%%s%%s%%s%88%s%%s%</span>%s%%s%<span class="keyword">begin</span><br/>
+<a name="89"/><span style="color:red">%s%%s%%s%%s%89%s%%s%</span>%s%%s%%s%%s%<span class="keyword">if</span>%s%(n_rst%s%==0)<br/>
+<a name="90"/><span style="color:red">%s%%s%%s%%s%90%s%%s%</span>%s%%s%%s%%s%%s%%s%prev_fifo%s%&lt;=0;<br/>
+<a name="91"/><span style="color:red">%s%%s%%s%%s%91%s%%s%</span>%s%%s%%s%%s%%s%%s%<span class="keyword">else</span><br/>
+<a name="92"/><span style="color:red">%s%%s%%s%%s%92%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%prev_fifo%s%&lt;=%s%fifo_full;<br/>
+<a name="93"/><span style="color:red">%s%%s%%s%%s%93%s%%s%</span>%s%%s%%s%%s%<span class="keyword">end</span><br/>
+<a name="94"/><span style="color:red">%s%%s%%s%%s%94%s%%s%</span>%s%%s%%s%%s%<br/>
+<a name="95"/><span style="color:red">%s%%s%%s%%s%95%s%%s%</span>%s%%s%<span class="keyword">always_comb</span><br/>
+<a name="96"/><span style="color:red">%s%%s%%s%%s%96%s%%s%</span>%s%%s%<span class="keyword">begin</span><br/>
+<a name="97"/><span style="color:red">%s%%s%%s%%s%97%s%%s%</span>%s%%s%%s%%s%add_data%s%=%s%0;<br/>
+<a name="98"/><span style="color:red">%s%%s%%s%%s%98%s%%s%</span>%s%%s%%s%%s%cnt_up%s%=%s%'0;<br/>
+<a name="99"/><span style="color:red">%s%%s%%s%%s%99%s%%s%</span>%s%%s%%s%%s%write_error%s%=%s%0;<br/>
+<a name="100"/><span style="color:red">%s%%s%%s%100%s%%s%</span>%s%%s%%s%%s%read_error%s%=0;<br/>
+<a name="101"/><span style="color:red">%s%%s%%s%101%s%%s%</span>%s%%s%%s%%s%<span class="keyword">if</span>(write_state)<br/>
+<a name="102"/><span style="color:red">%s%%s%%s%102%s%%s%</span>%s%%s%%s%%s%%s%%s%<span class="keyword">begin</span><br/>
+<a name="103"/><span style="color:red">%s%%s%%s%103%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%<span class="keyword">if</span>%s%(opcode%s%==%s%STORE1)<br/>
+<a name="104"/><span style="color:red">%s%%s%%s%104%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%<span class="keyword">begin</span><br/>
+<a name="105"/><span style="color:red">%s%%s%%s%105%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%add_data%s%=%s%1;<br/>
+<a name="106"/><span style="color:red">%s%%s%%s%106%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%<span class="keyword">if</span>%s%(fifo_full%s%&amp;%s%prev_fifo)<br/>
+<a name="107"/><span style="color:red">%s%%s%%s%107%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%write_error%s%=%s%1;<br/>
+<a name="108"/><span style="color:red">%s%%s%%s%108%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%<span class="keyword">end</span><br/>
+<a name="109"/><span style="color:red">%s%%s%%s%109%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%<br/>
+<a name="110"/><span style="color:red">%s%%s%%s%110%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%<span class="keyword">if</span>%s%(opcode%s%==%s%LOAD%s%||%s%<span class="comment">//%s%these%s%are%s%the%s%instructions%s%that%s%have%s%destinations</span><br/>
+<a name="111"/><span style="color:red">%s%%s%%s%111%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%opcode%s%==%s%ADD%s%%s%||%s%<br/>
+<a name="112"/><span style="color:red">%s%%s%%s%112%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%opcode%s%==%s%SUB%s%%s%||<br/>
+<a name="113"/><span style="color:red">%s%%s%%s%113%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%opcode%s%==%s%MUL%s%%s%||<br/>
+<a name="114"/><span style="color:red">%s%%s%%s%114%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%opcode%s%==%s%SIN%s%%s%||<br/>
+<a name="115"/><span style="color:red">%s%%s%%s%115%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%opcode%s%==%s%NEG%s%%s%||<br/>
+<a name="116"/><span style="color:red">%s%%s%%s%116%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%opcode%s%==%s%ABS%s%%s%||<br/>
+<a name="117"/><span style="color:red">%s%%s%%s%117%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%opcode%s%==%s%MOVE%s%)<br/>
+<a name="118"/><span style="color:red">%s%%s%%s%118%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%<span class="keyword">begin</span><br/>
+<a name="119"/><span style="color:red">%s%%s%%s%119%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%cnt_up[dest]%s%=%s%1;<br/>
+<a name="120"/><span style="color:red">%s%%s%%s%120%s%%s%</span>%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%%s%<span class="keyword">end</span><br/>
+<a name="121"/><span style="color:red">%s%%s%%s%121%s%%s%</span>%s%%s%%s%%s%%s%%s%<span class="keyword">end</span>%s%%s%%s%%s%<br/>
+<a name="122"/><span style="color:red">%s%%s%%s%122%s%%s%</span>%s%%s%%s%%s%<span class="keyword">if</span>(read_instruction%s%&amp;&amp;%s%%s%count[out_reg]%s%!=%s%0)<br/>
+<a name="123"/><span style="color:red">%s%%s%%s%123%s%%s%</span>%s%%s%%s%%s%%s%%s%read_error%s%=%s%1;<br/>
+<a name="124"/><span style="color:red">%s%%s%%s%124%s%%s%</span>%s%%s%<br/>
+<a name="125"/><span style="color:red">%s%%s%%s%125%s%%s%</span><br/>
+<a name="126"/><span style="color:red">%s%%s%%s%126%s%%s%</span>%s%%s%<span class="keyword">end</span><br/>
+<a name="127"/><span style="color:red">%s%%s%%s%127%s%%s%</span>%s%%s%%s%%s%<br/>
+<a name="128"/><span style="color:red">%s%%s%%s%128%s%%s%</span>%s%%s%<br/>
+<a name="129"/><span style="color:red">%s%%s%%s%129%s%%s%</span>%s%%s%<br/>
+<a name="130"/><span style="color:red">%s%%s%%s%130%s%%s%</span>%s%%s%%s%%s%%s%%s%<br/>
+<a name="131"/><span style="color:red">%s%%s%%s%131%s%%s%</span><span class="keyword">endmodule</span></tt>
+<script type="text/javascript" src="../scripts/buildsrcpage.js"></script>
+  
+</body>
+</html>

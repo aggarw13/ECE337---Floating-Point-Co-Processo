@@ -1,0 +1,123 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : flex_fifo
+Version: G-2012.06
+Date   : Sat Apr 25 12:34:03 2015
+****************************************
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+  Startpoint: Write_pointer/count_out_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: data_reg[0][0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  Write_pointer/count_out_reg[0]/CLK (DFFSR)              0.00       0.00 r
+  Write_pointer/count_out_reg[0]/Q (DFFSR)                0.47       0.47 f
+  Write_pointer/U8/Y (BUFX4)                              0.29       0.76 f
+  Write_pointer/count_out[0] (flex_indexer_NUM_CNT_BITS3_1)
+                                                          0.00       0.76 f
+  U361/YS (FAX1)                                          0.43       1.20 f
+  U363/Y (AND2X2)                                         0.22       1.41 f
+  U364/Y (NAND2X1)                                        0.21       1.63 r
+  U341/Y (AND2X2)                                         0.26       1.88 r
+  U369/Y (MUX2X1)                                         0.22       2.10 r
+  data_reg[0][0]/D (DFFSR)                                0.00       2.10 r
+  data arrival time                                                  2.10
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  data_reg[0][0]/CLK (DFFSR)                              0.00       2.00 r
+  library setup time                                     -0.23       1.77
+  data required time                                                 1.77
+  --------------------------------------------------------------------------
+  data required time                                                 1.77
+  data arrival time                                                 -2.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.33
+
+
+1
+ 
+****************************************
+Report : area
+Design : flex_fifo
+Version: G-2012.06
+Date   : Sat Apr 25 12:34:03 2015
+****************************************
+
+Library(s) Used:
+
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
+
+Number of ports:                           22
+Number of nets:                           432
+Number of cells:                          349
+Number of combinational cells:            283
+Number of sequential cells:                64
+Number of macros:                           0
+Number of buf/inv:                        118
+Number of references:                      14
+
+Combinational area:       97695.000000
+Noncombinational area:    110880.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:          208575.000000
+Total area:                 undefined
+1
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort low
+Design : flex_fifo
+Version: G-2012.06
+Date   : Sat Apr 25 12:34:04 2015
+****************************************
+
+
+Library(s) Used:
+
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
+
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+
+Global Operating Voltage = 5    
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+flex_fifo                                10.128   83.602   65.679   93.730 100.0
+  Read_pointer (flex_indexer_NUM_CNT_BITS3_0)
+                                          1.034    4.321    3.875    5.355   5.7
+  Write_pointer (flex_indexer_NUM_CNT_BITS3_1)
+                                          1.713    5.296    3.577    7.009   7.5
+1

@@ -1,0 +1,115 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : scheduling_logic
+Version: G-2012.06
+Date   : Sat Apr 25 14:00:42 2015
+****************************************
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+  Startpoint: instruction1[8]
+              (input port)
+  Endpoint: dependency_add[6]
+            (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  input external delay                     0.00       0.00 f
+  instruction1[8] (in)                     0.00       0.00 f
+  U373/Y (MUX2X1)                          0.19       0.19 f
+  U367/Y (MUX2X1)                          0.15       0.34 r
+  U375/Y (MUX2X1)                          0.13       0.48 f
+  U370/Y (MUX2X1)                          0.21       0.69 r
+  U347/Y (NOR2X1)                          0.32       1.01 f
+  U346/Y (INVX1)                           0.21       1.22 r
+  U344/Y (NOR2X1)                          0.19       1.41 f
+  U343/Y (NAND3X1)                         0.12       1.53 r
+  U342/Y (INVX1)                           0.18       1.71 f
+  U341/Y (NAND2X1)                         0.36       2.07 r
+  U306/Y (OAI21X1)                         0.11       2.18 f
+  U305/Y (OR2X1)                           0.30       2.48 f
+  U304/Y (AND2X1)                          0.26       2.74 f
+  U287/Y (NAND2X1)                         0.29       3.03 r
+  U284/Y (NOR2X1)                          0.16       3.19 f
+  dependency_add[6] (out)                  0.00       3.19 f
+  data arrival time                                   3.19
+  -----------------------------------------------------------
+  (Path is unconstrained)
+
+
+1
+ 
+****************************************
+Report : area
+Design : scheduling_logic
+Version: G-2012.06
+Date   : Sat Apr 25 14:00:42 2015
+****************************************
+
+Library(s) Used:
+
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
+
+Number of ports:                          112
+Number of nets:                           236
+Number of cells:                          203
+Number of combinational cells:            203
+Number of sequential cells:                 0
+Number of macros:                           0
+Number of buf/inv:                         37
+Number of references:                       9
+
+Combinational area:       55197.000000
+Noncombinational area:       0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:          55197.000000
+Total area:                 undefined
+1
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: There is no defined clock in the design. (PWR-80)
+Warning: Design has unannotated primary inputs. (PWR-414)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort low
+Design : scheduling_logic
+Version: G-2012.06
+Date   : Sat Apr 25 14:00:42 2015
+****************************************
+
+
+Library(s) Used:
+
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
+
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+
+Global Operating Voltage = 5    
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+scheduling_logic                         10.164    9.693   14.646   19.857 100.0
+1
