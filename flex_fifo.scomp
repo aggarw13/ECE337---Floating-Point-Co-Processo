@@ -1,0 +1,7 @@
+Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+-- Compiling module flex_fifo
+** Warning: source/flex_fifo.sv(75): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+** Warning: source/flex_fifo.sv(77): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+
+Top level modules:
+	flex_fifo

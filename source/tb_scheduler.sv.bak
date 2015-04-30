@@ -1195,7 +1195,7 @@ module tb_scheduler();
       test_case_num = test_case_num + 1;
       test_instruction[test_case_num] = 16'h0025;
       test_add_instruction[test_case_num] = 0;
-      test_drop_dependency[test_case_num] = 16'h0040;
+      test_drop_dependency[test_case_num] = 16'h0010;
   
       test_buffer_full[test_case_num] = 0;
   
