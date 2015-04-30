@@ -8,7 +8,8 @@
 
 module Floating_point_co_processor
 #(
-  INSTRUCT_WIDTH = 16
+  parameter INSTRUCT_WIDTH = 16,
+  parameter ALU_BLOCKS = 6 //number should update as number of blocks changes
   )  
 (
   input wire clk,
@@ -62,6 +63,12 @@ module Floating_point_co_processor
   wire parse_read_error;
   wire parse_write_error;
   
+  /*ALU wires*/
+  
+  //dependency remove
+  wire [ALU_BLOCKS-1:0][3:0]result_address,// inputs from the blocks
+  wire [ALU_BLOCKS -1:0]remove_enable, //the enable of the remove dependecy
+  
   //this is the scheduler
   scheduler scheduler(
   .n_rst(n_rst),
@@ -112,10 +119,22 @@ module Floating_point_co_processor
   .read_data_enable(add_instruction), // this should be tied to the store 1 enable 
   .instruction_buffer_full(buffer_full),
   
-  .instruction_out(tb_instruction_out),
-  .add_instruction(tb_add_instruction),// conmmand to add the instruction to the fifo
-  .out_reg(tb_out_reg),//this is the regester to otput data to the master
-  .read_error(tb_read_error),
-  .write_error(tb_write_error)
+  .instruction_out(instruction),
+  .add_instruction(add_instruction),// conmmand to add the instruction to the fifo
+  .out_reg(out_reg),//this is the regester to otput data to the master
+  .read_error(parse_read_error),
+  .write_error(parse_write_error)
   );
+  /*ALU and other sub module blocks*/
+  //dependancy remover
+  dependency_remove
+  #(
+  NUM_BLOCKS = ALU_BLOCKS
+  )
+   Dependency_remove
+  (
+    .result_address(result_address),
+    .remove_enable(remove_enable),
+    .dependency_remove(drop_dependency)
+    );
 endmodule
