@@ -8,7 +8,8 @@
 
 module Floating_point_co_processor
 #(
-  INSTRUCT_WIDTH = 16
+  parameter INSTRUCT_WIDTH = 16,
+  parameter ALU_BLOCKS = 6 //number should update as number of blocks changes
   )  
 (
   input wire clk,
@@ -61,6 +62,12 @@ module Floating_point_co_processor
   wire [3:0]out_reg;
   wire parse_read_error;
   wire parse_write_error;
+  
+  /*ALU wires*/
+  
+  //dependency remove
+  wire [ALU_BLOCKS-1:0][3:0]result_address,// inputs from the blocks
+  wire [ALU_BLOCKS -1:0]remove_enable, //the enable of the remove dependecy
   
   //this is the scheduler
   scheduler scheduler(
@@ -118,4 +125,16 @@ module Floating_point_co_processor
   .read_error(parse_read_error),
   .write_error(parse_write_error)
   );
+  /*ALU and other sub module blocks*/
+  //dependancy remover
+  dependency_remove //need to change i in this file if ALU_BLOCKS >8
+  #(
+  NUM_BLOCKS = ALU_BLOCKS
+  )
+   Dependency_remove
+  (
+    .result_address(result_address),
+    .remove_enable(remove_enable),
+    .dependency_remove(drop_dependency)
+    );
 endmodule
