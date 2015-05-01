@@ -1,0 +1,305 @@
+# //  ModelSim SE-64 10.1b Apr 26 2012 Linux 2.6.32-504.12.2.el6.x86_64
+# //
+# //  Copyright 1991-2012 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# vsim +no_glitch_msg -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB -Lf /home/ecegrid/a/ece337/Class0.5u/ECE337_IP/vsim -coverage -i -t ps mapped_work.tb_instruction_parser 
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: mapped/instruction_parser.v(1059): (vopt-2685) [TFMPC] - Too few port connections for 'Write_pointer'.  Expected 7, found 6.
+# ** Warning: mapped/instruction_parser.v(1059): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: mapped/instruction_parser.v(1062): (vopt-2685) [TFMPC] - Too few port connections for 'Read_pointer'.  Expected 7, found 6.
+# ** Warning: mapped/instruction_parser.v(1062): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: mapped/instruction_parser.v(1747): (vopt-2685) [TFMPC] - Too few port connections for 'Data_buffer'.  Expected 8, found 7.
+# ** Warning: mapped/instruction_parser.v(1747): (vopt-2718) [TFMPC] - Missing connection for port 'empty'.
+# Loading sv_std.std
+# Loading work.tb_instruction_parser(fast)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.math_real(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffsr(metastabilitywrapperarch)#1
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.prim(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffsr_core(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.and2x2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nand3x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nand2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.aoi21x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.oai22x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.aoi22x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.oai21x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xnor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.bufx4(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.and2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.mux2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx4(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx8(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.bufx2(behavioral)#1
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+run 170ns
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup
+# Internal Error: do_merge_inst_toggle_data: error in toggle lookup

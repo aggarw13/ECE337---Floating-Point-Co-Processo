@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>ModelSim Coverage Report</title>
+  <link type="text/css" rel="StyleSheet" href="../css/mtitree.css"/>
+  <link type="text/css" rel="StyleSheet" href="../css/ucdb2html.css"/>
+  <script type="text/javascript" src="../scripts/mtitree.js"></script>
+  <script type="text/javascript">
+  <!--
+  function openAll() {
+    if (document.getElementById('pane1').style.display != 'none') t.openAll();
+    if (document.getElementById('pane2').style.display != 'none') d.openAll();
+    if (document.getElementById('pane3').style.display != 'none') u.openAll();
+  }
+  function closeAll() {
+    if (document.getElementById('pane1').style.display != 'none') t.closeAll();
+    if (document.getElementById('pane2').style.display != 'none') d.closeAll();
+    if (document.getElementById('pane3').style.display != 'none') u.closeAll();
+  }
+  function disableAll() {
+    document.getElementById('pane1').style.display='none';
+    document.getElementById('pane2').style.display='none';
+    document.getElementById('pane3').style.display='none';
+  }
+  function buttonsOff() {
+    document.getElementById('button1').className='button_off';
+    document.getElementById('button2').className='button_off';
+    document.getElementById('button3').className='button_off';
+  }
+  function drawTo(c) {
+    switch (c) {
+      case 1: t.drawTreeTo(document.getElementById('pane1')); break;
+      case 2: d.drawTreeTo(document.getElementById('pane2')); break;
+      case 3: u.drawTreeTo(document.getElementById('pane3')); break;
+    }
+  }
+  function select(c) {
+    disableAll(); document.getElementById('pane'   + c).style.display='';
+    buttonsOff(); document.getElementById('button' + c).className='button_on';
+    setTimeout('drawTo(' + c + ')', 500);
+  }
+  // -->
+  </script>
+</head>
+<body>
+  <table class="buttons" cellspacing="2" cellpadding="2" width="100%"><tr>
+    <td width="75" class="button_off" id="button1"
+        title="Select testplan tree" onclick="select('1')">Testplan</td>
+    <td width="75" class="button_off" id="button2"
+        title="Select design tree" onclick="select('2')">Design</td>
+    <td width="75" class="button_off" id="button3"
+        title="Select design unit list" onclick="select('3')">DesUnits</td>
+    <td class="invisible">&nbsp;</td><!-- spacer -->
+  </tr></table><hr/>
+  <div class="pane" id="pane1" style="display:none;">
+  <script type="text/javascript">
+  <!--
+    t = new Tree('t');
+    
+    if (t.length() > 0) {
+      document.getElementById('pane1').style.display='';
+      document.getElementById('button1').className='button_on';
+      document.write(t);
+    }
+  //-->
+  </script>
+  </div>
+  <div class="pane" id="pane2" style="display:none;">
+  <script type="text/javascript">
+  <!--
+    d = new Tree('d');
+    d.add(1, 0, 'tb_instruction_parser', 'z000007.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(2, 1, 'CLK_GEN (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(3, 1, 'DUT', 'z002416.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(4, 3, 'genblk1[15]', 'z002508.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(5, 4, 'IX', 'z002509.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(6, 3, 'genblk1[14]', 'z002522.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(7, 6, 'IX', 'z002523.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(8, 3, 'genblk1[13]', 'z002536.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(9, 8, 'IX', 'z002537.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(10, 3, 'genblk1[12]', 'z002550.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(11, 10, 'IX', 'z002551.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(12, 3, 'genblk1[11]', 'z002564.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(13, 12, 'IX', 'z002565.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(14, 3, 'genblk1[10]', 'z002578.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(15, 14, 'IX', 'z002579.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(16, 3, 'genblk1[9]', 'z002592.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(17, 16, 'IX', 'z002593.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(18, 3, 'genblk1[8]', 'z002606.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(19, 18, 'IX', 'z002607.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(20, 3, 'genblk1[7]', 'z002620.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(21, 20, 'IX', 'z002621.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(22, 3, 'genblk1[6]', 'z002634.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(23, 22, 'IX', 'z002635.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(24, 3, 'genblk1[5]', 'z002648.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(25, 24, 'IX', 'z002649.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(26, 3, 'genblk1[4]', 'z002662.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(27, 26, 'IX', 'z002663.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(28, 3, 'genblk1[3]', 'z002676.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(29, 28, 'IX', 'z002677.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(30, 3, 'genblk1[2]', 'z002690.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(31, 30, 'IX', 'z002691.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(32, 3, 'genblk1[1]', 'z002704.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(33, 32, 'IX', 'z002705.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(34, 3, 'genblk1[0]', 'z002718.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(35, 34, 'IX', 'z002719.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(36, 3, 'Data_buffer', 'z002732.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(37, 36, 'genblk1[3]', 'z003045.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(38, 36, 'genblk1[2]', 'z003047.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(39, 36, 'genblk1[1]', 'z003049.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(40, 36, 'genblk1[0]', 'z003051.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(41, 36, 'Write_pointer', 'z003053.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+d.add(42, 36, 'Read_pointer', 'z003073.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+
+    if ((d.length() > 0) && (t.length() < 1)) {
+      document.getElementById('pane2').style.display='';
+      document.getElementById('button2').className='button_on';
+      document.write(d);
+    }
+  //-->
+  </script>
+  </div>
+  <div class="pane" id="pane3" style="display:none;">
+  <script type="text/javascript">
+  <!--
+    u = new Tree('u');
+    u.add(1, 0, 'work.tb_instruction_parser', 'z000002.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(2, 0, 'work.instruction_parser', 'z000003.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(3, 2, 'genblk1[15] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(4, 2, 'genblk1[14] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(5, 2, 'genblk1[13] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(6, 2, 'genblk1[12] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(7, 2, 'genblk1[11] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(8, 2, 'genblk1[10] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(9, 2, 'genblk1[9] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(10, 2, 'genblk1[8] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(11, 2, 'genblk1[7] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(12, 2, 'genblk1[6] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(13, 2, 'genblk1[5] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(14, 2, 'genblk1[4] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(15, 2, 'genblk1[3] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(16, 2, 'genblk1[2] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(17, 2, 'genblk1[1] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(18, 2, 'genblk1[0] (no coverage)', null, '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(19, 0, 'work.upDownCounter', 'z000004.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(20, 0, 'work.flex_fifo', 'z000005.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(21, 20, 'genblk1[3]', 'z003527.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(22, 20, 'genblk1[2]', 'z003529.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(23, 20, 'genblk1[1]', 'z003531.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(24, 20, 'genblk1[0]', 'z003533.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+u.add(25, 0, 'work.flex_indexer', 'z000006.htm', '', '../icons/square-ltBlue.png', 'SystemVerilog');
+
+    // document.write(u);
+  //-->
+  </script>
+  <h3>Loading...</h3>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,257 @@
+// $Id: $
+// File name:   tb_flex_fifo.sv
+// Created:     4/24/2015
+// Author:      James Alliger
+// Lab Section: 337-05
+// Version:     1.0  Initial Design Entry
+// Description: this is the test bench fo the flex fifo
+
+`timescale 1ns / 10ps
+module tb_flex_fifo();
+  localparam NUM_TEST_CASES = 21;
+  parameter CLK_PERIOD = 10;
+  
+  reg  tb_clk;
+  reg  tb_n_rst;
+  reg  tb_read_enable;
+  wire [7:0]tb_read_data;
+  wire tb_fifo_empty;
+  wire tb_fifo_full;
+  reg  tb_write_enable;
+  reg  [7:0]tb_write_data;
+  
+  integer tb_test_case;
+  integer test_case_num;
+  reg [1:NUM_TEST_CASES]test_case_read_enable;
+  reg [1:NUM_TEST_CASES]test_case_fifo_empty;
+  reg [1:NUM_TEST_CASES]test_case_fifo_full;
+  reg [1:NUM_TEST_CASES]test_case_write_enable;
+  reg [1:NUM_TEST_CASES][7:0]test_case_read_data;
+  reg [1:NUM_TEST_CASES][7:0]test_case_write_data;
+  
+  flex_fifo DUT
+  (
+    .clk(tb_clk),
+    .n_rst(tb_n_rst),
+    .r_enable(tb_read_enable),
+    .r_data(tb_read_data),
+    .empty(tb_fifo_empty),
+    .full(tb_fifo_full),
+    .w_enable(tb_write_enable),
+    .w_data(tb_write_data)
+    );
+    
+  always
+	begin : CLK_GEN
+		tb_clk = 1'b0;
+		#(CLK_PERIOD / 2);
+		tb_clk = 1'b1;
+		#(CLK_PERIOD / 2);
+	end
+	initial
+	begin
+	  //make sure the fifo says it is empty
+	  test_case_num = 1;
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'h00;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'h00;
+	  test_case_fifo_empty[test_case_num] = 1;
+	  test_case_fifo_full[test_case_num] = 0;
+	  
+	  //make sure still empty with real data
+	  test_case_num=test_case_num+1;//2
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'h00;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 1;
+	  test_case_fifo_full[test_case_num] = 0;
+	  
+	  //start to write data 7 times
+	  test_case_num=test_case_num+1;//3
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //2
+	  	  test_case_num=test_case_num+1;//4
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //3
+	  	  test_case_num=test_case_num+1;//5
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //4
+	  	  test_case_num=test_case_num+1;//6
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //5
+	  	  test_case_num=test_case_num+1;//7
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //6
+	  	  test_case_num=test_case_num+1;//8
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //7 fifo should now be full
+	  	  test_case_num=test_case_num+1;//9
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 1;
+	  //read one byte to test will get out one byte
+	  	  test_case_num=test_case_num+1;//10
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //write in one more byte this writes all regesters as 1
+	  	  test_case_num=test_case_num+1;//11
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 1;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //read out all the data
+	  	  test_case_num=test_case_num+1;//12
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //2
+	  	  test_case_num=test_case_num+1;//13
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //3
+	  	  test_case_num=test_case_num+1;//14
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //4
+	  	  	  test_case_num=test_case_num+1;//15
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //5
+	  	  	  test_case_num=test_case_num+1;//16
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //6
+	  	  	  test_case_num=test_case_num+1;//17
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //7
+	  	  	  test_case_num=test_case_num+1;//18
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hFF;
+	  test_case_fifo_empty[test_case_num] = 1;
+	  test_case_fifo_full[test_case_num] = 0;
+	  // now a functional test to see if the data is changing
+	  	  	  test_case_num=test_case_num+1;//19
+	  test_case_read_enable[test_case_num] = 0;
+	  test_case_read_data[test_case_num] = 8'hFF;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'hAA;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //see if value comes out the other side
+	  	  	  test_case_num=test_case_num+1;//20
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'hAA;
+	  test_case_write_enable[test_case_num] = 1;
+	  test_case_write_data[test_case_num] = 8'h55;
+	  test_case_fifo_empty[test_case_num] = 0;
+	  test_case_fifo_full[test_case_num] = 0;
+	  //one more of the same for sanity
+	  	  	  test_case_num=test_case_num+1;//21
+	  test_case_read_enable[test_case_num] = 1;
+	  test_case_read_data[test_case_num] = 8'h55;
+	  test_case_write_enable[test_case_num] = 0;
+	  test_case_write_data[test_case_num] = 8'hAA;
+	  test_case_fifo_empty[test_case_num] = 1;
+	  test_case_fifo_full[test_case_num] = 0;
+	  
+	end
+	  
+	initial
+	begin 
+	  //reset the test bench
+	  tb_n_rst = 1'b1;
+	  tb_read_enable = 0;
+	  tb_write_enable = 0;
+	  #0.2;
+	  tb_n_rst = 1'b0;
+	  #.5;
+	  tb_n_rst = 1'b1;
+	  @(posedge tb_clk);
+	  for(tb_test_case = 1; tb_test_case <= NUM_TEST_CASES; tb_test_case++)
+	  begin
+	    //avoid thr rising edge
+	    @(negedge tb_clk);
+	    tb_read_enable = test_case_read_enable[tb_test_case];
+	    tb_write_enable = test_case_write_enable[tb_test_case];
+	    tb_write_data = test_case_write_data[tb_test_case];
+	    //go to the next clk to check
+	    @(posedge tb_clk);
+	    //go a bit away
+	    #1.5;
+	    if(tb_read_data != test_case_read_data[tb_test_case])
+	      $info("ERROR: read data not correct for case %0d", tb_test_case);
+	    if(tb_fifo_empty != test_case_fifo_empty[tb_test_case])
+	      $info("ERROR: fifo empty not correct for case %0d", tb_test_case); 
+	    if(tb_fifo_full != test_case_fifo_full[tb_test_case])
+	      $info("ERROR: fifo full not correct for case %0d", tb_test_case);
+	  end
+	  end
+	
+endmodule
