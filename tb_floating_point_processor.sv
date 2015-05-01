@@ -1,5 +1,5 @@
 //TestBench for the Top - Level FP Processor Module
-module tb_Floating_point_co_processor();
+module tb_floating_point_processor();
 
 localparam APB_CLK_PERIOD = 20;
 localparam SYS_CLK_PERIOD = 5;
@@ -19,7 +19,7 @@ reg tb_pslverr;
 reg tb_pready;
 integer i;
 
-Floating_point_co_processor FP_SLAVE (
+floating_point_co_processor FP_SLAVE (
   .apb_clk(tb_apb_clk),
   .clk(tb_clk),
   .npreset(tb_npreset),
@@ -57,16 +57,12 @@ reg [1:NUM_TEST_CASES] [3 : 0] opcode;
 reg [1:NUM_TEST_CASES] [3 : 0] src1;
 initial begin
   //Test Case 1 Simple Store Instruction
-  tb_pwdata = 23'b00010000011100101010000;
+  tb_pwdata = 23'00010000011100101010000;
   tb_paddr = 8'h01;
   npreset[1] = 1'b1;
   pwrite[1] = 1'b1;
   pselec1[1] = 1'b1;
-end
-
  
   // Test 
-  
-endmodule
   
   

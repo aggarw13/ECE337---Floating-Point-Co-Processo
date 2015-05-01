@@ -7,14 +7,15 @@
 // Description: 6 -> 3 encoder
 module encode
   #(
-  parameter ADD = 3'b001,
-  parameter SUB = 3'b010,
-  parameter MUL = 3'b011,
-  parameter NEG = 3'b100,
-  parameter ABS = 3'b101,
-  parameter SINE = 3'b110,
-  parameter SRAM = 3'b111,
-  parameter NONE = 3'b000
+  parameter ADD = 4'b0001,
+  parameter SUB = 4'b0010,
+  parameter MUL = 4'b0011,
+  parameter NEG = 4'b0100,
+  parameter ABS = 4'b0101,
+  parameter SINE = 4'b0110,
+  parameter SRAM = 4'b0111,
+  parameter MOV = 4'b1000,
+  parameter NONE = 4'b0000
   )
   (
   input wire en0,
@@ -23,8 +24,9 @@ module encode
   input wire en3,
   input wire en4,
   input wire en5,
+  input wire en6,
   input wire sram_en,
-  output reg [2 : 0] OpSel
+  output reg [3 : 0] OpSel
   );
   
   always @ (en0, en1, en2, en3, en4, en5, sram_en)
@@ -53,10 +55,14 @@ module encode
       begin
         OpSel = SINE;
       end
-  else if(sram_en)
-    begin
-      OpSel = SRAM;
-    end
+    else if(en6)
+      begin
+        OpSel = MOV;
+      end
+    else if(sram_en)
+      begin
+        OpSel = SRAM;
+      end
     else
       begin
         OpSel = NONE;
