@@ -1,0 +1,7 @@
+# ignore html files
+covhtmlreport/*
+*.html
+# ignore files that are backups
+*.bak
+#ignore files in the work folder
+source_work/
