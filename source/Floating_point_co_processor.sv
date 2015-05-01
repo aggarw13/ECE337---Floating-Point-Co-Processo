@@ -131,6 +131,11 @@ module Floating_point_co_processor
   wire [31:0]store2_result;
   wire store2_result_done;
   
+  //moveblock
+  wire [3:0]move_result_addr;
+  wire [31:0]move_result;
+  wire move_result_done;
+  
   //sram wires
   wire [7:0]sram_address;
   wire sram_store;
@@ -382,8 +387,8 @@ module Floating_point_co_processor
   .w_en4(abs_result_done), 
   .w_en5(neg_result_done),
   .w_en6(move_result_done), 
-  .en_op1(1), 
-  .en_op2(1), 
+  .en_op1(1'b1), 
+  .en_op2(1'b1), 
   .op1_sel(source1),
   .op2_sel(source2),
   .Result0(add_result), //write destination
@@ -393,9 +398,9 @@ module Floating_point_co_processor
   .Result4(abs_result), 
   .Result5(neg_result),
   .Result6(move_result),  
-  .sram_r_en(tb_sram_r_en), //from regester to sram
+  .sram_r_en(1'b1), //from regester to sram
   .sram_w_en(load_result_done), //sram to regester enable
-  .sram_r_sel(tb_sram_r_sel), //adress to read from 
+  .sram_r_sel(), //adress to read from 
   .sram_w_sel(load_result_addr), //address to wrtie to
   .write_data(load_data), 
   .op1(opA), 
@@ -412,10 +417,10 @@ module Floating_point_co_processor
   on_chip_sram_wrapper sram
 	(
 		// Test bench control signals
-		.mem_clr(0),
-		.mem_init(0),
-		.mem_dump(0),
-		.verbose(0),
+		.mem_clr(1'b0),
+		.mem_init(1'b0),
+		.mem_dump(1'b0),
+		.verbose(1'b0),
 		.init_file_number(0),
 		.dump_file_number(0),
 		.start_address(0),

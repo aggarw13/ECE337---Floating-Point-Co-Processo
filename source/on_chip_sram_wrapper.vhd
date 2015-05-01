@@ -20,7 +20,7 @@ entity on_chip_sram_wrapper is
 		-- with verilog's parameter mapping syntax (google it) or you can simply create a
 		-- separate copy of this wrapper for each on-chip sram instance and modify them below.
 
-		W_ADDR_SIZE_BITS  : natural := 16;    -- Address bus size in bits/pins with addresses corresponding to 
+		W_ADDR_SIZE_BITS  : natural := 8;    -- Address bus size in bits/pins with addresses corresponding to 
 																					-- the starting word of the accesss
 		W_WORD_SIZE_BYTES : natural := 1;   	-- Word size of the memory in bytes
 		W_DATA_SIZE_WORDS : natural := 4;   	-- Data bus size in "words"
