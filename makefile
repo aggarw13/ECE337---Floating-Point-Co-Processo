@@ -15,14 +15,10 @@ include /home/ecegrid/a/ece337/Course_Prod/course_make_vars
 # (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-<<<<<<< HEAD
-COMPONENT_FILES	:= scheduler.sv flex_fifo.sv flex_indexer.sv scheduling_logic.sv dependancy_reg.sv instruction_parser.sv decode.sv decodeLayer.sv encode.sv encodeLayer.sv DataSelMux.sv regMuxLayer.sv registerFile.sv outSel.sv StateMemory.sv
-COMPONENT_FILES += signMul.sv mul24.sv exponentAdd.sv normalizeMul.sv sticky.sv roundMul.sv exponentUp.sv
-COMPONENT_FILES += CLA_24bit.sv exp_diff.sv exp_mux.sv inversion_mux.sv bit_inversion.sv round.sv shifter.sv LOP_nbit.sv LOD.sv LOD_2bit.sv LOD_nbit.sv comparator.sv swap.sv Sign.sv exception_handling.sv barrel_mux.sv
-COMPONENT_FILES += multiply.sv add_block.sv sine.sv
-=======
 COMPONENT_FILES	:= scheduler.sv flex_fifo.sv flex_indexer.sv scheduling_logic.sv dependancy_reg.sv instruction_parser.sv decode.sv decodeLayer.sv encode.sv encodeLayer.sv DataSelMux.sv regMuxLayer.sv registerFile.sv outSel.sv StateMemory.sv APB_slave_interface.sv dependency_remove.sv add_block.sv subtract_block.sv multiply.sv sine.sv absolution.sv negation.sv load_block.sv store.sv
->>>>>>> 9daa897e403108792d6744699e7efbee5d186922
+COMPONENT_FILES += signMul.sv mul24.sv exponentAdd.sv normalizeMul.sv sticky.sv roundMul.sv exponentUp.sv apb_clk_detect.sv
+COMPONENT_FILES += CLA_24bit.sv exp_diff.sv exp_mux.sv inversion_mux.sv bit_inversion.sv round.sv shifter.sv LOP_nbit.sv LOD.sv LOD_2bit.sv LOD_nbit.sv comparator.sv swap.sv Sign.sv exception_handling.sv barrel_mux.sv
+COMPONENT_FILES += multiply.sv add_block.sv sine.sv upDownCounter.sv
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
