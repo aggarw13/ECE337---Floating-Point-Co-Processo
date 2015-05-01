@@ -1,4 +1,4 @@
-# //  ModelSim SE-64 10.1b Apr 26 2012 Linux 2.6.32-504.12.2.el6.x86_64
+# //  ModelSim SE-64 10.1b Apr 26 2012 Linux 2.6.32-504.16.2.el6.x86_64
 # //
 # //  Copyright 1991-2012 Mentor Graphics Corporation
 # //  All Rights Reserved.
@@ -7,3 +7,61 @@
 # //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
 # //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
 # //
+# vsim +no_glitch_msg -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB -Lf /home/ecegrid/a/ece337/Class0.5u/ECE337_IP/vsim -coverage -i -t ps source_work.tb_Floating_point_co_processor 
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: source/Floating_point_co_processor.sv(161): (vopt-2241) Connection width does not match width of port 'address_bus'. The port definition is at: source/APB_slave_interface.sv(21).
+# ** Warning: source/Floating_point_co_processor.sv(161): (vopt-2241) Connection width does not match width of port 'data_bus'. The port definition is at: source/APB_slave_interface.sv(22).
+# ** Warning: source/Floating_point_co_processor.sv(333): (vopt-2241) Connection width does not match width of port 'dest_in'. The port definition is at: source/load_block.sv(7).
+# ** Warning: source/Floating_point_co_processor.sv(333): (vopt-2241) Connection width does not match width of port 'dest_out'. The port definition is at: source/load_block.sv(8).
+# ** Warning: source/Floating_point_co_processor.sv(333): (vopt-2241) Connection width does not match width of port 'out_operand'. The port definition is at: source/load_block.sv(10).
+# ** Warning: source/Floating_point_co_processor.sv(347): (vopt-2241) Connection width does not match width of port 'dest_in'. The port definition is at: source/load_block.sv(7).
+# ** Warning: source/Floating_point_co_processor.sv(347): (vopt-2241) Connection width does not match width of port 'dest_out'. The port definition is at: source/load_block.sv(8).
+# ** Warning: source/Floating_point_co_processor.sv(408): (vopt-2241) Connection width does not match width of port 'w_sel6'. The port definition is at: source/StateMemory.sv(17).
+# ** Warning: source/Floating_point_co_processor.sv(408): (vopt-2241) Connection width does not match width of port 'en_op1'. The port definition is at: source/StateMemory.sv(27).
+# ** Warning: source/Floating_point_co_processor.sv(408): (vopt-2241) Connection width does not match width of port 'en_op2'. The port definition is at: source/StateMemory.sv(28).
+# ** Warning: source/Floating_point_co_processor.sv(408): (vopt-2241) Connection width does not match width of port 'Result6'. The port definition is at: source/StateMemory.sv(35).
+# ** Warning: source/Floating_point_co_processor.sv(408): (vopt-2241) Connection width does not match width of port 'sram_r_sel'. The port definition is at: source/StateMemory.sv(38).
+# ** Warning: source/APB_slave_interface.sv(29): (vopt-2685) [TFMPC] - Too few port connections for 'DETECT_RISING_EDGE'.  Expected 4, found 3.
+# ** Warning: source/APB_slave_interface.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'nrst'.
+# ** Warning: source/flex_fifo.sv(49): (vopt-2685) [TFMPC] - Too few port connections for 'Write_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(49): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2685) [TFMPC] - Too few port connections for 'Read_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: source/flex_fifo.sv(49): (vopt-2685) [TFMPC] - Too few port connections for 'Write_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(49): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2685) [TFMPC] - Too few port connections for 'Read_pointer'.  Expected 7, found 6.
+# ** Warning: source/flex_fifo.sv(59): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: source/Floating_point_co_processor.sv(161): (vopt-2685) [TFMPC] - Too few port connections for 'amba_slave'.  Expected 18, found 17.
+# ** Warning: source/Floating_point_co_processor.sv(161): (vopt-2718) [TFMPC] - Missing connection for port 'write_instr'.
+# ** Warning: source/tb_Floating_point_co_processor.sv(34): (vopt-2685) [TFMPC] - Too few port connections for 'FP_SLAVE'.  Expected 12, found 11.
+# ** Warning: source/tb_Floating_point_co_processor.sv(34): (vopt-2718) [TFMPC] - Missing connection for port 'n_rst'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "APB_slave_interface(fast)".
+# Loading sv_std.std
+# Loading work.tb_Floating_point_co_processor(fast)
+# Loading work.flex_indexer(fast)
+# Loading work.flex_indexer(fast__1)
+# Loading work.dependency_remove(fast)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.on_chip_sram_wrapper(wrapper)#1
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading /home/ecegrid/a/ece337/Class0.5u/ECE337_IP/vsim.simple_scale_mem(scaleable_memory)#1
+# ** Warning: (vsim-3017) source/flex_fifo.sv(49): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_Floating_point_co_processor/FP_SLAVE/scheduler/Input_Buffer/Write_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(49): [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: (vsim-3017) source/flex_fifo.sv(59): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_Floating_point_co_processor/FP_SLAVE/scheduler/Input_Buffer/Read_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(59): [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: (vsim-3017) source/flex_fifo.sv(49): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_Floating_point_co_processor/FP_SLAVE/parser/Data_buffer/Write_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(49): [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: (vsim-3017) source/flex_fifo.sv(59): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /tb_Floating_point_co_processor/FP_SLAVE/parser/Data_buffer/Read_pointer
+# ** Warning: (vsim-3722) source/flex_fifo.sv(59): [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Fatal: (vsim-3363) source/Floating_point_co_processor.sv(429): The array length (1) of VHDL port 'mem_clr' does not match the width (32) of its Verilog connection (1st connection).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_Floating_point_co_processor/FP_SLAVE/sram File: /home/ecegrid/a/mg61/ece337/gitMaster/source/on_chip_sram_wrapper.vhd Line: 39
+# FATAL ERROR while loading design
+# Error loading design

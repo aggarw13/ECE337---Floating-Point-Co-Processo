@@ -12,7 +12,7 @@ module store(
   input wire nRst,
   input wire en,
   output reg [31 : 0] sram_data,
-  output reg done,
+  output reg done
   );
   
   reg [7 : 0] in_out_sram_addr;
