@@ -91,12 +91,22 @@ module Floating_point_co_processor
   wire [31:0]sin_result;
   wire sin_result_done;
   
+  //abs block
+  wire [3:0]abs_result_addr;
+  wire [31:0]abs_result;
+  wire abs_result_done;
+  
+  //neg block
+  wire [3:0]neg_result_addr;
+  wire [31:0]neg_result;
+  wire neg_result_done;
+  
   //sram wires
   wire [7:0]sram_address;
   wire sram_store;
   wire [31:0] load_data; //this is the datapath from srram to regester
   wire [31:0] sram_write_data;
-  wire [31:0] read_data // put data from regester to sram
+  wire [31:0] read_data; // put data from regester to sram
   
   
   //this is the scheduler
@@ -163,7 +173,7 @@ module Floating_point_co_processor
   .NUM_BLOCKS(ALU_BLOCKS)
   )
    Dependency_remove
-  (sram_address
+  (
     .result_address(result_address),
     .remove_enable(remove_enable),
     .dependency_remove(drop_dependency)
@@ -231,20 +241,77 @@ module Floating_point_co_processor
   assign result_address[3] = sin_result_addr;
   assign remove_enable[3] = sin_result_done;
   
+  //ABS block //block 4
+  absolution ABS(
+  .in_value(opA),
+  .out_value(abs_result),
+  .in_dest_addr(abs_dest),
+  .out_dest_addr(abs_result_addr),
+  .done(abs_result_done),
+  .clk(clk),
+  .nRst(n_rst),
+  .en(abs_enable)
+  );
+  assign result_address[4] = abs_result_addr;
+  assign remove_enable[4] = abs_result_done;
+  
+  //NEG block block 5
+  negation NEG(
+  .in_value(opA),
+  .out_value(neg_result),
+  .in_dest_addr(neg_dest),
+  .out_dest_addr(neg_result_addr),
+  .done(neg_result_done),
+  .clk(clk),
+  .nRst(n_rst),
+  .en(neg_enable)
+  );
+  assign result_address[5] = neg_result_addr;
+  assign remove_enable[5] = neg_result_done;
+  //move block //block 6
+  load_block MOVE(
+  .operand(opA),
+  .enable(move_enable),
+  .clk(clk),
+  .nrst(n_rst),
+  .dest_in(move_dest),
+  .dest_out(move_result_addr),
+  .done(move_result_done),
+  .out_operand(move_result)
+  );
+  assign result_address[6] = move_result_addr;
+  assign remove_enable[6] = move_result_done;
+  
+  //load block //block 7
+  load_block LOAD(
+  .operand(opA),
+  .enable(load_enable),
+  .clk(clk),
+  .nrst(n_rst),
+  .dest_in(load_dest),
+  .dest_out(load_result_addr),
+  .done(load_result_done),
+  .out_operand()
+  );
+  assign result_address[4] = load_result_addr;
+  assign remove_enable[4] = load_result_done;
+  
   //state regester file
   StateMemory State_memory( 
   .w_sel0(add_result_addr), //write location
   .w_sel1(sub_result_addr),
   .w_sel2(mul_result_addr), 
   .w_sel3(sin_result_addr), 
-  .w_sel4(tb_w_sel4), 
-  .w_sel5(tb_w_sel5), 
+  .w_sel4(abs_result_addr), 
+  .w_sel5(neg_result_addr),
+  .w_sel6(move_result_addr),  
   .w_en0(add_result_done), //write enable
   .w_en1(sub_result_done),
   .w_en2(mul_result_done), 
   .w_en3(sin_result_done), 
-  .w_en4(tb_w_en4), 
-  .w_en5(tb_w_en5), 
+  .w_en4(abs_result_done), 
+  .w_en5(neg_result_done),
+  .w_en6(move_result_done), 
   .en_op1(1), 
   .en_op2(1), 
   .op1_sel(source1),
@@ -253,8 +320,9 @@ module Floating_point_co_processor
   .Result1(sub_result), 
   .Result2(mul_result), 
   .Result3(sin_result), 
-  .Result4(tb_Result4), 
-  .Result5(tb_Result5), 
+  .Result4(abs_result), 
+  .Result5(neg_result),
+  .Result6(move_result),  
   .sram_r_en(tb_sram_r_en), //from regester to sram
   .sram_w_en(load_enable), //sram to regester enable
   .sram_r_sel(tb_sram_r_sel), //adress to read from 
@@ -268,6 +336,7 @@ module Floating_point_co_processor
   .clk(clk),
   .nRst(n_rst)
   );
+  
   
   //sram
   on_chip_sram_wrapper sram
