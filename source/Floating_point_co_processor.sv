@@ -58,7 +58,6 @@ module Floating_point_co_processor
   wire read_data_enable; 
   
   
-  
   wire [3:0]out_reg;
   wire parse_read_error;
   wire parse_write_error;
@@ -76,6 +75,15 @@ module Floating_point_co_processor
   wire [3:0]add_result_addr;
   wire [31:0]add_result;
   wire add_result_done;
+  
+  
+  //sram wires
+  wire [7:0]sram_address;
+  wire sram_store;
+  wire [31:0] load_data; //this is the datapath from srram to regester
+  wire [31:0] sram_write_data;
+  wire [31:0] read_data // put data from regester to sram
+  
   
   //this is the scheduler
   scheduler scheduler(
@@ -141,7 +149,7 @@ module Floating_point_co_processor
   .NUM_BLOCKS(ALU_BLOCKS)
   )
    Dependency_remove
-  (
+  (sram_address
     .result_address(result_address),
     .remove_enable(remove_enable),
     .dependency_remove(drop_dependency)
@@ -162,4 +170,69 @@ module Floating_point_co_processor
   );
   assign result_address[0] = add_result_addr;
   assign remove_enable[0] = add_result_done;
+  
+  
+  
+  //state regester file
+  StateMemory State_memory( 
+  .w_sel0(add_result_addr), //write location
+  .w_sel1(tb_w_sel1),
+  .w_sel2(tb_w_sel2), 
+  .w_sel3(tb_w_sel3), 
+  .w_sel4(tb_w_sel4), 
+  .w_sel5(tb_w_sel5), 
+  .w_en0(add_result_done), //write enable
+  .w_en1(tb_w_en1),
+  .w_en2(tb_w_en2), 
+  .w_en3(tb_w_en3), 
+  .w_en4(tb_w_en4), 
+  .w_en5(tb_w_en5), 
+  .en_op1(1), 
+  .en_op2(1), 
+  .op1_sel(source1),
+  .op2_sel(source2),
+  .Result0(add_result), //write destination
+  .Result1(tb_Result1), 
+  .Result2(tb_Result2), 
+  .Result3(tb_Result3), 
+  .Result4(tb_Result4), 
+  .Result5(tb_Result5), 
+  .sram_r_en(tb_sram_r_en), //from regester to sram
+  .sram_w_en(load_enable), //sram to regester enable
+  .sram_r_sel(tb_sram_r_sel), //adress to read from 
+  .sram_w_sel(load_dest), //address to wrtie to
+  .write_data(load_data), 
+  .op1(opA), 
+  .op2(opB), 
+  .read_data(read_data), 
+  .Data_out(tb_Data_out), 
+  .Data_out_sel(tb_Data_out_sel),
+  .clk(clk),
+  .nRst(n_rst)
+  );
+  
+  //sram
+  on_chip_sram_wrapper sram
+	(
+		// Test bench control signals
+		.mem_clr(0),
+		.mem_init(0),
+		.mem_dump(0),
+		.verbose(0),
+		.init_file_number(0),
+		.dump_file_number(0),
+		.start_address(0),
+		.last_address(0),
+		// Memory interface signals
+		.read_enable(load_enable),
+		.write_enable(sram_store),
+		.address(sram_address),
+		.read_data(load_data),
+		.write_data(sram_write_data)
+	);
+	assign sram_address =sram_address_store | sram_address_load; // this is to put it down to one line of addres
+	assign sram_store = store2_enable | store1_enable; //makes it down to one bit
+	assign sram_write_data = (store2_enable & read_data) | (store1_enable & read_data_buff); // compress the data down to one set of 32. might cause a problem
+	
+	
 endmodule
