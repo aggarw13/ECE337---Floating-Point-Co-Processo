@@ -8,7 +8,7 @@
 
 module dependency_remove
   #(
-  parameter NUM_BLOCKS = 6
+  parameter NUM_BLOCKS = 8
   )
 (
   input wire [NUM_BLOCKS-1:0][3:0]result_address,// inputs from the blocks
@@ -16,7 +16,7 @@ module dependency_remove
   output reg [15:0]dependency_remove //this is the output to the scheduler
   
 );
-reg [2:0]i;
+reg [3:0]i;
 
 always_comb
   begin
