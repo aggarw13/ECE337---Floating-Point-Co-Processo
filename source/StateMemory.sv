@@ -14,12 +14,14 @@ module StateMemory(
   input wire [3 : 0] w_sel3,
   input wire [3 : 0] w_sel4,
   input wire [3 : 0] w_sel5,
+  input wire [3 : 0] w_sel6,
   input wire w_en0,
   input wire w_en1,
   input wire w_en2,
   input wire w_en3,
   input wire w_en4,
   input wire w_en5,
+  input wire w_en6,
   input wire [3 : 0] op1_sel,
   input wire [3 : 0] op2_sel,
   input wire en_op1,
@@ -30,6 +32,7 @@ module StateMemory(
   input wire [31 : 0] Result3,
   input wire [31 : 0] Result4,
   input wire [31 : 0] Result5,
+  input wire [31 : 0] Result6,
   input wire sram_r_en,
   input wire sram_w_en,
   input wire [3 : 0] sram_r_sel,
@@ -43,29 +46,29 @@ module StateMemory(
   );
  
  
-  reg [6 : 0] encode0, encode1, encode2, encode3, encode4, encode5, encode6, encode7, encode8, encode9, encode10, encode11, encode12, encode13, encode14, encode15;
-  reg [15 : 0] decode0, decode1, decode2, decode3, decode4, decode5,sram_decode;
-  reg [2 : 0] OpSel0, OpSel1, OpSel2, OpSel3, OpSel4, OpSel5, OpSel6, OpSel7, OpSel8, OpSel9, OpSel10, OpSel11, OpSel12, OpSel13, OpSel14, OpSel15;
+  reg [7 : 0] encode0, encode1, encode2, encode3, encode4, encode5, encode6, encode7, encode8, encode9, encode10, encode11, encode12, encode13, encode14, encode15;
+  reg [15 : 0] decode0, decode1, decode2, decode3, decode4, decode5,sram_decode, decode6;
+  reg [3 : 0] OpSel0, OpSel1, OpSel2, OpSel3, OpSel4, OpSel5, OpSel6, OpSel7, OpSel8, OpSel9, OpSel10, OpSel11, OpSel12, OpSel13, OpSel14, OpSel15;
   reg [31 : 0]  out_reg0, out_reg1, out_reg2, out_reg3, out_reg4, out_reg5, out_reg6, out_reg7, out_reg8, out_reg9, out_reg10, out_reg11, out_reg12, out_reg13, out_reg14, out_reg15;
   reg [31 : 0] reg0_data, reg1_data, reg2_data, reg3_data, reg4_data, reg5_data, reg6_data, reg7_data, reg8_data, reg9_data, reg10_data, reg11_data, reg12_data, reg13_data, reg14_data, reg15_data;
   
   //Construction 6 bit Inputs for encode block
-  assign encode0 = {sram_decode[0], decode5[0], decode4[0], decode3[0], decode2[0], decode1[0], decode0[0]};
-  assign encode1 = {sram_decode[1], decode5[1], decode4[1], decode3[1], decode2[1], decode1[1], decode0[1]};
-  assign encode2 = {sram_decode[2], decode5[2], decode4[2], decode3[2], decode2[2], decode1[2], decode0[2]};
-  assign encode3 = {sram_decode[3], decode5[3], decode4[3], decode3[3], decode2[3], decode1[3], decode0[3]};
-  assign encode4 = {sram_decode[4], decode5[4], decode4[4], decode3[4], decode2[4], decode1[4], decode0[4]};
-  assign encode5 = {sram_decode[5], decode5[5], decode4[5], decode3[5], decode2[5], decode1[5], decode0[5]};
-  assign encode6 = {sram_decode[6], decode5[6], decode4[6], decode3[6], decode2[6], decode1[6], decode0[6]};
-  assign encode7 = {sram_decode[7], decode5[7], decode4[7], decode3[7], decode2[7], decode1[7], decode0[7]};
-  assign encode8 = {sram_decode[8], decode5[8], decode4[8], decode3[8], decode2[8], decode1[8], decode0[8]};
-  assign encode9 = {sram_decode[9], decode5[9], decode4[9], decode3[9], decode2[9], decode1[9], decode0[9]};
-  assign encode10 = {sram_decode[10], decode5[10], decode4[10], decode3[10], decode2[10], decode1[10], decode0[10]};
-  assign encode11 = {sram_decode[11], decode5[11], decode4[11], decode3[11], decode2[11], decode1[11], decode0[11]};
-  assign encode12 = {sram_decode[12], decode5[12], decode4[12], decode3[12], decode2[12], decode1[12], decode0[12]};
-  assign encode13 = {sram_decode[13], decode5[13], decode4[13], decode3[13], decode2[13], decode1[13], decode0[13]};
-  assign encode14 = {sram_decode[14], decode5[14], decode4[14], decode3[14], decode2[14], decode1[14], decode0[14]};
-  assign encode15 = {sram_decode[15], decode5[15], decode4[15], decode3[15], decode2[15], decode1[15], decode0[15]};
+  assign encode0 = {decode6[0],sram_decode[0], decode5[0], decode4[0], decode3[0], decode2[0], decode1[0], decode0[0]};
+  assign encode1 = {decode6[1],sram_decode[1], decode5[1], decode4[1], decode3[1], decode2[1], decode1[1], decode0[1]};
+  assign encode2 = {decode6[2],sram_decode[2], decode5[2], decode4[2], decode3[2], decode2[2], decode1[2], decode0[2]};
+  assign encode3 = {decode6[3],sram_decode[3], decode5[3], decode4[3], decode3[3], decode2[3], decode1[3], decode0[3]};
+  assign encode4 = {decode6[4],sram_decode[4], decode5[4], decode4[4], decode3[4], decode2[4], decode1[4], decode0[4]};
+  assign encode5 = {decode6[5],sram_decode[5], decode5[5], decode4[5], decode3[5], decode2[5], decode1[5], decode0[5]};
+  assign encode6 = {decode6[6],sram_decode[6], decode5[6], decode4[6], decode3[6], decode2[6], decode1[6], decode0[6]};
+  assign encode7 = {decode6[7],sram_decode[7], decode5[7], decode4[7], decode3[7], decode2[7], decode1[7], decode0[7]};
+  assign encode8 = {decode6[8],sram_decode[8], decode5[8], decode4[8], decode3[8], decode2[8], decode1[8], decode0[8]};
+  assign encode9 = {decode6[9],sram_decode[9], decode5[9], decode4[9], decode3[9], decode2[9], decode1[9], decode0[9]};
+  assign encode10 = {decode6[10],sram_decode[10], decode5[10], decode4[10], decode3[10], decode2[10], decode1[10], decode0[10]};
+  assign encode11 = {decode6[11],sram_decode[11], decode5[11], decode4[11], decode3[11], decode2[11], decode1[11], decode0[11]};
+  assign encode12 = {decode6[12],sram_decode[12], decode5[12], decode4[12], decode3[12], decode2[12], decode1[12], decode0[12]};
+  assign encode13 = {decode6[13],sram_decode[13], decode5[13], decode4[13], decode3[13], decode2[13], decode1[13], decode0[13]};
+  assign encode14 = {decode6[14],sram_decode[14], decode5[14], decode4[14], decode3[14], decode2[14], decode1[14], decode0[14]};
+  assign encode15 = {decode6[15],sram_decode[15], decode5[15], decode4[15], decode3[15], decode2[15], decode1[15], decode0[15]};
   
   //Construction 3 bit selects for regiter muxes
     
@@ -76,6 +79,7 @@ module StateMemory(
   .Sel3(w_sel3), 
   .Sel4(w_sel4), 
   .Sel5(w_sel5),
+  .Sel6(w_sel6),
   .sram_w_sel(sram_w_sel), 
   .w_en0(w_en0), 
   .w_en1(w_en1), 
@@ -83,6 +87,7 @@ module StateMemory(
   .w_en3(w_en3), 
   .w_en4(w_en4), 
   .w_en5(w_en5),
+  .w_en6(w_en6),
   .sram_w_en(sram_w_en),
   .out_w_en0(decode0), 
   .out_w_en1(decode1), 
@@ -90,6 +95,7 @@ module StateMemory(
   .out_w_en3(decode3), 
   .out_w_en4(decode4), 
   .out_w_en5(decode5),
+  .out_w_en6(decode6),
   .sram_out_w_en(sram_decode)
   );
   
@@ -135,6 +141,7 @@ module StateMemory(
   .data3(Result3), 
   .data4(Result4), 
   .data5(Result5),
+  .data6(Result6),
   .sram_data(write_data), 
   .Sel0(OpSel0), 
   .Sel1(OpSel1), 
