@@ -76,6 +76,20 @@ module Floating_point_co_processor
   wire [31:0]add_result;
   wire add_result_done;
   
+  //sub block
+  wire [3:0]sub_result_addr;
+  wire [31:0]sub_result;
+  wire sub_result_done;
+  
+  //mul block
+  wire [3:0]mul_result_addr;
+  wire [31:0]mul_result;
+  wire mul_result_done;
+  
+  //sin block
+  wire [3:0]sin_result_addr;
+  wire [31:0]sin_result;
+  wire sin_result_done;
   
   //sram wires
   wire [7:0]sram_address;
@@ -171,20 +185,64 @@ module Floating_point_co_processor
   assign result_address[0] = add_result_addr;
   assign remove_enable[0] = add_result_done;
   
+    //SUB _block //block 1
+  subtract_block SUB 
+(
+ .opA(opA),//first op
+ .opB(opB),//secod op
+ .clk(clk),//clk
+ .nreset(n_rst),
+ .result(sub_result),//result
+ .write_enable(sub_result_done),//result done
+ .dest_in(sub_dest),//destination addr
+ .reg_dest(sub_result_addr),//output addr
+ .new_instr(sub_enable)//enable signal
+  );
+  assign result_address[1] = sub_result_addr;
+  assign remove_enable[1] = sub_result_done;
   
+  //MUL block //block 2
+  multiply MUL(
+	 .clk(clk),
+	 .nrst(n_rst),
+	 .operand1(opA),
+	 .operand2(opB),
+	 .mulEna(mul_enable),
+	 .in_dest(mul_dest),
+	 .result(mul_result),
+	 .done(mul_result_done),
+	 .out_dest(mul_result_addr)
+	);
+  assign result_address[2] = mul_result_addr;
+  assign remove_enable[2] = mul_result_done;
+  
+  //SIN block //block 3
+  sine SIN
+  (
+    .operand(opA),
+    .sineEna(sin_enable),
+    .clk(clk),
+    .nrst(n_rst),
+    .in_dest(sin_dest),
+    .result(sin_result),
+    .done(sin_result_done),
+    .out_dest(sin_result_addr)
+  );
+  assign result_address[3] = sin_result_addr;
+  assign remove_enable[3] = sin_result_done;
   
   //state regester file
   StateMemory State_memory( 
   .w_sel0(add_result_addr), //write location
-  .w_sel1(tb_w_sel1),
-  .w_sel2(tb_w_sel2), 
-  .w_sel3(tb_w_sel3), 
+  .w_sel1(sub_result_addr),
+  .w_sel2(mul_result_addr), 
+  .w_sel3(sin_result_addr), 
   .w_sel4(tb_w_sel4), 
   .w_sel5(tb_w_sel5), 
   .w_en0(add_result_done), //write enable
-  .w_en1(tb_w_en1),
-  .w_en2(tb_w_en2), 
-  .w_en3(tb_w_en3), 
+  .w_en1(sub_result_done),
+  .w_en2(mul_result_done), 
+  .w_en3(sin_result_done), 
   .w_en4(tb_w_en4), 
   .w_en5(tb_w_en5), 
   .en_op1(1), 
@@ -192,9 +250,9 @@ module Floating_point_co_processor
   .op1_sel(source1),
   .op2_sel(source2),
   .Result0(add_result), //write destination
-  .Result1(tb_Result1), 
-  .Result2(tb_Result2), 
-  .Result3(tb_Result3), 
+  .Result1(sub_result), 
+  .Result2(mul_result), 
+  .Result3(sin_result), 
   .Result4(tb_Result4), 
   .Result5(tb_Result5), 
   .sram_r_en(tb_sram_r_en), //from regester to sram
