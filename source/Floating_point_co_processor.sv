@@ -9,13 +9,30 @@
 module Floating_point_co_processor
 #(
   parameter INSTRUCT_WIDTH = 16,
-  parameter ALU_BLOCKS = 6 //number should update as number of blocks changes
+  parameter ALU_BLOCKS = 8 //number should update as number of blocks changes
   )  
 (
+  input wire apb_clk,
   input wire clk,
-  input wire n_rst
+  input wire npreset,
+  input wire n_rst,
+  input wire [31:0] paddr,
+  input wire pselec1,
+  input wire penable,
+  input wire pwrite,
+  input wire [31:0] pwdata,
+  output logic pready,
+  output logic [31:0] prdata,
+  output logic pslverr
   //apb bus
 );
+
+  //wires from apb bus
+  logic [31:0]  data_bus, address_bus;
+  logic write_valid_data;
+  wire [31:0] output_data;
+  wire write_error;
+
   // wires needed for the instruction parser
   wire [INSTRUCT_WIDTH - 1:0]instruction;
   wire add_instruction;
@@ -49,8 +66,6 @@ module Floating_point_co_processor
   wire [3:0]move_dest;
   
   //wires needed from instruction parser
-  wire [31:0]address_bus;
-  wire[31:0]data_bus;
   
   wire read_instruction; 
   wire valid_data; 
@@ -101,6 +116,21 @@ module Floating_point_co_processor
   wire [31:0]neg_result;
   wire neg_result_done;
   
+  //load block
+  wire [3:0]load_result_addr;
+  wire [31:0]load_result;
+  wire load_result_done;
+  
+  //store1 block
+  wire [3:0]store1_result_addr;
+  wire [31:0]store1_result;
+  wire store1_result_done;
+  
+  //store2 block
+  wire [3:0]store2_result_addr;
+  wire [31:0]store2_result;
+  wire store2_result_done;
+  
   //sram wires
   wire [7:0]sram_address;
   wire sram_store;
@@ -108,6 +138,28 @@ module Floating_point_co_processor
   wire [31:0] sram_write_data;
   wire [31:0] read_data; // put data from regester to sram
   
+  
+  //AMBA Slave Interface
+  APB_slave_interface amba_slave (
+  .apb_clk(apb_clk),
+  .clk(clk),
+  .npreset(npreset),
+  .paddr(paddr),
+  .pselec1(pselec1),
+  .penable(penable),
+  .pwrite(pwrite),
+  .pwdata(pwdata),
+  .output_data(output_data), //Output Data during Read Transfer State
+  .read_error(parse_read_error), // Read Error from dependency conflict
+  .write_error(write_error), //Write Error from ORing Buffer Full and FIFO
+  .pready(pready),
+  .prdata(prdata),
+  .pslverr(pslverr),
+  .address_bus(address_bus),
+  .data_bus(data_bus),
+  .valid_data(write_valid_data) // Signal for informing valid data during ACCESS phase
+  );
+  assign write_error = parse_write_error | buffer_full;
   
   //this is the scheduler
   scheduler scheduler(
@@ -153,7 +205,7 @@ module Floating_point_co_processor
   .address_bus(address_bus),
   .data_bus(data_bus),
   .read_instruction(read_instruction), //this is a read cycle
-  .valid_data(valid_data), //this in.can be paid attention too
+  .valid_data(write_valid_data), //this in.can be paid attention too
   .dependency_remove(drop_dependency),
   .read_data_buff(read_data_buff),
   .read_data_enable(store1_enable), // this should be tied to the store 1 enable 
@@ -291,10 +343,28 @@ module Floating_point_co_processor
   .dest_in(load_dest),
   .dest_out(load_result_addr),
   .done(load_result_done),
-  .out_operand()
+  .out_operand(load_result)
   );
-  assign result_address[4] = load_result_addr;
-  assign remove_enable[4] = load_result_done;
+  assign result_address[7] = load_result_addr;
+  assign remove_enable[7] = load_result_done;
+  
+  store STORE1(
+  .operand(opA),
+  .clk(clk),
+  .nRst(n_rst),
+  .en(store1_enable),
+  .sram_data(store1_result),
+  .done(store1_result_done)
+  );
+  
+  store STORE2(
+  .operand(opA),
+  .clk(clk),
+  .nRst(n_rst),
+  .en(store2_enable),
+  .sram_data(store2_result),
+  .done(store2_result_done)
+  );
   
   //state regester file
   StateMemory State_memory( 
@@ -324,15 +394,15 @@ module Floating_point_co_processor
   .Result5(neg_result),
   .Result6(move_result),  
   .sram_r_en(tb_sram_r_en), //from regester to sram
-  .sram_w_en(load_enable), //sram to regester enable
+  .sram_w_en(load_result_done), //sram to regester enable
   .sram_r_sel(tb_sram_r_sel), //adress to read from 
-  .sram_w_sel(load_dest), //address to wrtie to
+  .sram_w_sel(load_result_addr), //address to wrtie to
   .write_data(load_data), 
   .op1(opA), 
   .op2(opB), 
   .read_data(read_data), 
-  .Data_out(tb_Data_out), 
-  .Data_out_sel(tb_Data_out_sel),
+  .Data_out(output_data), 
+  .Data_out_sel(out_reg),
   .clk(clk),
   .nRst(n_rst)
   );
@@ -351,7 +421,7 @@ module Floating_point_co_processor
 		.start_address(0),
 		.last_address(0),
 		// Memory interface signals
-		.read_enable(load_enable),
+		.read_enable(load_result_done),
 		.write_enable(sram_store),
 		.address(sram_address),
 		.read_data(load_data),
@@ -359,7 +429,7 @@ module Floating_point_co_processor
 	);
 	assign sram_address =sram_address_store | sram_address_load; // this is to put it down to one line of addres
 	assign sram_store = store2_enable | store1_enable; //makes it down to one bit
-	assign sram_write_data = (store2_enable & read_data) | (store1_enable & read_data_buff); // compress the data down to one set of 32. might cause a problem
+	assign sram_write_data = (store2_result_done & store2_result) | (store1_result_done & store1_result); // compress the data down to one set of 32. might cause a problem
 	
 	
 endmodule
