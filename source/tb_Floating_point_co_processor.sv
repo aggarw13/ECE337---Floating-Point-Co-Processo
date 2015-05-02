@@ -2,8 +2,8 @@
 `timescale 1ns / 10ps
 module tb_Floating_point_co_processor();
 
-localparam APB_CLK_PERIOD = 20;
-localparam SYS_CLK_PERIOD = 5;
+localparam APB_CLK_PERIOD = 28;
+localparam SYS_CLK_PERIOD = 7;
 localparam NUM_TEST_CASES = 8;
 localparam DELAY = 10;
 
@@ -91,7 +91,7 @@ initial begin
   
   //Test Case 3 Simple Load Instruction
   src1[3] = 4'h0; 
-  dest[3] =  4'h0;
+  dest[3] =  4'hF;
   opcode[3] = 4'h2;
   npreset[3] = 1'b1;
   pwrite[3] = 1'b1;
@@ -112,7 +112,7 @@ initial begin
   sign_exp[4] = 9'b000101111;
   
   //Test Case 5 Simple Add Instruction
-  src1[5] = 4'h0; 
+  src1[5] = 4'hF; 
   src2[5] = 4'h1;
   dest[5] = 4'h2;
   opcode[5] = 4'h3;
@@ -136,7 +136,7 @@ initial begin
   sign_exp[6] = 9'b000101111;  
   
   //Test Case 7 Simple Multiply Instruction
-  src1[7] = 4'h0; 
+  src1[7] = 4'hF; 
   src2[7] = 4'h1;
   dest[7] =  4'h3;
   opcode[7] = 4'h5;
@@ -186,7 +186,7 @@ initial begin
       tb_pwdata = {sign_exp[i] ,mantissa[i]};
     end
     else if(opcode[i] == 4'h2) 
-      tb_paddr = {opcode[i], sram_addr[i],dest[i],16'b0};
+      tb_paddr = {opcode[i],dest[i],sram_addr[i],16'b0};
     else if(opcode[i] == 4'hb) 
       tb_paddr  = {20'b0, src1[i]};
     else

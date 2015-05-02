@@ -5,7 +5,7 @@
 // Lab Section: 337-05
 // Version:     1.0  Initial Design Entry
 // Description: sine block using multiply and add
-
+module sine
   (
     input reg [31:0] operand,
     input reg sineEna,

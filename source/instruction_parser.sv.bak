@@ -31,7 +31,7 @@ module instruction_parser
   typedef enum bit[3:0] {STORE1=4'hA, STORE2=4'h1, LOAD=4'h2,ADD=4'h3, SUB=4'h4, //enumerateed types of different opcodes
                           MUL=4'h5, SIN=4'h6, NEG=4'h7, ABS=4'h8, MOVE=4'h9, NOP=4'h0} opcode_type;
   opcode_type opcode;// this is the iternal opcode to deal with 
-  wire dest; // this is the destination regester
+  wire [3:0]dest; // this is the destination regester
   genvar i;
   
   reg [15:0]cnt_up;

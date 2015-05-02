@@ -139,7 +139,7 @@ module Floating_point_co_processor
   wire [31:0] sram_write_data;
   wire [31:0] read_data; // put data from regester to sram
   
-  reg mem_dump;
+  
   //AMBA Slave Interface
   APB_slave_interface amba_slave (
   .apb_clk(apb_clk),
