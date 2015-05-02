@@ -271,7 +271,7 @@ module Floating_point_co_processor
   assign remove_enable[1] = sub_result_done;
   
   //MUL block //block 2
-  multiply MUL(
+  multiply MULT(
 	 .clk(clk),
 	 .nrst(n_rst),
 	 .operand1(opA),
