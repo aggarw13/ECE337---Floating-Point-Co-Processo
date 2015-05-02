@@ -27,7 +27,7 @@ module APB_slave_interface(
   logic rising_edge_detect;
   // States of AMBA Interface (in a STATE machine design) : IDLE STATE, SETUP PHASE, WAIT STATE, ACCESS PHASE, ERROR PHASE 
   apb_clk_detect DETECT_RISING_EDGE(.apb_clk(apb_clk), .system_clk(clk), .rising_edge_found(rising_edge_detect),.nrst(1'b1));
-  typedef enum bit [2:0] {IDLE, SETUP, ACCESS, ERROR, INTERIM} amba_states;
+  typedef enum bit [2:0] {IDLE, SETUP, ACCESS_1, ACCESS_2, ERROR, INTERIM} amba_states;
   amba_states curr_state, next_state;
   assign address_bus = paddr;
   assign data_bus = pwdata;
@@ -64,10 +64,14 @@ module APB_slave_interface(
             next_state = ACCESS;
           end
         end
-      ACCESS : begin
+      ACCESS_1 : begin
         pready = 1'b1;
         valid_data = 1'b1;
-        if(read_error)
+        next_state = ACCESS_2;
+      end
+      ACCESS_2 : begin
+        pready = 1'b1;
+        if(read_error | write_error)
           next_state = ERROR;
         else if(rising_edge_detect)
           next_state = INTERIM;

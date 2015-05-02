@@ -115,7 +115,7 @@ initial begin
   src1[5] = 4'h0; 
   src2[5] = 4'h1;
   dest[5] = 4'h2;
-  opcode[5] = 4'h2;
+  opcode[5] = 4'h3;
   npreset[5] = 1'b1;
   pwrite[5] = 1'b1;
   pselec1[5] = 1'b1;
@@ -182,15 +182,15 @@ initial begin
     tb_pwrite = pwrite[i];
     tb_pselec1 = pselec1[i];
     if(opcode[i] == 4'ha) begin
-      tb_paddr = {opcode[i], sram_addr[i],'0};
+      tb_paddr = {opcode[i],sram_addr[i],20'b0};
       tb_pwdata = {sign_exp[i] ,mantissa[i]};
     end
-    else if(opcode[i] == 4'h1) 
-      tb_paddr = {opcode[i], sram_addr[i],dest[i], '0};
+    else if(opcode[i] == 4'h2) 
+      tb_paddr = {opcode[i], sram_addr[i],dest[i],16'b0};
     else if(opcode[i] == 4'hb) 
-      tb_paddr  = {src1[i],'0};
+      tb_paddr  = {20'b0, src1[i]};
     else
-      tb_paddr = {opcode[i], src1[i] ,src2[i], '0};
+      tb_paddr = {opcode[i], dest[i], src1[i] ,src2[i], 16'b0};
     
     @(posedge tb_apb_clk);
     //SETUP PHASE

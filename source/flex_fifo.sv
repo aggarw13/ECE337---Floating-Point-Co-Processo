@@ -36,6 +36,8 @@ reg w_clear,r_clear;
 reg [BITS_DEPTH-1:0]w_pointer;
 reg [BITS_DEPTH-1:0]r_pointer;
 
+wire w_roll_flag, r_roll_flag;
+
 genvar i;
 
 flex_indexer #(.NUM_CNT_BITS(BITS_DEPTH) ) Write_pointer //this is the index pointer for the writeside
@@ -45,7 +47,9 @@ flex_indexer #(.NUM_CNT_BITS(BITS_DEPTH) ) Write_pointer //this is the index poi
   .clear(w_clear),
   .count_enable(w_enable && !full),
   .rollover_val(ROLLOVERVAL[BITS_DEPTH-1:0]),
-  .count_out(w_pointer)
+  .count_out(w_pointer),
+  .rollover_flag(w_roll_flag)
+  
 );
 
 flex_indexer #(.NUM_CNT_BITS(BITS_DEPTH) ) Read_pointer //this is the pointer to the read pointer
@@ -55,7 +59,8 @@ flex_indexer #(.NUM_CNT_BITS(BITS_DEPTH) ) Read_pointer //this is the pointer to
   .clear(r_clear),
   .count_enable(r_enable && !empty),
   .rollover_val(ROLLOVERVAL[BITS_DEPTH-1:0]),
-  .count_out(r_pointer)
+  .count_out(r_pointer),
+  .rollover_flag(r_roll_flag)
 );
 
 always_ff @ (posedge clk, negedge n_rst)// this is the regester to store the data
