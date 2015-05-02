@@ -5,7 +5,7 @@ module tb_Floating_point_co_processor();
 localparam APB_CLK_PERIOD = 20;
 localparam SYS_CLK_PERIOD = 5;
 localparam NUM_TEST_CASES = 8;
-localparam DELAY = 3;
+localparam DELAY = 10;
 
 reg tb_apb_clk;
 reg tb_clk;

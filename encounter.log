@@ -1,0 +1,219 @@
+Checking out Encounter license ...
+Encounter_Digital_Impl_Sys_XL 9.1 license checkout succeeded.
+You can run 2 CPU jobs with the base license that is currently checked out.
+If required, use the setMultiCpuUsage command to enable multi-CPU processing.
+This Encounter release has been compiled with OA version 22.04-p058.
+*******************************************************************
+*   Copyright (c)  Cadence Design Systems, Inc.  1996 - 2009.     *
+*                     All rights reserved.                        *
+*                                                                 *
+*                                                                 *
+*                                                                 *
+* This program contains confidential and trade secret information *
+* of Cadence Design Systems, Inc. and is protected by copyright   *
+* law and international treaties.  Any reproduction, use,         *
+* distribution or disclosure of this program or any portion of it,*
+* or any attempt to obtain a human-readable version of this       *
+* program, without the express, prior written consent of          *
+* Cadence Design Systems, Inc., is strictly prohibited.           *
+*                                                                 *
+*                 Cadence Design Systems, Inc.                    *
+*                    2655 Seely Avenue                            *
+*                   San Jose, CA 95134,  USA                      *
+*                                                                 *
+*                                                                 *
+*******************************************************************
+
+@(#)CDS: Encounter v09.11-s084_1 (64bit) 04/26/2010 12:41 (Linux 2.6)
+@(#)CDS: NanoRoute v09.11-s008 NR100226-1806/USR63-UB (database version 2.30, 93.1.1) {superthreading v1.14}
+@(#)CDS: CeltIC v09.11-s011_1 (64bit) 03/04/2010 14:24:46 (Linux 2.6.9-78.0.25.ELsmp)
+@(#)CDS: CTE 09.11-s016_1 (64bit) Apr  8 2010 03:29:23 (Linux 2.6.9-78.0.25.ELlargesmp)
+@(#)CDS: CPE v09.11-s023
+--- Starting "Encounter v09.11-s084_1" on Fri Mar  6 13:23:55 2015 (mem=59.9M) ---
+--- Running on ee215lnx17.ecn.purdue.edu (x86_64 w/Linux 2.6.32-504.8.1.el6.x86_64) ---
+This version was compiled on Mon Apr 26 12:41:12 PDT 2010.
+Set DBUPerIGU to 1000.
+Set net toggle Scale Factor to 1.00
+Set Shrink Factor to 1.00000
+Encounter terminated by internal (SEGV<CMD> loadConfig ./encounter.conf
+Reading config file - ./encounter.conf
+**WARN: (ENCEXT-1085):	Option 'rda_Input(ui_res_scale)' used in configuration file './encounter.conf' is obsolete. The name will be converted into new format automatically if design is saved and then restored. Alternatively, update the configuration file to use names 'rda_Input(ui_preRoute_res)' and/or 'rda_Input(ui_postRoute_res)' for resistance scale factors to be used at preRoute/postRoute stages of the design . The obsolete name works in this release. But to avoid this warning and to ensure compatibility with future releases, update this option name.
+**ERROR: (ENCSYT-16038):	'mapped/lab7_layout_design.v' not found.
+
+Loading Lef file /package/eda/cells/OSU/v2.7/cadence/lib/ami05/lib/osu05_stdcells.lef...
+**WARN: (ENCLF-108):	There is no overlap layer defined in any lef file
+so you are unable to create rectilinear partition in a hierarchical flow.
+Set DBUPerIGU to M2 pitch 2400.
+Initializing default via types and wire widths ...
+
+Power Planner/ViaGen version 8.1.46 promoted on 02/17/2009.
+viaInitial starts at Fri May  1 05:03:10 2015
+**WARN: (ENCPP-544):	You didn't use the STACK keyword with the LEF SAMENET rule. Stacked vias might not be created correctly.  
+	SAMENET cc via 0.150 ;
+**WARN: (ENCPP-544):	You didn't use the STACK keyword with the LEF SAMENET rule. Stacked vias might not be created correctly.  
+	SAMENET via via2 0.150 ;
+**WARN: (ENCPP-557):	a single-layer VIARULE GENERATE for turn-vias is obsolete and is being ignored. You should remove this statement from your LEF file.
+	VIARULE TURN1 GENERATE
+**WARN: (ENCPP-557):	a single-layer VIARULE GENERATE for turn-vias is obsolete and is being ignored. You should remove this statement from your LEF file.
+	VIARULE TURN2 GENERATE
+**WARN: (ENCPP-557):	a single-layer VIARULE GENERATE for turn-vias is obsolete and is being ignored. You should remove this statement from your LEF file.
+	VIARULE TURN3 GENERATE
+viaInitial ends at Fri May  1 05:03:10 2015
+**ERROR: (ENCSYT-16038):	'mapped/lab7_layout_design.v' not found.
+Reading netlist ...
+Backslashed names will retain backslash and a trailing blank character.
+
+*** Memory Usage v0.159.2.6.2.1 (Current mem = 381.762M, initial mem = 59.918M) ***
+*** End netlist parsing (cpu=0:00:00.0, real=0:00:00.0, mem=381.8M) ***
+**ERROR: (ENCSYC-300):	Cell lab7_layout_design not found.
+**ERROR: (ENCVL-904):	Can't set top cell to "lab7_layout_design" because it doesn't exist.  Exiting Encounter!
+
+*** Memory Usage v0.159.2.6.2.1 (Current mem = 382.359M, initial mem = 59.918M) ***
+--- Ending "Encounter" (totcpu=0:00:08.0, real=0:01:56, mem=382.4M) ---
+royContext ()
+#13 0x00007fd21102b467 in QGLContext::reset() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#14 0x00007fd211007dcc in QGLContext::~QGLContext() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#15 0x00007fd211002f0f in QGLWidget::~QGLWidget() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#16 0x00007fd21102d20d in QGLExtensions::init() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#17 0x00007fd2110057ea in QGLWidgetPrivate::initContext(QGLContext*, QGLWidget const*) () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#18 0x00007fd21102ddfa in QGLWidgetPrivate::init(QGLContext*, QGLWidget const*) () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#19 0x00007fd211009704 in QGLWidget::QGLWidget(QGLFormat const&, QWidget*, QGLWidget const*, QFlags<Qt::WindowType>) () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#20 0x0000000005a5ceb6 in winsQt::winsQt(QGLFormat const&, QWidget*, char*, char*) ()
+#21 0x0000000005a5d119 in winCreateQt(QWidget*, char*, char*) ()
+#22 0x00000000059babcd in uiiWindowCreateArtWorkCmd ()
+#23 0x0000000004a84fe5 in tcmBaseCmd::execute(Tcl_Interp*, int, char**) ()
+#24 0x0000000004a7ec89 in tcmMgr::cmdParser(void*, Tcl_Interp*, int, char**) ()
+#25 0x000000000812f778 in TclInvokeStringCommand ()
+#26 0x000000000813057d in TclEvalObjvInternal ()
+#27 0x0000000008130f6e in Tcl_EvalEx ()
+#28 0x000000000813131d in Tcl_Eval ()
+#29 0x0000000004b7fb7e in qtfTclEval(char*) ()
+#30 0x0000000004b07fcd in qtfiMainWindowSetCentralCmd ()
+#31 0x0000000004a84fe5 in tcmBaseCmd::execute(Tcl_Interp*, int, char**) ()
+#32 0x0000000004a7ec89 in tcmMgr::cmdParser(void*, Tcl_Interp*, int, char**) ()
+#33 0x000000000812f778 in TclInvokeStringCommand ()
+#34 0x000000000813057d in TclEvalObjvInternal ()
+#35 0x000000000815269d in TclExecuteByteCode ()
+#36 0x0000000008151aab in TclCompEvalObj ()
+#37 0x000000000817bd48 in TclObjInterpProc ()
+#38 0x000000000813057d in TclEvalObjvInternal ()
+#39 0x000000000815269d in TclExecuteByteCode ()
+#40 0x0000000008151aab in TclCompEvalObj ()
+#41 0x000000000813157f in Tcl_EvalObjEx ()
+#42 0x0000000008137d75 in Tcl_IfObjCmd ()
+#43 0x000000000813057d in TclEvalObjvInternal ()
+#44 0x000000000815269d in TclExecuteByteCode ()
+#45 0x0000000008151aab in TclCompEvalObj ()
+#46 0x000000000813157f in Tcl_EvalObjEx ()
+#47 0x0000000008137d75 in Tcl_IfObjCmd ()
+#48 0x000000000813057d in TclEvalObjvInternal ()
+#49 0x0000000008130f6e in Tcl_EvalEx ()
+#50 0x0000000008169f29 in Tcl_FSEvalFile ()
+#51 0x0000000008168e7e in Tcl_EvalFile ()
+#52 0x0000000001330b61 in TclApp_Init(Tcl_Interp*) ()
+#53 0x00000000012aebc8 in Tcl_AppInit ()
+#54 0x00007fd2105061b2 in TqApplication::exec() () from /package/eda/cadence/EDI91/tools/lib/64bit/libtq.so
+#55 0x00000000012aefc3 in fe_main(int, char**) ()
+#56 0x00000000012af08a in main ()
+========================================
+                gdb
+========================================
+Using: gdb
+[New LWP 24963]
+[New LWP 24962]
+[New LWP 24961]
+[New LWP 24958]
+[Thread debugging using libthread_db enabled]
+0x0000003e466ac65d in waitpid () from /lib64/libc.so.6
+
+Thread 5 (Thread 0x7fd20d9b9700 (LWP 24958)):
+#0  0x0000003e46e0ef3d in nanosleep () from /lib64/libpthread.so.0
+#1  0x0000000001b9f0bd in rdaiLicRecheck(void*) ()
+#2  0x0000003e46e079d1 in start_thread () from /lib64/libpthread.so.0
+#3  0x0000003e466e88fd in clone () from /lib64/libc.so.6
+
+Thread 4 (Thread 0x7fd20ca76700 (LWP 24961)):
+#0  0x0000003e466aca3d in nanosleep () from /lib64/libc.so.6
+#1  0x0000003e466ac8b0 in sleep () from /lib64/libc.so.6
+#2  0x000000000690735b in syiPeakMem(void*) ()
+#3  0x0000003e46e079d1 in start_thread () from /lib64/libpthread.so.0
+#4  0x0000003e466e88fd in clone () from /lib64/libc.so.6
+
+Thread 3 (Thread 0x7fd207dfb700 (LWP 24962)):
+#0  0x0000003e466e1373 in select () from /lib64/libc.so.6
+#1  0x00000000081923cd in NotifierThreadProc ()
+#2  0x0000003e46e079d1 in start_thread () from /lib64/libpthread.so.0
+#3  0x0000003e466e88fd in clone () from /lib64/libc.so.6
+
+Thread 2 (Thread 0x7fd2073fa700 (LWP 24963)):
+#0  0x0000003e46e0f4b5 in sigwait () from /lib64/libpthread.so.0
+#1  0x00000000012cc6f3 in ctrlCHandle(void*) ()
+#2  0x0000003e46e079d1 in start_thread () from /lib64/libpthread.so.0
+#3  0x0000003e466e88fd in clone () from /lib64/libc.so.6
+
+Thread 1 (Thread 0x7fd20f23e820 (LWP 24909)):
+#0  0x0000003e466ac65d in waitpid () from /lib64/libc.so.6
+#1  0x0000003e4663e609 in do_system () from /lib64/libc.so.6
+#2  0x0000003e4663e940 in system () from /lib64/libc.so.6
+#3  0x00000000068f48ea in syStackTrace ()
+#4  0x00000000012cc2f9 in rdaiErrorHandler(int, siginfo*, void*) ()
+#5  <signal handler called>
+#6  0x00007fd2063d902f in ?? () from /usr/lib64/dri/swrast_dri.so
+#7  0x00007fd206498508 in ?? () from /usr/lib64/dri/swrast_dri.so
+#8  0x00007fd2066957a1 in ?? () from /usr/lib64/dri/swrast_dri.so
+#9  0x00007fd20653f0b3 in ?? () from /usr/lib64/dri/swrast_dri.so
+#10 0x0000003e596409e7 in ?? () from /usr/lib64/libGL.so.1
+#11 0x0000003e5961aeb9 in glXDestroyContext () from /usr/lib64/libGL.so.1
+#12 0x00000000068ea90e in glXDestroyContext ()
+#13 0x00007fd21102b467 in QGLContext::reset() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#14 0x00007fd211007dcc in QGLContext::~QGLContext() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#15 0x00007fd211002f0f in QGLWidget::~QGLWidget() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#16 0x00007fd21102d20d in QGLExtensions::init() () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#17 0x00007fd2110057ea in QGLWidgetPrivate::initContext(QGLContext*, QGLWidget const*) () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#18 0x00007fd21102ddfa in QGLWidgetPrivate::init(QGLContext*, QGLWidget const*) () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#19 0x00007fd211009704 in QGLWidget::QGLWidget(QGLFormat const&, QWidget*, QGLWidget const*, QFlags<Qt::WindowType>) () from /package/eda/cadence/EDI91/tools/Qt/64bit/lib/libQtOpenGL.so.4
+#20 0x0000000005a5ceb6 in winsQt::winsQt(QGLFormat const&, QWidget*, char*, char*) ()
+#21 0x0000000005a5d119 in winCreateQt(QWidget*, char*, char*) ()
+#22 0x00000000059babcd in uiiWindowCreateArtWorkCmd ()
+#23 0x0000000004a84fe5 in tcmBaseCmd::execute(Tcl_Interp*, int, char**) ()
+#24 0x0000000004a7ec89 in tcmMgr::cmdParser(void*, Tcl_Interp*, int, char**) ()
+#25 0x000000000812f778 in TclInvokeStringCommand ()
+#26 0x000000000813057d in TclEvalObjvInternal ()
+#27 0x0000000008130f6e in Tcl_EvalEx ()
+#28 0x000000000813131d in Tcl_Eval ()
+#29 0x0000000004b7fb7e in qtfTclEval(char*) ()
+#30 0x0000000004b07fcd in qtfiMainWindowSetCentralCmd ()
+#31 0x0000000004a84fe5 in tcmBaseCmd::execute(Tcl_Interp*, int, char**) ()
+#32 0x0000000004a7ec89 in tcmMgr::cmdParser(void*, Tcl_Interp*, int, char**) ()
+#33 0x000000000812f778 in TclInvokeStringCommand ()
+#34 0x000000000813057d in TclEvalObjvInternal ()
+#35 0x000000000815269d in TclExecuteByteCode ()
+#36 0x0000000008151aab in TclCompEvalObj ()
+#37 0x000000000817bd48 in TclObjInterpProc ()
+#38 0x000000000813057d in TclEvalObjvInternal ()
+#39 0x000000000815269d in TclExecuteByteCode ()
+#40 0x0000000008151aab in TclCompEvalObj ()
+#41 0x000000000813157f in Tcl_EvalObjEx ()
+#42 0x0000000008137d75 in Tcl_IfObjCmd ()
+#43 0x000000000813057d in TclEvalObjvInternal ()
+#44 0x000000000815269d in TclExecuteByteCode ()
+#45 0x0000000008151aab in TclCompEvalObj ()
+#46 0x000000000813157f in Tcl_EvalObjEx ()
+#47 0x0000000008137d75 in Tcl_IfObjCmd ()
+#48 0x000000000813057d in TclEvalObjvInternal ()
+#49 0x0000000008130f6e in Tcl_EvalEx ()
+#50 0x0000000008169f29 in Tcl_FSEvalFile ()
+#51 0x0000000008168e7e in Tcl_EvalFile ()
+#52 0x0000000001330b61 in TclApp_Init(Tcl_Interp*) ()
+#53 0x00000000012aebc8 in Tcl_AppInit ()
+#54 0x00007fd2105061b2 in TqApplication::exec() () from /package/eda/cadence/EDI91/tools/lib/64bit/libtq.so
+#55 0x00000000012aefc3 in fe_main(int, char**) ()
+#56 0x00000000012af08a in main ()
+A debugging session is active.
+
+	Inferior 1 [process 24909] will be detached.
+
+Quit anyway? (y or n) [answered Y; input not from terminal]
+
+*** INTERRUPTED *** [signal 1]
+24909: No such process
