@@ -55,13 +55,13 @@ module APB_slave_interface(
         if(rising_edge_detect)
         begin   
           if(penable && !(write_error | read_error))
-            next_state = ACCESS;
+            next_state = ACCESS_1;
           else if(penable && write_error)
             next_state = ERROR;
           else if(!pselec1)
             next_state = IDLE;
           else
-            next_state = ACCESS;
+            next_state = ACCESS_1;
           end
         end
       ACCESS_1 : begin
