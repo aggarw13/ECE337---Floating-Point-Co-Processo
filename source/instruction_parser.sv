@@ -15,7 +15,7 @@ module instruction_parser
   input wire n_rst,
   input wire [31:0]address_bus,
   input wire[31:0]data_bus,
-  input wire read_instruction, //this is a read cycle
+  input wire write_instruction, //this is the read write indicato
   input wire valid_data, //this instruction can be paid attention too
   input wire [15:0]dependency_remove,
   output wire [31:0]read_data_buff,
@@ -47,8 +47,8 @@ module instruction_parser
   assign out_reg = address_bus[3:0]; //this is the value to push to the output fifo
   assign opcode = opcode_type'(address_bus[31:28]);// pull off the opcode
   assign dest = address_bus[27:24];
-  assign add_instruction = valid_data & !read_instruction & !instruction_buffer_full & !write_error; // this is when to add the value to the input fifo
-  assign write_state = valid_data & !read_instruction & !instruction_buffer_full; // this is when to evaluate new data
+  assign add_instruction = valid_data & write_instruction & !instruction_buffer_full & !write_error; // this is when to add the value to the input fifo
+  assign write_state = valid_data & write_instruction & !instruction_buffer_full; // this is when to evaluate new data
   generate 
       for (i = 0;i <16; i= i+1) //make 16 updown counters to keep track of all dependant values
       begin
@@ -119,7 +119,7 @@ module instruction_parser
               cnt_up[dest] = 1;
             end
       end    
-    if(read_instruction &&  count[out_reg] != 0)
+    if(!write_instruction &&  count[out_reg] != 0)
       read_error = 1;
   
 

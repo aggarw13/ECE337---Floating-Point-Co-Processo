@@ -66,12 +66,8 @@ module Floating_point_co_processor
   wire [3:0]move_dest;
   
   //wires needed from instruction parser
-  
-  wire read_instruction; 
-  wire valid_data; 
+   
   wire [31:0]read_data_buff;
-  wire read_data_enable; 
-  
   
   wire [3:0]out_reg;
   wire parse_read_error;
@@ -143,7 +139,7 @@ module Floating_point_co_processor
   wire [31:0] sram_write_data;
   wire [31:0] read_data; // put data from regester to sram
   
-  
+  reg mem_dump;
   //AMBA Slave Interface
   APB_slave_interface amba_slave (
   .apb_clk(apb_clk),
@@ -162,6 +158,7 @@ module Floating_point_co_processor
   .pslverr(pslverr),
   .address_bus(address_bus),
   .data_bus(data_bus),
+  .write_instr(write_instruction),
   .valid_data(write_valid_data) // Signal for informing valid data during ACCESS phase
   );
   assign write_error = parse_write_error | buffer_full;
@@ -209,7 +206,7 @@ module Floating_point_co_processor
   .n_rst(n_rst),
   .address_bus(address_bus),
   .data_bus(data_bus),
-  .read_instruction(read_instruction), //this is a read cycle
+  .write_instruction(write_instruction), //this is a read cycle
   .valid_data(write_valid_data), //this in.can be paid attention too
   .dependency_remove(drop_dependency),
   .read_data_buff(read_data_buff),
@@ -354,7 +351,7 @@ module Floating_point_co_processor
   assign remove_enable[7] = load_result_done;
   
   store STORE1(
-  .operand(opA),
+  .operand(read_data_buff),
   .clk(clk),
   .nRst(n_rst),
   .en(store1_enable),
@@ -433,8 +430,8 @@ module Floating_point_co_processor
 		.write_data(sram_write_data)
 	);
 	assign sram_address =sram_address_store | sram_address_load; // this is to put it down to one line of addres
-	assign sram_store = store2_enable | store1_enable; //makes it down to one bit
-	assign sram_write_data = (store2_result_done & store2_result) | (store1_result_done & store1_result); // compress the data down to one set of 32. might cause a problem
+	assign sram_store = store2_result_done | store1_result_done; //makes it down to one bit
+	assign sram_write_data = store2_result_done? store2_result : store1_result; // compress the data down to one set of 32. might cause a problem
 	
 	
 endmodule
