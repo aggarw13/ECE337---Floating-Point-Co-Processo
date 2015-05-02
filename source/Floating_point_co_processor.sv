@@ -67,9 +67,10 @@ module Floating_point_co_processor
   
   //wires needed from instruction parser
   
-  wire write_instr; 
+  wire read_instruction; 
+  wire valid_data; 
   wire [31:0]read_data_buff;
-
+  wire read_data_enable; 
   
   
   wire [3:0]out_reg;
@@ -161,7 +162,6 @@ module Floating_point_co_processor
   .pslverr(pslverr),
   .address_bus(address_bus),
   .data_bus(data_bus),
-  .write_instr(write_instr),
   .valid_data(write_valid_data) // Signal for informing valid data during ACCESS phase
   );
   assign write_error = parse_write_error | buffer_full;
@@ -202,7 +202,6 @@ module Floating_point_co_processor
   .move_dest(move_dest) 
   );
   
-  
   //this is the instruction parser
   instruction_parser parser
   (
@@ -210,7 +209,7 @@ module Floating_point_co_processor
   .n_rst(n_rst),
   .address_bus(address_bus),
   .data_bus(data_bus),
-  .read_instruction(!write_instr), //this is a read cycle
+  .read_instruction(read_instruction), //this is a read cycle
   .valid_data(write_valid_data), //this in.can be paid attention too
   .dependency_remove(drop_dependency),
   .read_data_buff(read_data_buff),
@@ -224,9 +223,8 @@ module Floating_point_co_processor
   .write_error(parse_write_error)
   );
   
-  //ALU and other sub module blocks
+  /*ALU and other sub module blocks*/
   //dependancy remover
-  
   dependency_remove //need to change i in this file if ALU_BLOCKS >8
   #(
   .NUM_BLOCKS(ALU_BLOCKS)
@@ -419,7 +417,7 @@ module Floating_point_co_processor
   on_chip_sram_wrapper sram
 	(
 		// Test bench control signals
-		.mem_clr(!n_rst),
+		.mem_clr(1'b0),
 		.mem_init(1'b0),
 		.mem_dump(1'b0),
 		.verbose(1'b0),
