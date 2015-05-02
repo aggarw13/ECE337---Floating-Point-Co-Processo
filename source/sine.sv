@@ -6,7 +6,6 @@
 // Version:     1.0  Initial Design Entry
 // Description: sine block using multiply and add
 
-module sine
   (
     input reg [31:0] operand,
     input reg sineEna,
@@ -20,10 +19,10 @@ module sine
   
   //Signals
   reg [1:16][31:0] x; //Input x
-  reg dummy0, dummy1;//dummy signals. Always 0 for 0 and 1 for 1.
-  reg [1:10] d; //dummy dones
-  reg [3:0] dest1, dest2, dest3; //dummy input destination address
-  reg [1:10][3:0] ddest; //dummy output destination address
+  //reg dummy0, dummy1;//dummy signals. Always 0 for 0 and 1 for 1.
+  //reg [1:10] d; //dummy dones
+  //reg [3:0] dest1, dest2, dest3; //dummy input destination address
+  //reg [1:10][3:0] ddest; //dummy output destination address
   reg [1:12][31:0] x2; //x^2
   reg [1:2][31:0] x3; //x^3. No need for propagation but pass through stage
   reg [1:2][31:0] x5; //x^5. Same comments as x^3
@@ -35,15 +34,17 @@ module sine
   reg [1:2][31:0] secondAdd; //x-x^3/3!+x^5/5!
   reg [1:2][31:0] thirdAdd; //x-x^3/3!+x^5/5!-x^7/7!, goes straight to results  
   reg [31:0] fac3, fac5, fac7; //factorial values like -1/3!, etc. Hard coded
-  reg [1:30] enable; //enable signal to sine. Ultimately used for done signal
-  reg [1:30][3:0] des; //destination address propagation
+  reg [1:6] enable; //enable signal to sine. Ultimately used for done signal
+  reg [1:6][3:0] des; //destination address propagation
+  reg [1:10] entemp;
+  reg [1:10][3:0] destemp;
   
   //Assign dummy values
-  assign dummy0 = 1'b0;
-  assign dummy1 = 1'b1;
-  assign dest1 = 4'b0001;
-  assign dest2 = 4'b0010;
-  assign dest3 = 4'b0011;
+  //assign dummy0 = 1'b0;
+  //assign dummy1 = 1'b1;
+  //assign dest1 = 4'b0001;
+  //assign dest2 = 4'b0010;
+  //assign dest3 = 4'b0011;
   assign fac3 = 32'b10111110001010101010101010101011;
   assign fac5 = 32'b00111100000010001000100010001001;
   assign fac7 = 32'b10111001010100000000110100000001;
@@ -51,24 +52,32 @@ module sine
   //enable propagation
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
-      enable[1:30] <= 0;
+      enable[1:6] <= 0;
       done <= 0;
     end else begin
       enable[1] <= sineEna;
-      enable[2:30] <= enable[1:29];
-      done <= enable[30];
+      enable[2] <= entemp[1];
+      enable[3] <= entemp[2];
+      enable[4] <= entemp[3] && entemp[4];
+      enable[5] <= entemp[5] && entemp[6] && entemp[7];
+      enable[6] <= entemp[8] && entemp[9];
+      done <= entemp[10];
     end
   end
   
   //destination propagation
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
-      des[1:30] <= 0;
+      des[1:6] <= 0;
       out_dest <= 0;
     end else begin
       des[1] <= in_dest;
-      des[2:30] <= des[1:29];
-      out_dest <= des[30];
+      des[2] <= destemp[1];
+      des[3] <= destemp[2];
+      des[4] <= destemp[3] && destemp[4];
+      des[5] <= destemp[5] && destemp[6] && destemp[7];
+      des[6] <= destemp[8] && destemp[9];
+      out_dest <= destemp[10];
     end
   end
   
@@ -178,11 +187,11 @@ module sine
 	 .nrst(nrst),
 	 .operand1(x[1]),
 	 .operand2(x[1]),
-	 .mulEna(dummy1),
-	 .in_dest(dest1),
+	 .mulEna(enable[1]),
+	 .in_dest(des[1]),
 	 .result(x2[1]),
-	 .done(d[1]),
-	 .out_dest(ddest[1])
+	 .done(entemp[1]),
+	 .out_dest(destemp[1])
 	);
 	
 	//Stage 2 x^3
@@ -192,11 +201,11 @@ module sine
 	 .nrst(nrst),
 	 .operand1(x[6]),
 	 .operand2(x2[2]),
-	 .mulEna(dummy1),
-	 .in_dest(dest1),
+	 .mulEna(enable[2]),
+	 .in_dest(des[2]),
 	 .result(x3[1]),
-	 .done(d[2]),
-	 .out_dest(ddest[2])
+	 .done(entemp[2]),
+	 .out_dest(destemp[2])
   );
   
   //Stage 3 -x^3/3! and x^5
@@ -206,11 +215,11 @@ module sine
 	 .nrst(nrst),
 	 .operand1(x3[2]),
 	 .operand2(x2[7]),
-	 .mulEna(dummy1),
-	 .in_dest(dest1),
+	 .mulEna(enable[3]),
+	 .in_dest(des[3]),
 	 .result(x5[1]),
-	 .done(d[3]),
-	 .out_dest(ddest[3])
+	 .done(entemp[3]),
+	 .out_dest(destemp[3])
   );
   
   multiply MULX3FAC
@@ -219,11 +228,11 @@ module sine
 	 .nrst(nrst),
 	 .operand1(x3[2]),
 	 .operand2(fac3),
-	 .mulEna(dummy1),
-	 .in_dest(dest2),
+	 .mulEna(enable[3]),
+	 .in_dest(des[3]),
 	 .result(x3fac[1]),
-	 .done(d[4]),
-	 .out_dest(ddest[4])
+	 .done(entemp[4]),
+	 .out_dest(destemp[4])
   );
   
   //Stage 4 1 Addition(x-x^3/3!) and 2 Multiplication (x^7, x^5/5!)
@@ -233,11 +242,11 @@ module sine
     .nreset(nrst),
     .opA(x[16]),
     .opB(x3fac[2]),
-    .dest_in(dest3),
-    .new_instr(dummy1),
+    .dest_in(des[4]),
+    .new_instr(enable[4]),
     .result(firstAdd[1]),
-    .write_enable(d[7]),
-    .reg_dest(ddest[7])
+    .write_enable(entemp[5]),
+    .reg_dest(destemp[5])
   );
   
   multiply MULX7
@@ -246,11 +255,11 @@ module sine
 	 .nrst(nrst),
 	 .operand1(x5[2]),
 	 .operand2(x2[12]),
-	 .mulEna(dummy1),
-	 .in_dest(dest1),
+	 .mulEna(enable[4]),
+	 .in_dest(des[4]),
 	 .result(x7[1]),
-	 .done(d[5]),
-	 .out_dest(ddest[5])
+	 .done(entemp[6]),
+	 .out_dest(destemp[6])
   );
   
   multiply MULX5FAC
@@ -259,11 +268,11 @@ module sine
 	 .nrst(nrst),
 	 .operand1(x5[2]),
 	 .operand2(fac5),
-	 .mulEna(dummy1),
-	 .in_dest(dest2),
+	 .mulEna(enable[4]),
+	 .in_dest(des[4]),
 	 .result(x5fac[1]),
-	 .done(d[6]),
-	 .out_dest(ddest[6])
+	 .done(entemp[7]),
+	 .out_dest(destemp[7])
   );
   
   //Stage 5 1 Addition(x-x^3/3!+x^5/5!) and 1 Multiplication (-x^7/7!)
@@ -273,11 +282,11 @@ module sine
     .nreset(nrst),
     .opA(firstAdd[2]),
     .opB(x5fac[2]),
-    .dest_in(dest3),
-    .new_instr(dummy1),
+    .dest_in(des[5]),
+    .new_instr(enable[5]),
     .result(secondAdd[1]),
-    .write_enable(d[9]),
-    .reg_dest(ddest[9])
+    .write_enable(entemp[8]),
+    .reg_dest(destemp[8])
   );
   
   multiply MULX7FAC
@@ -286,11 +295,11 @@ module sine
 	 .nrst(nrst),
 	 .operand1(x7[2]),
 	 .operand2(fac7),
-	 .mulEna(dummy1),
-	 .in_dest(dest2),
+	 .mulEna(enable[5]),
+	 .in_dest(des[5]),
 	 .result(x7fac[1]),
-	 .done(d[8]),
-	 .out_dest(ddest[8])
+	 .done(entemp[9]),
+	 .out_dest(destemp[9])
 	 );
   
   
@@ -301,11 +310,11 @@ module sine
     .nreset(nrst),
     .opA(secondAdd[2]),
     .opB(x7fac[2]),
-    .dest_in(dest3),
-    .new_instr(dummy1),
+    .dest_in(des[6]),
+    .new_instr(enable[6]),
     .result(thirdAdd[1]),
-    .write_enable(d[10]),
-    .reg_dest(ddest[10])
+    .write_enable(entemp[10]),
+    .reg_dest(destemp[10])
   );
   
 endmodule
