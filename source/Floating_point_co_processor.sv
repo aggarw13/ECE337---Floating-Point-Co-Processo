@@ -6,7 +6,7 @@
 // Version:     1.0  Initial Design Entry
 // Description: This is the large wrapper file for the project
 
-module Floating_point_co_processor
+module Floating_point_co_processor_design
 #(
   parameter INSTRUCT_WIDTH = 16,
   parameter ALU_BLOCKS = 8 //number should update as number of blocks changes
