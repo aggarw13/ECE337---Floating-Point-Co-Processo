@@ -74,9 +74,9 @@ module sine
       des[1] <= in_dest;
       des[2] <= destemp[1];
       des[3] <= destemp[2];
-      des[4] <= destemp[3] && destemp[4];
-      des[5] <= destemp[5] && destemp[6] && destemp[7];
-      des[6] <= destemp[8] && destemp[9];
+      des[4] <= destemp[3];
+      des[5] <= destemp[5];
+      des[6] <= destemp[8];
       out_dest <= destemp[10];
     end
   end

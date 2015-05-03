@@ -4,7 +4,7 @@ module tb_Floating_point_co_processor();
 
 localparam APB_CLK_PERIOD = 28;
 localparam SYS_CLK_PERIOD = 7;
-localparam NUM_TEST_CASES = 8;
+localparam NUM_TEST_CASES = 19;
 localparam DELAY = 10;
 
 reg tb_apb_clk;
@@ -85,29 +85,29 @@ initial begin
   npreset[2] = 1'b1;
   pwrite[2] = 1'b1;
   pselec1[2] = 1'b1;
-  sram_addr[2] = 8'h01;
-  mantissa[2] = 23'b01001010101110111100111;
-  sign_exp[2] = 9'b000101111;
+  sram_addr[2] = 8'h04;
+  mantissa[2] = 23'b01011011101110111100111;
+  sign_exp[2] = 9'b000011111;
   
   //Test Case 3 Simple Load Instruction
   src1[3] = 4'h0; 
-  dest[3] =  4'hF;
+  dest[3] =  4'h1;
   opcode[3] = 4'h2;
   npreset[3] = 1'b1;
   pwrite[3] = 1'b1;
   pselec1[3] = 1'b1;
-  sram_addr[3] = 8'h00;
+  sram_addr[3] = 8'h04;
   mantissa[3] = 23'b01001010101110111100111;
   sign_exp[3] = 9'b000101111;
   
   //Test Case 4 Simple Load Instruction
   src1[4] = 4'h0; 
-  dest[4] =  4'h1;
+  dest[4] =  4'hf;
   opcode[4] = 4'h2;
   npreset[4] = 1'b1;
   pwrite[4] = 1'b1;
   pselec1[4] = 1'b1;
-  sram_addr[4] = 8'h01;
+  sram_addr[4] = 8'h00;
   mantissa[4] = 23'b01001010101110111100111;
   sign_exp[4] = 9'b000101111;
   
@@ -159,6 +159,151 @@ initial begin
   mantissa[8] = 23'b01001010101110111100111;
   sign_exp[8] = 9'b000101111;
   
+  //Test Case 9 Simple Sine Calculation
+  src1[9] = 4'h2; 
+  src2[9] = 4'h0;
+  dest[9] =  4'h4;
+  opcode[9] = 4'h6;
+  npreset[9] = 1'b1;
+  pwrite[9] = 1'b1;
+  pselec1[9] = 1'b1;
+  sram_addr[9] = 8'h00;
+  mantissa[9] = 23'b01001010101110111100111;
+  sign_exp[9] = 9'b000101111;
+  
+  //Test Case 10 Simple Calculated Sine Value Read (will be sent multiple times till Valid sine value is sent back)
+  src1[10] = 4'h4; 
+  src2[10] = 4'h0;
+  dest[10] =  4'h0;
+  opcode[10] = 4'hb;
+  npreset[10] = 1'b1;
+  pwrite[10] = 1'b0;
+  pselec1[10] = 1'b1;
+  sram_addr[10] = 8'h01;
+  mantissa[10] = 23'b01001010101110111100111;
+  sign_exp[10] = 9'b000101111;
+  
+  //Test Case 11 Simple Subtract Instruction
+  src1[11] = 4'h2; 
+  src2[11] = 4'h4;
+  dest[11] =  4'h5;
+  opcode[11] = 4'h4;
+  npreset[11] = 1'b1;
+  pwrite[11] = 1'b1;
+  pselec1[11] = 1'b1;
+  sram_addr[11] = 8'h01;
+  mantissa[11] = 23'b01001010101110111100111;
+  sign_exp[11] = 9'b000101111;
+  
+  //Test Case 12 Move Sine Result to Another Location
+  src1[12] = 4'h5; 
+  src2[12] = 4'h0;
+  dest[12] =  4'h7;
+  opcode[12] = 4'h9;
+  npreset[12] = 1'b1;
+  pwrite[12] = 1'b1;
+  pselec1[12] = 1'b1;
+  sram_addr[12] = 8'h03;
+  mantissa[12] = 23'b01001010101110111100111;
+  sign_exp[12] = 9'b000101111;
+  
+  //Test Case 13 Simple Absolution Instruction for Testing Dependency 
+  src1[13] = 4'h5; 
+  src2[13] = 4'h0;
+  dest[13] =  4'h6;
+  opcode[13] = 4'h5;
+  npreset[13] = 1'b1;
+  pwrite[13] = 1'b1;
+  pselec1[13] = 1'b1;
+  sram_addr[13] = 8'h01;
+  mantissa[13] = 23'b01001010101110111100111;
+  sign_exp[13] = 9'b000101111;
+  
+  //Test Case 14Store 2 Instruction
+  src1[14] = 4'h8; 
+  src2[14] = 4'h0;
+  dest[14] =  4'h0;
+  opcode[14] = 4'h1;
+  npreset[14] = 1'b1;
+  pwrite[14] = 1'b1;
+  pselec1[14] = 1'b1;
+  sram_addr[14] = 8'h03;
+  mantissa[14] = 23'b01001010101110111100111;
+  sign_exp[14] = 9'b000101111;
+  
+  //Test Case 15 Read Sine Result BackUp
+  src1[15] = 4'h8; 
+  src2[15] = 4'h0;
+  dest[15] =  4'h0;
+  opcode[15] = 4'h1;
+  npreset[15] = 1'b1;
+  pwrite[15] = 1'b1;
+  pselec1[15] = 1'b1;
+  sram_addr[15] = 8'h03;
+  mantissa[15] = 23'b01001010101110111100111;
+  sign_exp[15] = 9'b000101111;
+  
+  ///Error Test Cases (Filling Data Buffer)
+  src1[16] = 4'h8; 
+  src2[16] = 4'h0;
+  dest[16] =  4'h0;
+  opcode[16] = 4'ha;
+  npreset[16] = 1'b1;
+  pwrite[16] = 1'b1;
+  pselec1[16] = 1'b1;
+  sram_addr[16] = 8'h04;
+  mantissa[16] = 23'b11001010111110011110000;
+  sign_exp[16] = 9'b111001111;
+  
+  src1[17] = 4'h8; 
+  src2[17] = 4'h0;
+  dest[17] =  4'h0;
+  opcode[17] = 4'ha;
+  npreset[17] = 1'b1;
+  pwrite[17] = 1'b1;
+  pselec1[17] = 1'b1;
+  sram_addr[17] = 8'h05;
+  mantissa[17] = 23'b01001010101110111100111;
+  sign_exp[17] = 9'b000101111;
+  
+  
+  src1[18] = 4'h8; 
+  src2[18] = 4'h0;
+  dest[18] =  4'h0;
+  opcode[18] = 4'ha;
+  npreset[18] = 1'b1;
+  pwrite[18] = 1'b1;
+  pselec1[18] = 1'b1;
+  sram_addr[18] = 8'h06;
+  mantissa[18] = 23'b11001010111110011110000;
+  sign_exp[18] = 9'b111001111;
+  
+  
+  src1[19] = 4'h8; 
+  src2[19] = 4'h0;
+  dest[19] =  4'h0;
+  opcode[19] = 4'ha;
+  npreset[19] = 1'b1;
+  pwrite[19] = 1'b1;
+  pselec1[19] = 1'b1;
+  sram_addr[19] = 8'h09;
+  mantissa[19] = 23'b11001010111110011110000;
+  sign_exp[19] = 9'b111001111;
+  
+   
+  src1[20] = 4'h8; 
+  src2[20] = 4'h0;
+  dest[20] =  4'h0;
+  opcode[20] = 4'ha;
+  npreset[20] = 1'b1;
+  pwrite[20] = 1'b1;
+  pselec1[20] = 1'b1;
+  sram_addr[20] = 8'hAA;
+  mantissa[20] = 23'b11001010111110011110000;
+  sign_exp[20] = 9'b111001111;
+   
+   
+  
 end
 
 initial begin
@@ -181,14 +326,16 @@ initial begin
     tb_npreset = npreset[i];
     tb_pwrite = pwrite[i];
     tb_pselec1 = pselec1[i];
-    if(opcode[i] == 4'ha) begin
+    if(opcode[i] == 4'ha) begin //Store 1 
       tb_paddr = {opcode[i],sram_addr[i],20'b0};
       tb_pwdata = {sign_exp[i] ,mantissa[i]};
     end
-    else if(opcode[i] == 4'h2) 
+    else if(opcode[i] == 4'h2) //Load 
       tb_paddr = {opcode[i],dest[i],sram_addr[i],16'b0};
-    else if(opcode[i] == 4'hb) 
+    else if(opcode[i] == 4'hb) //NOP for Reading
       tb_paddr  = {20'b0, src1[i]};
+    else if(opcode[i] == 4'h1) // Store 2 
+      tb_paddr = {opcode[i], src1[i], sram_addr[i], 16'b0}; 
     else
       tb_paddr = {opcode[i], dest[i], src1[i] ,src2[i], 16'b0};
     
