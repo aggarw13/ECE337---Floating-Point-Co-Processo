@@ -118,6 +118,7 @@ module Floating_point_co_processor
   wire [31:0]load_result;
   wire reg_load_enable;
   wire load_result_done;
+  wire sram_load;
   
   //store1 block
   wire [3:0]store1_result_addr;
@@ -136,7 +137,7 @@ module Floating_point_co_processor
   
   //sram wires
   wire [7:0]nxt_sram_address;
-  wire [7:0] sram_address;
+  reg [7:0] sram_address;
   wire sram_store;
   wire [31:0] load_data; //this is the datapath from srram to regester
   wire [31:0] sram_write_data;
@@ -326,7 +327,7 @@ module Floating_point_co_processor
   assign result_address[5] = neg_result_addr;
   assign remove_enable[5] = neg_result_done;
   //move block //block 6
-  load_block MOVE(
+  move_block MOVE(
   .operand(opA),
   .enable(move_enable),
   .clk(clk),
@@ -341,7 +342,7 @@ module Floating_point_co_processor
   
   //load block //block 7
   load_block LOAD(
-  .operand(opA),
+  .operand('0),
   .enable(load_enable),
   //.enable(load_result_done),
   .clk(clk),
@@ -349,7 +350,8 @@ module Floating_point_co_processor
   .dest_in(load_dest),
   .dest_out(load_result_addr),
   .done(load_result_enable),
-  .out_operand(load_result)
+  .out_operand(load_result),
+  .sram_load(sram_load)
   );
   assign result_address[7] = load_result_addr;
   assign remove_enable[7] = load_result_enable;
@@ -427,7 +429,7 @@ module Floating_point_co_processor
 		.start_address(0),
 		.last_address(0),
 		// Memory interface signals
-		.read_enable(load_enable),
+		.read_enable(sram_load),
 		.write_enable(sram_store),
 		.address(sram_address),
 		.read_data(load_data),
@@ -436,13 +438,18 @@ module Floating_point_co_processor
 	
 	always_ff@(posedge clk, negedge n_rst)
 	begin
-	  if(n_rst ==1'b0)
-	    sram_address_store <= '0;
+	  if(n_rst ==1'b0)begin
+	    //sram_address_store <= '0;
+	    sram_address <='0;
+	    end
 	  else
-	    sram_address_store <= nxt_sram_address_store;
+	    begin
+	    //sram_address_store <= nxt_sram_address_store;
+	    sram_address <= nxt_sram_address;
+	    end
 	end
 	      
-	assign sram_address =sram_address_store | sram_address_load; // this is to put it down to one line of addres
+	assign nxt_sram_address = nxt_sram_address_store | sram_address_load; // this is to put it down to one line of addres
 	assign sram_store = store2_result_done | store1_result_done; //makes it down to one bit
 	assign sram_write_data = store2_result_done? store2_result : store1_result; // compress the data down to one set of 32. might cause a problem
 	
