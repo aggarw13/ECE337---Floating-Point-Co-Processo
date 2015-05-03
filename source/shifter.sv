@@ -26,7 +26,7 @@ module shifter #(
       
   always_comb begin
     guard_bits_out = guard_bits_in;
-    if(STICKY_ENABLE) begin
+    if(STICKY_ENABLE && mant_shift <= 23) begin
       eff_shift = (eop)? mant_shift : ((mant_shift > 2)? {1'b0, mant_shift} - 2 : 0);
       if(eff_shift > 0) begin
         for(index = 0; index < eff_shift; index++) begin
@@ -34,13 +34,13 @@ module shifter #(
         end
       guard_bits_out[2:1] = eop? 2'b00 : ((mant_shift > 1)?  {mantissa[mant_shift - 1], mantissa[mant_shift - 2]} : {mantissa[mant_shift - 1], 1'b0});
     end
-      /*if(!eop) begin
-        eff_shift = (mant_shift > 2)? 0 : mant_shift - 3; 
+      if(!eop) begin
+        //eff_shift = (mant_shift > 2)? 0 : mant_shift - 3; 
        for(index = 2; index >= 0; index--) begin
          guard_bits_out[index] = !guard_bits_out[index];
       end
       guard_bits_out = guard_bits_out + 1;
-    end*/
+    end
     end
     else if(ovf && !SHIFT_MODE) begin
       guard_bits_out[2] = guard_bits_in[2] | guard_bits_in[1];
@@ -62,7 +62,7 @@ module shifter #(
       shifted_mantissa = (mant_shift >= 3)? {shifted_mantissa[23 : 3], guard_bits_in} : ((mant_shift == 2)? {shifted_mantissa[23 : 2], guard_bits_in[2:1]} : ((mant_shift == 1)? {shifted_mantissa[23 : 1], guard_bits_in[2]} : shifted_mantissa));
     end
     else if(ovf)
-      shifted_mantissa = {1'b1, mantissa[23:1]}; 
+      shifted_mantissa = {1'b1, mantissa[23:1]};
  end
 endmodule
         
