@@ -19,15 +19,16 @@ COMPONENT_FILES	:= move_block.sv flex_fifo.sv flex_indexer.sv scheduling_logic.s
 COMPONENT_FILES += signMul.sv mul24.sv exponentAdd.sv normalizeMul.sv sticky.sv roundMul.sv exponentUp.sv apb_clk_detect.sv
 COMPONENT_FILES += CLA_24bit.sv exp_diff.sv exp_mux.sv inversion_mux.sv bit_inversion.sv round.sv shifter.sv LOP_nbit.sv LOD.sv LOD_2bit.sv LOD_nbit.sv comparator.sv swap.sv Sign.sv exception_handling.sv barrel_mux.sv
 COMPONENT_FILES += absolution.sv negation.sv load_block.sv store.sv multiply.sv add_block.sv sine.sv upDownCounter.sv scheduler.sv APB_slave_interface.sv subtract_block.sv
+COMPONENT_FILES += Floating_point_co_processor_design.sv
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-TOP_LEVEL_FILE	:= Floating_point_co_processor.sv
+TOP_LEVEL_FILE	:= Floating_point_co_processor_top.sv
 
 # Specify the filepath of the test bench you want to use (ie. tb_top_level.sv)
 # (do not include the source folder in the name)
-TEST_BENCH	:= tb_$(TOP_LEVEL_FILE)
+TEST_BENCH	:= tb_Floating_point_co_processor.sv
 
 # Fill in the names of any test bench helper code files (code files referenced by your testbenches
 # other than the actual design files)( do not include the 'source/')
@@ -307,8 +308,8 @@ tbsim_%_mapped: $(M_WORK_LIB)/% $(M_WORK_LIB)/tb_%
 
 # Set the default value of the clock name and clock period to an empty string so that clock timing will
 # only be activated in the SYN_CMDS definition if they were overwritten at invocation
-CLOCK_NAME 		:=
-CLOCK_PERIOD	:=
+CLOCK_NAME 		:= clk
+CLOCK_PERIOD	:= 7
 
 # Set the default value of the source files for sub modules to be an empty string so that
 # it will only be used if overwritten at invocation
@@ -333,7 +334,7 @@ MOD_NAME := $(basename $(MAIN_FILE))
 mapped/$(TOP_MODULE).v: SHELL := /usr/local/bin/tcsh
 mapped/$(TOP_MODULE).v: source/$(TOP_LEVEL_FILE) $(addprefix source/,$(COMPONENT_FILES))
 	@echo "Synthesizing design: $@\n"
-	@$(MAKE) --no-print-directory syn_mapped MAIN_FILE='$(TOP_LEVEL_FILE)' DEP_SUB_FILES='$(COMPONENT_FILES)' CLOCK_NAME='clk' CLOCK_PERIOD='2' > $(TOP_MODULE).log
+	@$(MAKE) --no-print-directory syn_mapped MAIN_FILE='$(TOP_LEVEL_FILE)' DEP_SUB_FILES='$(COMPONENT_FILES)' CLOCK_NAME='$(CLOCK_NAME)' CLOCK_PERIOD='$(CLOCK_PERIOD)' > $(TOP_MODULE).log
 	@echo "Synthesis run attempt for $@ complete"
 	@echo "Checking synthesis attempt for errors"
 	@syschk -w $(TOP_MODULE)
@@ -375,81 +376,81 @@ uniquify                                                                        
 # set_max_area <area>                                                                   \n\
 # set_max_total_power <power> mW                                                        \n\
 $(if $(and $(CLOCK_NAME), $(CLOCK_PERIOD)), create_clock "$(CLOCK_NAME)" -name "$(CLOCK_NAME)" -period $(CLOCK_PERIOD)) \n\
-set_max_delay 2.0 -from "MULT/MUL/a[2]" -to "MULT/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "MULT/NORM/result[47]" -to "MULT/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "MULT/STICK/rest[0]" -to "MULT/STICK/S"					\n\
-set_max_delay 2.0 -from "MULT/RND/L" -to "MULT/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "MULT/EADD/exp1[0]" -to "MULT/EADD/result[7]"					\n\
-set_max_delay 0.8 -from "ADD/MANT_CMPR/b[0]" -to "ADD/MANT_CMPR/gt"                                                 \n\
-set_max_delay 2.0 -from "ADD/LRGEMANT_INV/inversion_control" -to "ADD/LRGEMANT_INV/updated_mantissa[23]"                   \n\
-set_max_delay 0.4 -from "ADD/SMLLMANT_SHIFT/mant_shift[7]" -to "ADD/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
-set_max_delay 0.9 -from "ADD/MANT_ADD/a[0]" -to "ADD/MANT_ADD/sum[23]"                                            \n\
-set_max_delay 1.0 -from "ADD/LZC_PREDICT/op1[19]" -to "ADD/LZC_PREDICT/shift[4]"                                         \n\
-set_max_delay 1.0 -from "ADD/ROUND_RES/eop" -to "ADD/ROUND_RES/rnd_result[22]"                                      \n\
-set_max_delay 0.94 -from "ADD/EXCPETIONS/ovf" -to "ADD/EXCPETIONS/exp[7]"                                              \n\
-set_max_delay 0.8 -from "SUB/MANT_CMPR/b[0]" -to "SUB/MANT_CMPR/gt"                                                 \n\
-set_max_delay 2.0 -from "SUB/LRGEMANT_INV/inversion_control" -to "SUB/LRGEMANT_INV/updated_mantissa[23]"                   \n\
-set_max_delay 0.4 -from "SUB/SMLLMANT_SHIFT/mant_shift[7]" -to "SUB/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
-set_max_delay 0.9 -from "SUB/MANT_ADD/a[0]" -to "SUB/MANT_ADD/sum[23]"                                            \n\
-set_max_delay 1.0 -from "SUB/LZC_PREDICT/op1[19]" -to "SUb/LZC_PREDICT/shift[4]"                                         \n\
-set_max_delay 1.0 -from "SUB/ROUND_RES/eop" -to "SUB/ROUND_RES/rnd_result[22]"                                      \n\
-set_max_delay 0.94 -from "SUB/EXCPETIONS/ovf" -to "SUB/EXCPETIONS/exp[7]"                                              \n\
-set_max_delay 2.0 -from "SIN/MULX2/MUL/a[2]" -to "SIN/MULX2/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "SIN/MULX2/NORM/result[47]" -to "SIN/MULX2/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "SIN/MULX2/STICK/rest[0]" -to "SIN/MULX2/STICK/S"					\n\
-set_max_delay 2.0 -from "SIN/MULX2/RND/L" -to "SIN/MULX2/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "SIN/MULX2/EADD/exp1[0]" -to "SIN/MULX2/EADD/result[7]"					\n\
-set_max_delay 2.0 -from "SIN/MULX3/MUL/a[2]" -to "SIN/MULX3/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "SIN/MULX3/NORM/result[47]" -to "SIN/MULX3/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "SIN/MULX3/STICK/rest[0]" -to "SIN/MULX3/STICK/S"					\n\
-set_max_delay 2.0 -from "SIN/MULX3/RND/L" -to "SIN/MULX3/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "SIN/MULX3/EADD/exp1[0]" -to "SIN/MULX3/EADD/result[7]"					\n\
-set_max_delay 2.0 -from "SIN/MULX5/MUL/a[2]" -to "SIN/MULX5/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "SIN/MULX5/NORM/result[47]" -to "SIN/MULX5/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "SIN/MULX5/STICK/rest[0]" -to "SIN/MULX5/STICK/S"					\n\
-set_max_delay 2.0 -from "SIN/MULX5/RND/L" -to "SIN/MULX5/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "SIN/MULX5/EADD/exp1[0]" -to "SIN/MULX5/EADD/result[7]"					\n\
-set_max_delay 2.0 -from "SIN/MULX3FAC/MUL/a[2]" -to "SIN/MULX3FAC/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "SIN/MULX3FAC/NORM/result[47]" -to "SIN/MULX3FAC/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "SIN/MULX3FAC/STICK/rest[0]" -to "SIN/MULX3FAC/STICK/S"					\n\
-set_max_delay 2.0 -from "SIN/MULX3FAC/RND/L" -to "SIN/MULX3FAC/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "SIN/MULX3FAC/EADD/exp1[0]" -to "SIN/MULX3FAC/EADD/result[7]"					\n\
-set_max_delay 2.0 -from "SIN/MULX7/MUL/a[2]" -to "SIN/MULX7/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "SIN/MULX7/NORM/result[47]" -to "SIN/MULX7/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "SIN/MULX7/STICK/rest[0]" -to "SIN/MULX7/STICK/S"					\n\
-set_max_delay 2.0 -from "SIN/MULX7/RND/L" -to "SIN/MULX7/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "SIN/MULX7/EADD/exp1[0]" -to "SIN/MULX7/EADD/result[7]"					\n\
-set_max_delay 2.0 -from "SIN/MULX5FAC/MUL/a[2]" -to "SIN/MULX5FAC/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "SIN/MULX5FAC/NORM/result[47]" -to "SIN/MULX5FAC/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "SIN/MULX5FAC/STICK/rest[0]" -to "SIN/MULX5FAC/STICK/S"					\n\
-set_max_delay 2.0 -from "SIN/MULX5FAC/RND/L" -to "SIN/MULX5FAC/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "SIN/MULX5FAC/EADD/exp1[0]" -to "SIN/MULX5FAC/EADD/result[7]"					\n\
-set_max_delay 2.0 -from "SIN/MULX7FAC/MUL/a[2]" -to "SIN/MULX7FAC/MUL/result[47]"                                                                      \n\
-set_max_delay 0.5 -from "SIN/MULX7FAC/NORM/result[47]" -to "SIN/MULX7FAC/NORM/mantissa[22]"								\n\
-set_max_delay 1.2 -from "SIN/MULX7FAC/STICK/rest[0]" -to "SIN/MULX7FAC/STICK/S"					\n\
-set_max_delay 2.0 -from "SIN/MULX7FAC/RND/L" -to "SIN/MULX7FAC/RND/rounded[22]"						\n\
-set_max_delay 2.0 -from "SIN/MULX7FAC/EADD/exp1[0]" -to "SIN/MULX7FAC/EADD/result[7]"					\n\
-set_max_delay 0.8 -from "SIN/ADDX3/MANT_CMPR/b[0]" -to "SIN/ADDX3/MANT_CMPR/gt"                                                 \n\
-set_max_delay 2.0 -from "SIN/ADDX3/LRGEMANT_INV/inversion_control" -to "SIN/ADDX3/LRGEMANT_INV/updated_mantissa[23]"                   \n\
-set_max_delay 0.4 -from "SIN/ADDX3/SMLLMANT_SHIFT/mant_shift[7]" -to "SIN/ADDX3/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
-set_max_delay 0.9 -from "SIN/ADDX3/MANT_ADD/a[0]" -to "SIN/ADDX3/MANT_ADD/sum[23]"                                            \n\
-set_max_delay 1.0 -from "SIN/ADDX3/LZC_PREDICT/op1[19]" -to "SIN/ADDX3/LZC_PREDICT/shift[4]"                                         \n\
-set_max_delay 1.0 -from "SIN/ADDX3/ROUND_RES/eop" -to "SIN/ADDX3/ROUND_RES/rnd_result[22]"                                      \n\
-set_max_delay 0.94 -from "SIN/ADDX3/EXCPETIONS/ovf" -to "SIN/ADDX3/EXCPETIONS/exp[7]"                                              \n\
-set_max_delay 0.8 -from "SIN/ADDX5/MANT_CMPR/b[0]" -to "SIN/ADDX5/MANT_CMPR/gt"                                                 \n\
-set_max_delay 2.0 -from "SIN/ADDX5/LRGEMANT_INV/inversion_control" -to "SIN/ADDX5/LRGEMANT_INV/updated_mantissa[23]"                   \n\
-set_max_delay 0.4 -from "SIN/ADDX5/SMLLMANT_SHIFT/mant_shift[7]" -to "SIN/ADDX5/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
-set_max_delay 0.9 -from "SIN/ADDX5/MANT_ADD/a[0]" -to "SIN/ADDX5/MANT_ADD/sum[23]"                                            \n\
-set_max_delay 1.0 -from "SIN/ADDX5/LZC_PREDICT/op1[19]" -to "SIN/ADDX5/LZC_PREDICT/shift[4]"                                         \n\
-set_max_delay 1.0 -from "SIN/ADDX5/ROUND_RES/eop" -to "SIN/ADDX5/ROUND_RES/rnd_result[22]"                                      \n\
-set_max_delay 0.94 -from "SIN/ADDX5/EXCPETIONS/ovf" -to "SIN/ADDX5/EXCPETIONS/exp[7]"                                              \n\
-set_max_delay 0.8 -from "SIN/ADDX7/MANT_CMPR/b[0]" -to "SIN/ADDX7/MANT_CMPR/gt"                                                 \n\
-set_max_delay 2.0 -from "SIN/ADDX7/LRGEMANT_INV/inversion_control" -to "SIN/ADDX7/LRGEMANT_INV/updated_mantissa[23]"                   \n\
-set_max_delay 0.4 -from "SIN/ADDX7/SMLLMANT_SHIFT/mant_shift[7]" -to "SIN/ADDX7/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
-set_max_delay 0.9 -from "SIN/ADDX7/MANT_ADD/a[0]" -to "SIN/ADDX7/MANT_ADD/sum[23]"                                            \n\
-set_max_delay 1.0 -from "SIN/ADDX7/LZC_PREDICT/op1[19]" -to "SIN/ADDX7/LZC_PREDICT/shift[4]"                                         \n\
-set_max_delay 1.0 -from "SIN/ADDX7/ROUND_RES/eop" -to "SIN/ADDX7/ROUND_RES/rnd_result[22]"                                      \n\
-set_max_delay 0.94 -from "SIN/ADDX7/EXCPETIONS/ovf" -to "SIN/ADDX7/EXCPETIONS/exp[7]"                                              \n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/MULT/MUL/a[2]" -to "FP_PROCESSOR/MULT/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/MULT/NORM/result[47]" -to "FP_PROCESSOR/MULT/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/MULT/STICK/rest[0]" -to "MULT/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/MULT/RND/L" -to "FP_PROCESSOR/MULT/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/MULT/EADD/exp1[0]" -to "FP_PROCESSOR/MULT/EADD/result[7]"					\n\
+ set_max_delay 0.8 -from "FP_PROCESSOR/ADD/MANT_CMPR/b[0]" -to "FP_PROCESSOR/ADD/MANT_CMPR/gt"                                                 \n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/ADD/LRGEMANT_INV/inversion_control" -to "FP_PROCESSOR/ADD/LRGEMANT_INV/updated_mantissa[23]"                   \n\
+ set_max_delay 0.4 -from "FP_PROCESSOR/ADD/SMLLMANT_SHIFT/mant_shift[7]" -to "FP_PROCESSOR/ADD/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
+ set_max_delay 0.9 -from "FP_PROCESSOR/ADD/MANT_ADD/a[0]" -to "FP_PROCESSOR/ADD/MANT_ADD/sum[23]"                                            \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/ADD/LZC_PREDICT/op1[19]" -to "FP_PROCESSOR/ADD/LZC_PREDICT/shift[4]"                                         \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/ADD/ROUND_RES/eop" -to "FP_PROCESSOR/ADD/ROUND_RES/rnd_result[22]"                                      \n\
+ set_max_delay 0.94 -from "FP_PROCESSOR/ADD/EXCPETIONS/ovf" -to "FP_PROCESSOR/ADD/EXCPETIONS/exp[7]"                                              \n\
+ set_max_delay 0.8 -from "FP_PROCESSOR/SUB/MANT_CMPR/b[0]" -to "FP_PROCESSOR/SUB/MANT_CMPR/gt"                                                 \n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SUB/LRGEMANT_INV/inversion_control" -to "FP_PROCESSOR/SUB/LRGEMANT_INV/updated_mantissa[23]"                   \n\
+ set_max_delay 0.4 -from "FP_PROCESSOR/SUB/SMLLMANT_SHIFT/mant_shift[7]" -to "FP_PROCESSOR/SUB/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
+ set_max_delay 0.9 -from "FP_PROCESSOR/SUB/MANT_ADD/a[0]" -to "FP_PROCESSOR/SUB/MANT_ADD/sum[23]"                                            \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SUB/LZC_PREDICT/op1[19]" -to "FP_PROCESSOR/SUB/LZC_PREDICT/shift[4]"                                         \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SUB/ROUND_RES/eop" -to "FP_PROCESSOR/SUB/ROUND_RES/rnd_result[22]"                                      \n\
+ set_max_delay 0.94 -from "FP_PROCESSOR/SUB/EXCPETIONS/ovf" -to "FP_PROCESSOR/SUB/EXCPETIONS/exp[7]"                                              \n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX2/MUL/a[2]" -to "FP_PROCESSOR/SIN/MULX2/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/SIN/MULX2/NORM/result[47]" -to "FP_PROCESSOR/SIN/MULX2/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/SIN/MULX2/STICK/rest[0]" -to "FP_PROCESSOR/SIN/MULX2/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX2/RND/L" -to "FP_PROCESSOR/SIN/MULX2/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX2/EADD/exp1[0]" -to "FP_PROCESSOR/SIN/MULX2/EADD/result[7]"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX3/MUL/a[2]" -to "FP_PROCESSOR/SIN/MULX3/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/SIN/MULX3/NORM/result[47]" -to "FP_PROCESSOR/SIN/MULX3/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/SIN/MULX3/STICK/rest[0]" -to "FP_PROCESSOR/SIN/MULX3/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX3/RND/L" -to "FP_PROCESSOR/SIN/MULX3/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX3/EADD/exp1[0]" -to "FP_PROCESSOR/SIN/MULX3/EADD/result[7]"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX5/MUL/a[2]" -to "FP_PROCESSOR/SIN/MULX5/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/SIN/MULX5/NORM/result[47]" -to "FP_PROCESSOR/SIN/MULX5/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/SIN/MULX5/STICK/rest[0]" -to "FP_PROCESSOR/SIN/MULX5/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX5/RND/L" -to "FP_PROCESSOR/SIN/MULX5/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX5/EADD/exp1[0]" -to "FP_PROCESSOR/SIN/MULX5/EADD/result[7]"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX3FAC/MUL/a[2]" -to "FP_PROCESSOR/SIN/MULX3FAC/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/SIN/MULX3FAC/NORM/result[47]" -to "FP_PROCESSOR/SIN/MULX3FAC/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/SIN/MULX3FAC/STICK/rest[0]" -to "FP_PROCESSOR/SIN/MULX3FAC/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX3FAC/RND/L" -to "FP_PROCESSOR/SIN/MULX3FAC/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX3FAC/EADD/exp1[0]" -to "FP_PROCESSOR/SIN/MULX3FAC/EADD/result[7]"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX7/MUL/a[2]" -to "FP_PROCESSOR/SIN/MULX7/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/SIN/MULX7/NORM/result[47]" -to "FP_PROCESSOR/SIN/MULX7/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/SIN/MULX7/STICK/rest[0]" -to "FP_PROCESSOR/SIN/MULX7/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX7/RND/L" -to "FP_PROCESSOR/SIN/MULX7/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX7/EADD/exp1[0]" -to "FP_PROCESSOR/SIN/MULX7/EADD/result[7]"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX5FAC/MUL/a[2]" -to "FP_PROCESSOR/SIN/MULX5FAC/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/SIN/MULX5FAC/NORM/result[47]" -to "FP_PROCESSOR/SIN/MULX5FAC/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/SIN/MULX5FAC/STICK/rest[0]" -to "FP_PROCESSOR/SIN/MULX5FAC/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX5FAC/RND/L" -to "FP_PROCESSOR/SIN/MULX5FAC/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX5FAC/EADD/exp1[0]" -to "FP_PROCESSOR/SIN/MULX5FAC/EADD/result[7]"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX7FAC/MUL/a[2]" -to "FP_PROCESSOR/SIN/MULX7FAC/MUL/result[47]"                                                                      \n\
+ set_max_delay 0.5 -from "FP_PROCESSOR/SIN/MULX7FAC/NORM/result[47]" -to "FP_PROCESSOR/SIN/MULX7FAC/NORM/mantissa[22]"								\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/SIN/MULX7FAC/STICK/rest[0]" -to "FP_PROCESSOR/SIN/MULX7FAC/STICK/S"					\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX7FAC/RND/L" -to "FP_PROCESSOR/SIN/MULX7FAC/RND/rounded[22]"						\n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/MULX7FAC/EADD/exp1[0]" -to "FP_PROCESSOR/SIN/MULX7FAC/EADD/result[7]"					\n\
+ set_max_delay 0.8 -from "FP_PROCESSOR/SIN/ADDX3/MANT_CMPR/b[0]" -to "FP_PROCESSOR/SIN/ADDX3/MANT_CMPR/gt"                                                 \n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/ADDX3/LRGEMANT_INV/inversion_control" -to "FP_PROCESSOR/SIN/ADDX3/LRGEMANT_INV/updated_mantissa[23]"                   \n\
+ set_max_delay 0.4 -from "FP_PROCESSOR/SIN/ADDX3/SMLLMANT_SHIFT/mant_shift[7]" -to "FP_PROCESSOR/SIN/ADDX3/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
+ set_max_delay 0.9 -from "FP_PROCESSOR/SIN/ADDX3/MANT_ADD/a[0]" -to "FP_PROCESSOR/SIN/ADDX3/MANT_ADD/sum[23]"                                            \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX3/LZC_PREDICT/op1[19]" -to "FP_PROCESSOR/SIN/ADDX3/LZC_PREDICT/shift[4]"                                         \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX3/ROUND_RES/eop" -to "FP_PROCESSOR/SIN/ADDX3/ROUND_RES/rnd_result[22]"                                      \n\
+ set_max_delay 0.94 -from "FP_PROCESSOR/SIN/ADDX3/EXCPETIONS/ovf" -to "FP_PROCESSOR/SIN/ADDX3/EXCPETIONS/exp[7]"                                              \n\
+ set_max_delay 0.8 -from "FP_PROCESSOR/SIN/ADDX5/MANT_CMPR/b[0]" -to "FP_PROCESSOR/SIN/ADDX5/MANT_CMPR/gt"                                                 \n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/ADDX5/LRGEMANT_INV/inversion_control" -to "FP_PROCESSOR/SIN/ADDX5/LRGEMANT_INV/updated_mantissa[23]"                   \n\
+ set_max_delay 0.4 -from "FP_PROCESSOR/SIN/ADDX5/SMLLMANT_SHIFT/mant_shift[7]" -to "FP_PROCESSOR/SIN/ADDX5/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
+ set_max_delay 0.9 -from "FP_PROCESSOR/SIN/ADDX5/MANT_ADD/a[0]" -to "FP_PROCESSOR/SIN/ADDX5/MANT_ADD/sum[23]"                                            \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX5/LZC_PREDICT/op1[19]" -to "FP_PROCESSOR/SIN/ADDX5/LZC_PREDICT/shift[4]"                                         \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX5/ROUND_RES/eop" -to "FP_PROCESSOR/SIN/ADDX5/ROUND_RES/rnd_result[22]"                                      \n\
+ set_max_delay 0.94 -from "FP_PROCESSOR/SIN/ADDX5/EXCPETIONS/ovf" -to "FP_PROCESSOR/SIN/ADDX5/EXCPETIONS/exp[7]"                                              \n\
+ set_max_delay 0.8 -from "FP_PROCESSOR/SIN/ADDX7/MANT_CMPR/b[0]" -to "FP_PROCESSOR/SIN/ADDX7/MANT_CMPR/gt"                                                 \n\
+ set_max_delay 2.0 -from "FP_PROCESSOR/SIN/ADDX7/LRGEMANT_INV/inversion_control" -to "FP_PROCESSOR/SIN/ADDX7/LRGEMANT_INV/updated_mantissa[23]"                   \n\
+ set_max_delay 0.4 -from "FP_PROCESSOR/SIN/ADDX7/SMLLMANT_SHIFT/mant_shift[7]" -to "SIN/ADDX7/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
+ set_max_delay 0.9 -from "FP_PROCESSOR/SIN/ADDX7/MANT_ADD/a[0]" -to "SIN/ADDX7/MANT_ADD/sum[23]"                                            \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX7/LZC_PREDICT/op1[19]" -to "SIN/ADDX7/LZC_PREDICT/shift[4]"                                         \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX7/ROUND_RES/eop" -to "SIN/ADDX7/ROUND_RES/rnd_result[22]"                                      \n\
+ set_max_delay 0.94 -from "FP_PROCESSOR/SIN/ADDX7/EXCPETIONS/ovf" -to "SIN/ADDX7/EXCPETIONS/exp[7]"                                              \n\
                                                                                         \n\
 # Step 3: Compile the design                                                            \n\
 compile -map_effort medium                                                              \n\
