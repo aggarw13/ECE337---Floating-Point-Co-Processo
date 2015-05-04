@@ -124,7 +124,7 @@ initial begin
   sign_exp[5] = 9'b000101111;  
   
   //Test Case 6 Simple Read Instrcution
-  src1[6] = 4'h2; 
+  src1[6] = 4'h4; 
   src2[6] = 4'h0;
   dest[6] = 4'h0;
   opcode[6] = 4'hb;
