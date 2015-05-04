@@ -15,7 +15,7 @@ module load_block(
   assign dest_out = reg_out[35:32];
   assign out_operand = reg_out[31:0];
   assign done = reg_out[36];
-  assign sram_load = reg_out[36]; 
+  assign sram_load = reg_in[36]; 
   
   always_ff @(posedge clk, negedge nrst) 
   begin
