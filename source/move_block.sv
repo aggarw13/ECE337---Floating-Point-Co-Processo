@@ -20,10 +20,8 @@ module move_block(
   begin
     if(nrst == 1'b0) begin
       reg_in_out <= '0;
-      //reg_out <= '0;
     end
     else begin
-      //reg_in_out <= reg_in; 
       reg_in_out <= {enable, dest_in, operand};
     end
   end 

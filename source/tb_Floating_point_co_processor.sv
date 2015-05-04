@@ -20,7 +20,7 @@ reg tb_pslverr;
 reg tb_pready;
 reg tb_n_rst;
 
-Floating_point_co_processor FP_SLAVE (
+Floating_point_co_processor_top FP_SLAVE (
   .apb_clk(tb_apb_clk),
   .clk(tb_clk),
   .npreset(tb_npreset),

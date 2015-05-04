@@ -7,33 +7,31 @@
 // Description: Negation block.
 module negation(
   input wire [31 : 0] in_value,
-  output wire [31 : 0] out_value,
+  output reg [31 : 0] out_value,
   input wire [3 : 0] in_dest_addr,
-  output wire [3 : 0] out_dest_addr,
-  input wire en,
+  output reg [3 : 0] out_dest_addr,
   output reg done,
   input wire clk,
-  input wire nRst
+  input wire nRst,
+  input wire en
   );
   reg [31 : 0] in_reg;
   reg [31 : 0] out_reg;
-  reg [31 : 0] out_val;
   reg done1;
   reg done2;
-  reg addr1;
-  reg addr2;
-    
-  assign out_val = {!in_reg[31], in_reg[30 : 0]};
+  reg [3:0] addr1;
+  reg [3:0] addr2;
   assign out_value = out_reg;
   assign done = done2;
   assign out_dest_addr = addr2;
+  
+  
   always @ (posedge clk, negedge nRst)
   begin
     if(nRst == 1'b0)
       begin
         in_reg <= 0;
         out_reg <= 0;
-        done2 <= 0;
         addr1 <= 0;
         addr2 <= 0;
         done1 <= 0;
@@ -44,7 +42,7 @@ module negation(
         addr1 <= in_dest_addr;
         addr2 <= addr1;
         in_reg <= in_value;
-        out_reg <= out_val;
+        out_reg <= {!in_reg[31], in_reg[30:0]};
         done1 <= en;
         done2 <= done1;
       end
