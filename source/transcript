@@ -7,3 +7,22 @@
 # //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
 # //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
 # //
+vlog Floating_point_co_processor
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# ** Error: (vlog-7) Failed to open design unit file "Floating_point_co_processor" in read mode.
+# No such file or directory. (errno = ENOENT)
+# /package/eda/mg/modeltech_10.1b/modeltech/linux_x86_64/vlog failed.
+vlog Floating_point_co_processor_design.sv
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# ** Error: (vlog-19) Failed to access library './work' at "./work".
+# No such file or directory. (errno = ENOENT)
+# ** Error: Library work not found.
+# ** Error: Verilog Compiler exiting
+# /package/eda/mg/modeltech_10.1b/modeltech/linux_x86_64/vlog failed.
+vlib work
+vlog Floating_point_co_processor_design.sv
+# Model Technology ModelSim SE-64 vlog 10.1b Compiler 2012.04 Apr 26 2012
+# -- Compiling module Floating_point_co_processor_design
+# 
+# Top level modules:
+# 	Floating_point_co_processor_design
