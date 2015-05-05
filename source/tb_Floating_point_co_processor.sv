@@ -74,7 +74,7 @@ initial begin
   npreset[1] = 1'b1;
   pwrite[1] = 1'b1;
   pselec1[1] = 1'b1;
-  sram_addr[1] = 8'h00;
+  sram_addr[1] = 8'h01;
   mantissa[1] = 23'b11001010101110111100111;
   sign_exp[1] = 9'b011101111;
   
@@ -86,9 +86,9 @@ initial begin
   npreset[2] = 1'b1;
   pwrite[2] = 1'b1;
   pselec1[2] = 1'b1;
-  sram_addr[2] = 8'h04;
+  sram_addr[2] = 8'h02;
   mantissa[2] = 23'b01011011101110111100111;
-  sign_exp[2] = 9'b001011111;
+  sign_exp[2] = 9'b000011111;
   
   //Test Case 3 Simple Load Instruction
   src1[3] = 4'h0; 
@@ -97,7 +97,7 @@ initial begin
   npreset[3] = 1'b1;
   pwrite[3] = 1'b1;
   pselec1[3] = 1'b1;
-  sram_addr[3] = 8'h04;
+  sram_addr[3] = 8'h01;
   mantissa[3] = 23'b01001010101110111100111;
   sign_exp[3] = 9'b000101111;
   
@@ -108,7 +108,7 @@ initial begin
   npreset[4] = 1'b1;
   pwrite[4] = 1'b1;
   pselec1[4] = 1'b1;
-  sram_addr[4] = 8'h00;
+  sram_addr[4] = 8'h02;
   mantissa[4] = 23'b01001010101110111100111;
   sign_exp[4] = 9'b000101111;
   
