@@ -33,6 +33,7 @@ module DataSelMux
   
   always @ (Sel)
   begin
+    out_data = regData;
     case(Sel)
       ADD :
       begin
