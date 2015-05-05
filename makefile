@@ -378,7 +378,7 @@ uniquify                                                                        
 $(if $(and $(CLOCK_NAME), $(CLOCK_PERIOD)), create_clock "$(CLOCK_NAME)" -name "$(CLOCK_NAME)" -period $(CLOCK_PERIOD)) \n\
  set_max_delay 2.0 -from "FP_PROCESSOR/MULT/MUL/a[2]" -to "FP_PROCESSOR/MULT/MUL/result[47]"                                                                      \n\
  set_max_delay 0.5 -from "FP_PROCESSOR/MULT/NORM/result[47]" -to "FP_PROCESSOR/MULT/NORM/mantissa[22]"								\n\
- set_max_delay 1.2 -from "FP_PROCESSOR/MULT/STICK/rest[0]" -to "MULT/STICK/S"					\n\
+ set_max_delay 1.2 -from "FP_PROCESSOR/MULT/STICK/rest[0]" -to "FP_PROCESSOR/MULT/STICK/S"					\n\
  set_max_delay 2.0 -from "FP_PROCESSOR/MULT/RND/L" -to "FP_PROCESSOR/MULT/RND/rounded[22]"						\n\
  set_max_delay 2.0 -from "FP_PROCESSOR/MULT/EADD/exp1[0]" -to "FP_PROCESSOR/MULT/EADD/result[7]"					\n\
  set_max_delay 0.8 -from "FP_PROCESSOR/ADD/MANT_CMPR/b[0]" -to "FP_PROCESSOR/ADD/MANT_CMPR/gt"                                                 \n\
@@ -446,11 +446,11 @@ $(if $(and $(CLOCK_NAME), $(CLOCK_PERIOD)), create_clock "$(CLOCK_NAME)" -name "
  set_max_delay 0.94 -from "FP_PROCESSOR/SIN/ADDX5/EXCPETIONS/ovf" -to "FP_PROCESSOR/SIN/ADDX5/EXCPETIONS/exp[7]"                                              \n\
  set_max_delay 0.8 -from "FP_PROCESSOR/SIN/ADDX7/MANT_CMPR/b[0]" -to "FP_PROCESSOR/SIN/ADDX7/MANT_CMPR/gt"                                                 \n\
  set_max_delay 2.0 -from "FP_PROCESSOR/SIN/ADDX7/LRGEMANT_INV/inversion_control" -to "FP_PROCESSOR/SIN/ADDX7/LRGEMANT_INV/updated_mantissa[23]"                   \n\
- set_max_delay 0.4 -from "FP_PROCESSOR/SIN/ADDX7/SMLLMANT_SHIFT/mant_shift[7]" -to "SIN/ADDX7/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
- set_max_delay 0.9 -from "FP_PROCESSOR/SIN/ADDX7/MANT_ADD/a[0]" -to "SIN/ADDX7/MANT_ADD/sum[23]"                                            \n\
- set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX7/LZC_PREDICT/op1[19]" -to "SIN/ADDX7/LZC_PREDICT/shift[4]"                                         \n\
- set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX7/ROUND_RES/eop" -to "SIN/ADDX7/ROUND_RES/rnd_result[22]"                                      \n\
- set_max_delay 0.94 -from "FP_PROCESSOR/SIN/ADDX7/EXCPETIONS/ovf" -to "SIN/ADDX7/EXCPETIONS/exp[7]"                                              \n\
+ set_max_delay 0.4 -from "FP_PROCESSOR/SIN/ADDX7/SMLLMANT_SHIFT/mant_shift[7]" -to "FP_PROCESSOR/SIN/ADDX7/SMLLMANT_SHIFT/shifted_mantissa[17]"                      \n\
+ set_max_delay 0.9 -from "FP_PROCESSOR/SIN/ADDX7/MANT_ADD/a[0]" -to "FP_PROCESSOR/SIN/ADDX7/MANT_ADD/sum[23]"                                            \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX7/LZC_PREDICT/op1[19]" -to "FP_PROCESSOR/SIN/ADDX7/LZC_PREDICT/shift[4]"                                         \n\
+ set_max_delay 1.0 -from "FP_PROCESSOR/SIN/ADDX7/ROUND_RES/eop" -to "FP_PROCESSOR/SIN/ADDX7/ROUND_RES/rnd_result[22]"                                      \n\
+ set_max_delay 0.94 -from "FP_PROCESSOR/SIN/ADDX7/EXCPETIONS/ovf" -to "FP_PROCESSOR/SIN/ADDX7/EXCPETIONS/exp[7]"                                              \n\
                                                                                         \n\
 # Step 3: Compile the design                                                            \n\
 compile -map_effort medium                                                              \n\
