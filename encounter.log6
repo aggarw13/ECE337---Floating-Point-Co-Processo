@@ -1,0 +1,406 @@
+Checking out Encounter license ...
+Encounter_Digital_Impl_Sys_XL 9.1 license checkout succeeded.
+You can run 2 CPU jobs with the base license that is currently checked out.
+If required, use the setMultiCpuUsage command to enable multi-CPU processing.
+This Encounter release has been compiled with OA version 22.04-p058.
+*******************************************************************
+*   Copyright (c)  Cadence Design Systems, Inc.  1996 - 2009.     *
+*                     All rights reserved.                        *
+*                                                                 *
+*                                                                 *
+*                                                                 *
+* This program contains confidential and trade secret information *
+* of Cadence Design Systems, Inc. and is protected by copyright   *
+* law and international treaties.  Any reproduction, use,         *
+* distribution or disclosure of this program or any portion of it,*
+* or any attempt to obtain a human-readable version of this       *
+* program, without the express, prior written consent of          *
+* Cadence Design Systems, Inc., is strictly prohibited.           *
+*                                                                 *
+*                 Cadence Design Systems, Inc.                    *
+*                    2655 Seely Avenue                            *
+*                   San Jose, CA 95134,  USA                      *
+*                                                                 *
+*                                                                 *
+*******************************************************************
+
+@(#)CDS: Encounter v09.11-s084_1 (64bit) 04/26/2010 12:41 (Linux 2.6)
+@(#)CDS: NanoRoute v09.11-s008 NR100226-1806/USR63-UB (database version 2.30, 93.1.1) {superthreading v1.14}
+@(#)CDS: CeltIC v09.11-s011_1 (64bit) 03/04/2010 14:24:46 (Linux 2.6.9-78.0.25.ELsmp)
+@(#)CDS: CTE 09.11-s016_1 (64bit) Apr  8 2010 03:29:23 (Linux 2.6.9-78.0.25.ELlargesmp)
+@(#)CDS: CPE v09.11-s023
+--- Starting "Encounter v09.11-s084_1" on Sun May  3 20:21:58 2015 (mem=59.9M) ---
+--- Running on ecegrid-thin5.ecn.purdue.edu (x86_64 w/Linux 2.6.32-504.12.2.el6.x86_64) ---
+This version was compiled on Mon Apr 26 12:41:12 PDT 2010.
+Set DBUPerIGU to 1000.
+Set net toggle Scale Factor to 1.00
+Set Shrink Factor to 1.00000
+<CMD> loadConfig ./encounter.conf
+Reading config file - ./encounter.conf
+**WARN: (ENCEXT-1085):	Option 'rda_Input(ui_res_scale)' used in configuration file './encounter.conf' is obsolete. The name will be converted into new format automatically if design is saved and then restored. Alternatively, update the configuration file to use names 'rda_Input(ui_preRoute_res)' and/or 'rda_Input(ui_postRoute_res)' for resistance scale factors to be used at preRoute/postRoute stages of the design . The obsolete name works in this release. But to avoid this warning and to ensure compatibility with future releases, update this option name.
+
+Loading Lef file /package/eda/cells/OSU/v2.7/cadence/lib/ami05/lib/osu05_stdcells.lef...
+**WARN: (ENCLF-108):	There is no overlap layer defined in any lef file
+so you are unable to create rectilinear partition in a hierarchical flow.
+Set DBUPerIGU to M2 pitch 2400.
+Initializing default via types and wire widths ...
+
+Power Planner/ViaGen version 8.1.46 promoted on 02/17/2009.
+viaInitial starts at Sun May  3 20:22:06 2015
+**WARN: (ENCPP-544):	You didn't use the STACK keyword with the LEF SAMENET rule. Stacked vias might not be created correctly.  
+	SAMENET cc via 0.150 ;
+**WARN: (ENCPP-544):	You didn't use the STACK keyword with the LEF SAMENET rule. Stacked vias might not be created correctly.  
+	SAMENET via via2 0.150 ;
+**WARN: (ENCPP-557):	a single-layer VIARULE GENERATE for turn-vias is obsolete and is being ignored. You should remove this statement from your LEF file.
+	VIARULE TURN1 GENERATE
+**WARN: (ENCPP-557):	a single-layer VIARULE GENERATE for turn-vias is obsolete and is being ignored. You should remove this statement from your LEF file.
+	VIARULE TURN2 GENERATE
+**WARN: (ENCPP-557):	a single-layer VIARULE GENERATE for turn-vias is obsolete and is being ignored. You should remove this statement from your LEF file.
+	VIARULE TURN3 GENERATE
+viaInitial ends at Sun May  3 20:22:06 2015
+Reading netlist ...
+Backslashed names will retain backslash and a trailing blank character.
+Reading verilog netlist 'mapped/Floating_point_co_processor_top.v'
+Inserting temporary buffers to remove assignment statements.
+Module on_chip_sram_wrapper not defined.  Created automatically.
+**WARN: (ENCVL-346):	Module on_chip_sram_wrapper is not defined in LEF files.  It will be treated as an empty module.
+Undeclared bus init_file_number in module on_chip_sram_wrapper ... created as [31:0].
+Undeclared bus dump_file_number in module on_chip_sram_wrapper ... created as [31:0].
+Undeclared bus start_address in module on_chip_sram_wrapper ... created as [31:0].
+Undeclared bus last_address in module on_chip_sram_wrapper ... created as [31:0].
+Undeclared bus address in module on_chip_sram_wrapper ... created as [7:0].
+Undeclared bus read_data in module on_chip_sram_wrapper ... created as [31:0].
+Undeclared bus write_data in module on_chip_sram_wrapper ... created as [31:0].
+
+*** Memory Usage v0.159.2.6.2.1 (Current mem = 420.195M, initial mem = 59.918M) ***
+*** End netlist parsing (cpu=0:00:00.8, real=0:00:01.0, mem=420.2M) ***
+Set top cell to Floating_point_co_processor_top.
+Reading common timing library '/package/eda/cells/OSU/v2.7/cadence/lib/ami05/lib/osu05_stdcells.tlf' ...
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'A' of cell 'AND2X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'B' of cell 'AND2X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'max_fanout' on 'output/inout' pin 'Y' of cell 'AND2X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'A' of cell 'AND2X2' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'B' of cell 'AND2X2' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'max_fanout' on 'output/inout' pin 'Y' of cell 'AND2X2' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'A' of cell 'AOI21X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'B' of cell 'AOI21X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'C' of cell 'AOI21X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'max_fanout' on 'output/inout' pin 'Y' of cell 'AOI21X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'A' of cell 'AOI22X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'B' of cell 'AOI22X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'C' of cell 'AOI22X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'D' of cell 'AOI22X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'max_fanout' on 'output/inout' pin 'Y' of cell 'AOI22X1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'A' of cell 'BUFX2' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'max_fanout' on 'output/inout' pin 'Y' of cell 'BUFX2' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'A' of cell 'BUFX4' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'max_fanout' on 'output/inout' pin 'Y' of cell 'BUFX4' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (TECHLIB-436):	Attribute 'fanout_load' on 'input/inout' pin 'A' of cell 'CLKBUF1' is not defined in the library. Either define this value in the library or use set_default_timing_library to pick these values from a default library.
+**WARN: (ENCTS-124):	Timing library description of pin 'YPAD' is missing from cell 'PADVDD' in timing library 'osu05_stdcells'.
+**WARN: (ENCTS-124):	Timing library description of pin 'YPAD' is missing from cell 'PADGND' in timing library 'osu05_stdcells'.
+ read 39 cells in library 'osu05_stdcells' 
+*** End library_loading (cpu=0.00min, mem=0.3M, fe_cpu=0.10min, fe_mem=420.6M) ***
+**WARN: (ENCDB-2504):	Cell on_chip_sram_wrapper is instantiated in the Verilog netlist, but is not defined.
+Mark pin read_data[31] of cell on_chip_sram_wrapper output for net load_data[31] in module Floating_point_co_processor_design 
+Mark pin read_data[30] of cell on_chip_sram_wrapper output for net load_data[30] in module Floating_point_co_processor_design 
+Mark pin read_data[29] of cell on_chip_sram_wrapper output for net load_data[29] in module Floating_point_co_processor_design 
+Mark pin read_data[28] of cell on_chip_sram_wrapper output for net load_data[28] in module Floating_point_co_processor_design 
+Mark pin read_data[27] of cell on_chip_sram_wrapper output for net load_data[27] in module Floating_point_co_processor_design 
+Mark pin read_data[26] of cell on_chip_sram_wrapper output for net load_data[26] in module Floating_point_co_processor_design 
+Mark pin read_data[25] of cell on_chip_sram_wrapper output for net load_data[25] in module Floating_point_co_processor_design 
+Mark pin read_data[24] of cell on_chip_sram_wrapper output for net load_data[24] in module Floating_point_co_processor_design 
+Mark pin read_data[23] of cell on_chip_sram_wrapper output for net load_data[23] in module Floating_point_co_processor_design 
+Mark pin read_data[22] of cell on_chip_sram_wrapper output for net load_data[22] in module Floating_point_co_processor_design 
+Mark pin read_data[21] of cell on_chip_sram_wrapper output for net load_data[21] in module Floating_point_co_processor_design 
+Mark pin read_data[20] of cell on_chip_sram_wrapper output for net load_data[20] in module Floating_point_co_processor_design 
+Mark pin read_data[19] of cell on_chip_sram_wrapper output for net load_data[19] in module Floating_point_co_processor_design 
+Mark pin read_data[18] of cell on_chip_sram_wrapper output for net load_data[18] in module Floating_point_co_processor_design 
+Mark pin read_data[17] of cell on_chip_sram_wrapper output for net load_data[17] in module Floating_point_co_processor_design 
+Mark pin read_data[16] of cell on_chip_sram_wrapper output for net load_data[16] in module Floating_point_co_processor_design 
+Mark pin read_data[15] of cell on_chip_sram_wrapper output for net load_data[15] in module Floating_point_co_processor_design 
+Mark pin read_data[14] of cell on_chip_sram_wrapper output for net load_data[14] in module Floating_point_co_processor_design 
+Mark pin read_data[13] of cell on_chip_sram_wrapper output for net load_data[13] in module Floating_point_co_processor_design 
+Mark pin read_data[12] of cell on_chip_sram_wrapper output for net load_data[12] in module Floating_point_co_processor_design 
+Mark pin read_data[11] of cell on_chip_sram_wrapper output for net load_data[11] in module Floating_point_co_processor_design 
+Mark pin read_data[10] of cell on_chip_sram_wrapper output for net load_data[10] in module Floating_point_co_processor_design 
+Mark pin read_data[9] of cell on_chip_sram_wrapper output for net load_data[9] in module Floating_point_co_processor_design 
+Mark pin read_data[8] of cell on_chip_sram_wrapper output for net load_data[8] in module Floating_point_co_processor_design 
+Mark pin read_data[7] of cell on_chip_sram_wrapper output for net load_data[7] in module Floating_point_co_processor_design 
+Mark pin read_data[6] of cell on_chip_sram_wrapper output for net load_data[6] in module Floating_point_co_processor_design 
+Mark pin read_data[5] of cell on_chip_sram_wrapper output for net load_data[5] in module Floating_point_co_processor_design 
+Mark pin read_data[4] of cell on_chip_sram_wrapper output for net load_data[4] in module Floating_point_co_processor_design 
+Mark pin read_data[3] of cell on_chip_sram_wrapper output for net load_data[3] in module Floating_point_co_processor_design 
+Mark pin read_data[2] of cell on_chip_sram_wrapper output for net load_data[2] in module Floating_point_co_processor_design 
+Mark pin read_data[1] of cell on_chip_sram_wrapper output for net load_data[1] in module Floating_point_co_processor_design 
+Mark pin read_data[0] of cell on_chip_sram_wrapper output for net load_data[0] in module Floating_point_co_processor_design 
+Found empty module (on_chip_sram_wrapper).
+Starting recursive module instantiation check.
+No recursion found.
+Building hierarchical netlist for Cell Floating_point_co_processor_top ...
+*** Netlist is unique.
+** info: there are 449 modules.
+** info: there are 49040 stdCell insts.
+** info: there are 107 Pad insts.
+
+*** Memory Usage v0.159.2.6.2.1 (Current mem = 451.355M, initial mem = 59.918M) ***
+*info - Done with setDoAssign with 1220 assigns removed and 0 assigns could not be removed.
+CTE reading timing constraint file 'encounter.pt' ...
+**WARN: (TCLCMD-513):	No matching object found for 'transmit' (File encounter.pt, Line 20).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'transmit' (File encounter.pt, Line 20).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 20).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 20).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_enable' (File encounter.pt, Line 22).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_enable' (File encounter.pt, Line 22).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 22).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 22).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[7]' (File encounter.pt, Line 24).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[7]' (File encounter.pt, Line 24).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 24).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 24).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[6]' (File encounter.pt, Line 26).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[6]' (File encounter.pt, Line 26).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 26).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 26).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[5]' (File encounter.pt, Line 28).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[5]' (File encounter.pt, Line 28).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 28).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 28).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[4]' (File encounter.pt, Line 30).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[4]' (File encounter.pt, Line 30).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 30).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 30).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[3]' (File encounter.pt, Line 32).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[3]' (File encounter.pt, Line 32).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 32).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 32).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[2]' (File encounter.pt, Line 34).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[2]' (File encounter.pt, Line 34).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 34).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 34).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[1]' (File encounter.pt, Line 36).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[1]' (File encounter.pt, Line 36).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 36).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 36).
+
+**WARN: (TCLCMD-513):	No matching object found for 'write_data[0]' (File encounter.pt, Line 38).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[0]' (File encounter.pt, Line 38).
+
+**WARN: (TCLCMD-513):	No matching object found for '' (File encounter.pt, Line 38).
+
+**ERROR: (TCLNL-312):	set_input_delay: Invalid list of pins: '' (File encounter.pt, Line 38).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'fifo_full' (File encounter.pt, Line 44).
+
+**ERROR: (TCLNL-312):	set_output_delay: Invalid list of pins: '' (File encounter.pt, Line 44).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'fifo_empty' (File encounter.pt, Line 46).
+
+**ERROR: (TCLNL-312):	set_output_delay: Invalid list of pins: '' (File encounter.pt, Line 46).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'd_plus' (File encounter.pt, Line 48).
+
+**ERROR: (TCLNL-312):	set_output_delay: Invalid list of pins: '' (File encounter.pt, Line 48).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'd_minus' (File encounter.pt, Line 50).
+
+**ERROR: (TCLNL-312):	set_output_delay: Invalid list of pins: '' (File encounter.pt, Line 50).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'transmit' (File encounter.pt, Line 60).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 60).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_enable' (File encounter.pt, Line 62).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 62).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[7]' (File encounter.pt, Line 64).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 64).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[6]' (File encounter.pt, Line 66).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 66).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[5]' (File encounter.pt, Line 68).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 68).
+
+**ERROR: (TCLCMD-917):	Cannot find 'ports' that match 'write_data[4]' (File encounter.pt, Line 70).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 70).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 72).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 74).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 76).
+
+**ERROR: (TCLNL-312):	set_driving_cell: Invalid list of pins: '' (File encounter.pt, Line 78).
+
+INFO (CTE): read_dc_script finished with  20 WARNING and 44 ERROR
+*** Read timing constraints (cpu=0:00:00.1 mem=463.3M) ***
+Total number of combinational cells: 26
+Total number of sequential cells: 4
+Total number of tristate cells: 2
+Total number of level shifter cells: 0
+Total number of power gating cells: 0
+Total number of isolation cells: 0
+Total number of power switch cells: 0
+Total number of pulse generator cells: 0
+Total number of always on buffers: 0
+Total number of retention cells: 0
+List of usable buffers: BUFX2 BUFX4 CLKBUF1
+Total number of usable buffers: 3
+List of unusable buffers:
+Total number of unusable buffers: 0
+List of usable inverters: INVX2 INVX1 INVX4 INVX8
+Total number of usable inverters: 4
+List of unusable inverters:
+Total number of unusable inverters: 0
+List of identified usable delay cells: CLKBUF2 CLKBUF3
+Total number of identified usable delay cells: 2
+List of identified unusable delay cells:
+Total number of identified unusable delay cells: 0
+*info: set bottom ioPad orient R180
+Reading IO assignment file "encounter.io" ...
+**Warn: ignored IO file "encounter.io" line 118: Pad: U108 S
+  Reason: unable to determine object from name.
+Horizontal Layer M1 offset = 1500 (derived)
+Vertical Layer M2 offset = 1200 (derived)
+Set Using Default Delay Limit as 1000.
+Set Default Net Delay as 1000 ps.
+Set Default Net Load as 0.5 pF.
+Set Input Pin Transition Delay as 120 ps.
+PreRoute Cap Scale Factor :        1.00
+PreRoute Res Scale Factor :        1.00
+PostRoute Cap Scale Factor :       1.00
+PostRoute Res Scale Factor :       1.00
+PostRoute XCap Scale Factor :      1.00
+
+PreRoute Clock Cap Scale Factor :  1.00	[Derived from postRoute_cap (effortLevel low)]
+PreRoute Clock Res Scale Factor :  1.00	[Derived from postRoute_res (effortLevel low)]
+PostRoute Clock Cap Scale Factor : 1.00	[Derived from postRoute_cap (effortLevel low)]
+PostRoute Clock Res Scale Factor : 1.00	[Derived from postRoute_res (effortLevel low)]
+**WARN: (ENCOPT-3465):	The buffer cells were automatically identified. The command setBufFootPrint is ignored. If you want to force the tool to honor this setting, you have to load a footprint file through the loadFootPrint command.
+**WARN: (ENCOPT-3466):	The inverter cells were automatically identified. The command setInvFootPrint is ignored. If you want to force the tool to honor this setting, you have to load a footprint file through the loadFootPrint command.
+**WARN: (ENCOPT-3467):	The delay cells were automatically identified. The command setDelayFootPrint is ignored. If you want to force the tool to honor this setting, you have to load a footprint file through the loadFootPrint command.
+<CMD> floorPlan -r 1.0 0.4 50 50 50 50
+Snap core to left to manufacture grid: 49.9500.
+Snap core to bottom to manufacture grid: 49.9500.
+Snap core to right to manufacture grid: 49.9500.
+Snap core to top to manufacture grid: 49.9500.
+Adjusting Core to Left to: 50.4000. Core to Bottom to: 51.0000.
+Horizontal Layer M1 offset = 1500 (derived)
+Vertical Layer M2 offset = 1200 (derived)
+<CMD> addRing -spacing_bottom 9.9 -width_left 9.9 -width_bottom 9.9 -width_top 9.9 -spacing_top 9.9 -layer_bottom metal1 -width_right 9.9 -around core -center 1 -layer_top metal1 -spacing_right 9.9 -spacing_left 9.9 -layer_right metal2 -layer_left metal2 -offset_top 9.9 -offset_bottom 9.9 -offset_left 9.9 -offset_right 9.9 -nets { gnd vdd }
+
+
+The power planner created 8 wires.
+
+<CMD> setPlaceMode -congEffort medium
+<CMD> placeDesign -inPlaceOpt
+*** Starting placeDesign concurrent flow ***
+*** Start deleteBufferTree ***
+Calculate delays in Single mode...
+Topological Sorting (CPU = 0:00:00.1, MEM = 492.7M)
+Number of Loop : 0
+Start delay calculation (mem=492.688M)...
+Delay calculation completed. (cpu=0:00:01.4 real=0:00:01.0 mem=500.867M 0)
+*** CDM Built up (cpu=0:00:03.1  real=0:00:03.0  mem= 500.9M) ***
+Info: Detect buffers to remove automatically.
+Analyzing netlist ...
+Updating netlist
+*summary: 2526 instances (buffers/inverters) removed
+*** Finish deleteBufferTree (0:00:04.5) ***
+Extracting standard cell pins and blockage ...... 
+Pin and blockage extraction finished
+Extracting macro/IO cell pins and blockage ...... 
+Pin and blockage extraction finished
+*** Starting "NanoPlace(TM) placement v0.892.2.8.2.1 (mem=504.2M)" ...
+*** Build Buffered Sizing Timing Model
+(cpu=0:00:00.0 mem=504.2M) ***
+*** Build Virtual Sizing Timing Model
+(cpu=0:00:00.0 mem=504.2M) ***
+Options: timingDriven ignoreScan ignoreSpare pinGuide gpeffort=medium 
+**WARN: (ENCDB-2082):	Scan chains were not defined, -ignoreScan option will be ignored. 
+Please first define the scan chains before using this option.
+#std cell=46514 #block=0 (0 floating + 0 preplaced) #ioInst=111 #net=48278 #term=160797 #term/net=3.33, #fixedIo=111, #floatIo=0, #fixedPin=105, #floatPin=0
+stdCell: 46514 single + 0 double + 0 multi
+Total standard cell length = 729.7512 (mm), area = 21.8925 (mm^2)
+Average module density = 0.391.
+Density for the design = 0.391.
+       = stdcell_area 304063 (21892536 um^2) / alloc_area 776880 (55935360 um^2).
+Pin Density = 0.529.
+            = total # of pins 160797 / total Instance area 304063.
+Iteration  1: Total net bbox = 1.141e+06 (6.12e+05 5.30e+05)
+              Est.  stn bbox = 1.141e+06 (6.12e+05 5.30e+05)
+              cpu = 0:00:00.4 real = 0:00:00.0 mem = 535.4M
+Iteration  2: Total net bbox = 1.141e+06 (6.12e+05 5.30e+05)
+              Est.  stn bbox = 1.141e+06 (6.12e+05 5.30e+05)
+              cpu = 0:00:00.0 real = 0:00:00.0 mem = 535.4M
+Iteration  3: Total net bbox = 1.152e+06 (6.16e+05 5.36e+05)
+              Est.  stn bbox = 1.152e+06 (6.16e+05 5.36e+05)
+              cpu = 0:00:00.0 real = 0:00:00.0 mem = 535.4M
+Iteration  4: Total net bbox = 4.445e+06 (1.64e+06 2.81e+06)
+              Est.  stn bbox = 4.445e+06 (1.64e+06 2.81e+06)
+              cpu = 0:00:11.9 real = 0:00:12.0 mem = 535.4M
+Iteration  5: Total net bbox = 7.194e+06 (3.24e+06 3.95e+06)
+              Est.  stn bbox = 7.194e+06 (3.24e+06 3.95e+06)
+              cpu = 0:00:11.8 real = 0:00:12.0 mem = 535.4M
+Iteration  6: Total net bbox = 8.767e+06 (4.07e+06 4.69e+06)
+              Est.  stn bbox = 8.767e+06 (4.07e+06 4.69e+06)
+              cpu = 0:00:11.9 real = 0:00:12.0 mem = 538.4M
+Iteration  7: Total net bbox = 8.872e+06 (4.18e+06 4.69e+06)
+              Est.  stn bbox = 1.084e+07 (5.01e+06 5.82e+06)
+              cpu = 0:00:36.6 real = 0:00:37.0 mem = 525.2M
+Iteration  8: Total net bbox = 8.885e+06 (4.19e+06 4.70e+06)
+              Est.  stn bbox = 1.085e+07 (5.02e+06 5.83e+06)
+              cpu = 0:00:09.8 real = 0:00:10.0 mem = 525.1M
+Iteration  9: Total net bbox = 9.577e+06 (4.65e+06 4.92e+06)
+              Est.  stn bbox = 1.177e+07 (5.66e+06 6.11e+06)
+              cpu = 0:00:24.0 real = 0:00:24.0 mem = 528.4M
+Iteration 10: Total net bbox = 9.718e+06 (4.72e+06 5.00e+06)
+              Est.  stn bbox = 1.192e+07 (5.73e+06 6.19e+06)
+              cpu = 0:00:10.1 real = 0:00:10.0 mem = 528.4M
+Iteration 11: Total net bbox = 9.684e+06 (4.80e+06 4.89e+06)
+              Est.  stn bbox = 1.202e+07 (5.88e+06 6.14e+06)
+              cpu = 0:00:29.0 real = 0:00:29.0 mem = 529.4M
+Iteration 12: Total net bbox = 9.849e+06 (4.87e+06 4.98e+06)
+              Est.  stn bbox = 1.219e+07 (5.96e+06 6.24e+06)
+              cpu = 0:00:10.5 real = 0:00:11.0 mem = 529.4M

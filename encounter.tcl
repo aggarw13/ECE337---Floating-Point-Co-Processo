@@ -7,7 +7,7 @@
 loadConfig ./encounter.conf 
 
 # Create Floorplan
-floorplan -r 1.0 0.4 50 50 50 50
+floorplan -r 1.0 0.4 5000 5000 5000 5000
 
 # Add supply rings around core
 addRing -spacing_bottom 9.9 -width_left 9.9 -width_bottom 9.9 -width_top 9.9 -spacing_top 9.9 -layer_bottom metal1 -width_right 9.9 -around core -center 1 -layer_top metal1 -spacing_right 9.9 -spacing_left 9.9 -layer_right metal2 -layer_left metal2 -offset_top 9.9 -offset_bottom 9.9 -offset_left 9.9 -offset_right 9.9 -nets { gnd vdd }
@@ -125,8 +125,8 @@ verifyConnectivity -type all -error 1000 -warning 50
 verifyGeometry
 
 # Output GDSII
-streamOut final.gds2 -mapFile gds2_encounter.map -outputMacros -stripes 1 -units 1000 -mode ALL
-#streamOut final.gds2
+#streamOut final.gds2 -mapFile gds2_encounter.map -outputMacros -stripes 1 -units 1000 -mode ALL
+streamOut final.gds2
 saveNetlist -excludeLeafCell final.v
 
 # Output DSPF RC Data
