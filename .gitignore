@@ -5,3 +5,4 @@ covhtmlreport/*
 *.bak
 #ignore files in the work folder
 source_work/
+transcript
