@@ -116,17 +116,17 @@ module Floating_point_co_processor_design
   //load block
   wire [3:0]load_result_addr;
   wire [31:0]load_result;
-  wire reg_load_enable;
-  wire load_result_done;
+  //wire reg_load_enable;
+  //wire load_result_done;
   wire sram_load;
   
   //store1 block
-  wire [3:0]store1_result_addr;
+  //wire [3:0]store1_result_addr;
   wire [31:0]store1_result;
   wire store1_result_done;
   
   //store2 block
-  wire [3:0]store2_result_addr;
+  //wire [3:0]store2_result_addr;
   wire [31:0]store2_result;
   wire store2_result_done;
   
