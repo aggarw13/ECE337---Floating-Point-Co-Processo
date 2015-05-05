@@ -6,7 +6,7 @@ localparam APB_CLK_PERIOD = 28;
 localparam SYS_CLK_PERIOD = 7;
 localparam NUM_TEST_CASES = 19;
 localparam DELAY = 10;
-localparam SELE_DELAY = 4;
+localparam SELEC_DELAY = 13;
 
 reg tb_apb_clk;
 reg tb_clk;
@@ -321,6 +321,7 @@ initial begin
   tb_pselec1 = 1'b1;
   tb_pwdata = '0;
   for(i = 1; i <= NUM_TEST_CASES; i++) begin
+    #(SELEC_DELAY);
     slave_error = 0;
     next_instruct = 0;
     tb_pwrite = pwrite[i];
@@ -359,7 +360,6 @@ initial begin
     //Case when slave error is signalled by SLave
     if(next_instruct && tb_pready == 1'b0 && slave_error)
       i--;
-    #(SELEC_DELAY);
   end
 end
     
