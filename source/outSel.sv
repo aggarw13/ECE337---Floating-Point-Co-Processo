@@ -52,7 +52,7 @@ module outSel
   );
   
   //Data Out MUX
-  always @ (DataOutSel)
+  always_comb //@ (DataOutSel)
   begin
     case(DataOutSel)
       REG0 :
