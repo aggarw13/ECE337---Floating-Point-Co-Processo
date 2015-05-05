@@ -75,8 +75,8 @@ initial begin
   pwrite[1] = 1'b1;
   pselec1[1] = 1'b1;
   sram_addr[1] = 8'h00;
-  mantissa[1] = 23'b01001010101110111100111;
-  sign_exp[1] = 9'b000101111;
+  mantissa[1] = 23'b11001010101110111100111;
+  sign_exp[1] = 9'b011101111;
   
   // Test Case 2 Simple Store 1 Instruction
   src1[2] = 4'h1; 
@@ -88,7 +88,7 @@ initial begin
   pselec1[2] = 1'b1;
   sram_addr[2] = 8'h04;
   mantissa[2] = 23'b01011011101110111100111;
-  sign_exp[2] = 9'b000011111;
+  sign_exp[2] = 9'b001011111;
   
   //Test Case 3 Simple Load Instruction
   src1[3] = 4'h0; 
