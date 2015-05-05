@@ -5,7 +5,7 @@ module move_block(
   input wire clk,
   input wire nrst,
   input wire [3:0] dest_in,
-  input wire [3:0] dest_out,
+  output wire [3:0] dest_out,
   output logic done,
   output logic [31:0] out_operand
   );
