@@ -347,15 +347,16 @@ initial begin
     tb_penable = 1'b1;
     
     @(posedge tb_apb_clk);
+    @(posedge tb_apb_clk);
     //ACCESS PHASE
     if(tb_pready == 1'b1)
       next_instruct = 1;
     if(tb_pslverr)
       slave_error = 1;
-    @(posedge tb_apb_clk);
+    #(DELAY);
     tb_penable = 1'b0;
     tb_pselec1 = 1'b0;
-    #(DELAY);
+    
     //NEXT PHASE
     //Case when slave error is signalled by SLave
     if(next_instruct && tb_pready == 1'b0 && slave_error)
