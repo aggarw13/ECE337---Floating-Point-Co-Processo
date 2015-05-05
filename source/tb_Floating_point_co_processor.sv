@@ -4,7 +4,7 @@ module tb_Floating_point_co_processor();
 
 localparam APB_CLK_PERIOD = 28;
 localparam SYS_CLK_PERIOD = 7;
-localparam NUM_TEST_CASES = 19;
+localparam NUM_TEST_CASES = 20;
 localparam DELAY = 10;
 localparam SELEC_DELAY = 13;
 
@@ -232,7 +232,7 @@ initial begin
   mantissa[14] = 23'b01001010101110111100111;
   sign_exp[14] = 9'b000101111;
   
-  ///Error Test Cases (Filling Data Buffer)
+  ///Error Test Cases (Filling Data Buffer) (for negative operand)
   src1[15] = 4'h8; 
   src2[15] = 4'h0;
   dest[15] =  4'h0;
@@ -244,7 +244,7 @@ initial begin
   mantissa[15] = 23'b11011010111110011110000;
   sign_exp[15] = 9'b111001111;
   
-  //Another Store 1 Instruction
+  //Test Case 16: Another Store 1 Instruction (for negative operand)
   src1[16] = 4'h8; 
   src2[16] = 4'h0;
   dest[16] =  4'h0;
@@ -255,43 +255,55 @@ initial begin
   sram_addr[16] = 8'h05;
   mantissa[16] = 23'b01111010101110111100111;
   sign_exp[16] = 9'b110101111;
-  
-  //Negation test
+ 
+  //Test Case 17:  Load Instruction for negative operand 1
   src1[17] = 4'h8; 
   src2[17] = 4'h0;
-  dest[17] =  4'h0;
-  opcode[17] = 4'ha;
+  dest[17] =  4'h8;
+  opcode[17] = 4'h2;
   npreset[17] = 1'b1;
   pwrite[17] = 1'b1;
   pselec1[17] = 1'b1;
-  sram_addr[17] = 8'h06;
-  mantissa[17] = 23'b11001010111110011110000;
-  sign_exp[17] = 9'b111001111;
+  sram_addr[17] = 8'h04;
+  mantissa[17] = 23'b01111010101110111100111;
+  sign_exp[17] = 9'b110101111;
   
-  
+  //Test Case 18 : Negation test
   src1[18] = 4'h8; 
   src2[18] = 4'h0;
-  dest[18] =  4'h0;
-  opcode[18] = 4'ha;
+  dest[18] =  4'h8;
+  opcode[18] = 4'h7;
   npreset[18] = 1'b1;
   pwrite[18] = 1'b1;
   pselec1[18] = 1'b1;
-  sram_addr[18] = 8'h09;
+  sram_addr[18] = 8'h06;
   mantissa[18] = 23'b11001010111110011110000;
   sign_exp[18] = 9'b111001111;
   
-   
+   //Test Case 19:  Load Instruction for negative operand 2
+  src1[19] = 4'h8; 
+  src2[19] = 4'h9;
+  dest[19] =  4'h9;
+  opcode[19] = 4'h2;
+  npreset[19] = 1'b1;
+  pwrite[19] = 1'b1;
+  pselec1[19] = 1'b1;
+  sram_addr[19] = 8'h05;
+  mantissa[19] = 23'b11001010111110011110000;
+  sign_exp[19] = 9'b111001111;
+  
+  
+  //Test Case 20 : Subtract Instructions for Different Signed operations (to obtain positive result)
   src1[20] = 4'h8; 
-  src2[20] = 4'h0;
-  dest[20] =  4'h0;
-  opcode[20] = 4'ha;
+  src2[20] = 4'h9;
+  dest[20] =  4'ha;
+  opcode[20] = 4'h4;
   npreset[20] = 1'b1;
   pwrite[20] = 1'b1;
   pselec1[20] = 1'b1;
   sram_addr[20] = 8'hAA;
   mantissa[20] = 23'b11001010111110011110000;
   sign_exp[20] = 9'b111001111;
-   
    
   
 end
