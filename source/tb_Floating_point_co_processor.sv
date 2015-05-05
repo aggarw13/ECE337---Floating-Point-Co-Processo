@@ -6,6 +6,7 @@ localparam APB_CLK_PERIOD = 28;
 localparam SYS_CLK_PERIOD = 7;
 localparam NUM_TEST_CASES = 19;
 localparam DELAY = 10;
+localparam SELE_DELAY = 4;
 
 reg tb_apb_clk;
 reg tb_clk;
@@ -124,7 +125,7 @@ initial begin
   sign_exp[5] = 9'b000101111;  
   
   //Test Case 6 Simple Read Instrcution
-  src1[6] = 4'h4; 
+  src1[6] = 4'h2; 
   src2[6] = 4'h0;
   dest[6] = 4'h0;
   opcode[6] = 4'hb;
@@ -353,11 +354,12 @@ initial begin
     @(posedge tb_apb_clk);
     tb_penable = 1'b0;
     tb_pselec1 = 1'b0;
+    #(DELAY);
     //NEXT PHASE
     //Case when slave error is signalled by SLave
     if(next_instruct && tb_pready == 1'b0 && slave_error)
       i--;
-    #(DELAY);
+    #(SELEC_DELAY);
   end
 end
     
