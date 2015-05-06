@@ -1,5 +1,5 @@
 //General Shifter of mantissa for aligning exponents in Stage 1 and Normalizing Result in Stage 3
- //Shift Direction protocol - 1 for right shift and -1 for left shif
+//Shift Direction protocol : - 1 for right shift and -1 for left shif
 module shifter #(
   NUM_SHIFT_BITS = 8,
   STICKY_ENABLE = 1, //1 for calculating sticky and  0 for not calculating
@@ -18,12 +18,11 @@ module shifter #(
 
   integer index, i;
   logic [0 : 4][4 : 0] pos_shift;
-  //logic [1 : 24] [23 : 0] shifted_mantissa_mux; 
-  //logic [23 : 0] interim_shift; 
   logic [7 : 0] shift;
   logic eff_shift;
   assign pos_shift = {5'b00001,5'b00010, 5'b00100, 5'b01000, 5'b10000};
       
+  //Calculating / Updating Guard Bits of Shifted mantissa for Rounding of Added Result Mantissa (in addition and subtraction)
   always_comb begin
     guard_bits_out = guard_bits_in;
     if(STICKY_ENABLE && mant_shift <= 23) begin
@@ -35,7 +34,6 @@ module shifter #(
       guard_bits_out[2:1] = eop? 2'b00 : ((mant_shift > 1)?  {mantissa[mant_shift - 1], mantissa[mant_shift - 2]} : {mantissa[mant_shift - 1], 1'b0});
     end
       if(!eop) begin
-        //eff_shift = (mant_shift > 2)? 0 : mant_shift - 3; 
        for(index = 2; index >= 0; index--) begin
          guard_bits_out[index] = !guard_bits_out[index];
       end
@@ -48,6 +46,8 @@ module shifter #(
       guard_bits_out[0] = mantissa[23]; 
     end
   end   
+
+  // Using Barrel Shifter Technique for optimized shifting of mantissa in Stage 1/3 of Add/Subtract ALU Block
   
   always_comb begin
     shifted_mantissa = mantissa;

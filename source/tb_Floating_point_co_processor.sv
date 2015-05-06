@@ -20,6 +20,9 @@ reg [31:0] tb_prdata;
 reg tb_pslverr;
 reg tb_pready;
 reg tb_n_rst;
+typedef enum bit[3:0] {STORE1=4'hA, STORE2=4'h1, LOAD=4'h2,ADD=4'h3, SUB=4'h4, //enumerateed types of different opcodes
+                         MUL=4'h5, SIN=4'h6, NEG=4'h7, ABS=4'h8, MOVE=4'h9, NOP=4'h0} opcode_type;
+opcode_type curr_opcode;
 
 Floating_point_co_processor_top FP_SLAVE (
   .apb_clk(tb_apb_clk),
@@ -329,6 +332,7 @@ initial begin
     tb_npreset = npreset[i];
     tb_pwrite = pwrite[i];
     tb_pselec1 = pselec1[i];
+    curr_opcode = opcode_type'(opcode[i]);
     if(opcode[i] == 4'ha) begin //Store 1 
       tb_paddr = {opcode[i],sram_addr[i],20'b0};
       tb_pwdata = {sign_exp[i] ,mantissa[i]};

@@ -52,6 +52,7 @@ initial begin //Can add an overflow case (underflow is already present)
   //Test Case 1 : Basic Addition of Same Exponent FP numbers
   //mantissa_A[1] = 23'b00000000001000100000000;
   //mantissa_B[1] = 23'b00000000010001000000010;
+  //Addition of Operands with Exp difference of 1
   mantissa_A[1] = 23'b01001100110011001100110;
   mantissa_B[1]= 23'b00110011001100110011010;
   exp_A[1] = 8'h7f;
@@ -69,22 +70,22 @@ initial begin //Can add an overflow case (underflow is already present)
   sign_B[2] = 1;
   expected_sign[2] = 1'b1;
   
-  //Test Case 3 : Adding basic FP numbers with positive exponent difference
+  //Test Case 3 : Adding basic FP numbers with no exponent difference
   mantissa_A[3] = 23'b00010001001000100000000;
   mantissa_B[3] = 23'b00101001010001000000010;
   exp_A[3] = 8'h08;
-  exp_B[3] = 8'h07;
+  exp_B[3] = 8'h08;
   sign_A[3] = 0;
   sign_B[3] = 0;
   expected_sign[3] = 1'b0;
   
-  //Test Case 4 : Adding two FP numbers with negative exponent difference
+  //Test Case 4 : Adding two FP numbers with negative exponent difference (Adding positive and negative FP numbers) 
   mantissa_A[4] = 23'b00000000001000100000000;
   mantissa_B[4] = 23'b00000000010001000000010;
   exp_A[4] = 8'h04;
   exp_B[4] = 8'h0f;
   sign_A[4] = 0;
-  sign_B[4] = 0;
+  sign_B[4] = 1;
   expected_sign[4] = 1'b0;
   
   //Test Case 5 : Effect subtraction of two large exponent difference FP numbers for positive result

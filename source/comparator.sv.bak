@@ -19,11 +19,11 @@ module comparator
 
 	reg gte;
 	reg lte;
-  //assign eq = (a == b)? 1'b1 : 1'b0;
-  //assign lt = !({1'b0, a} > {1'b0, b}) & !eq; 
-  //assign gt = !({1'b0, b} > {1'b0, a}) & !eq;
+  assign eq = (a == b)? 1'b1 : 1'b0;
+  assign lt = !({1'b0, a} > {1'b0, b}) & !eq; 
+  assign gt = !({1'b0, b} > {1'b0, a}) & !eq;
 
-	always @ (a, b) begin: COM
+	/*always @ (a, b) begin: COM
     lte = 0;
     gte = 0;
 		if (!(a > b)) begin
@@ -46,5 +46,5 @@ module comparator
 			lt = 1'b0;
 			eq = 1'b1;
 		end
-	end
+	end*/
 endmodule

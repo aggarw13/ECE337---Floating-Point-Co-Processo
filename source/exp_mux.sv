@@ -1,10 +1,4 @@
-// $Id: $
-// File name:   exp_mux.sv
-// Created:     4/15/2015
-// Author:      Akash Kumar
-// Lab Section: 5
-// Version:     1.0  Initial Design Entry
-// Description: Exponent MUX.
+// Description: Exponent MUX for Selecting Larger Exponent of the two operands
 
 module exp_mux(
   input wire [7 : 0] Ea,

@@ -133,7 +133,7 @@ module add_block(
   .a(mantissaA), 
   .b(mantissaB), 
   .eq(mantissa_compare[2]) , 
-  .gt(mantissa_compare[1) , 
+  .gt(mantissa_compare[1]) , 
   .lt(mantissa_compare[0])
   );
   

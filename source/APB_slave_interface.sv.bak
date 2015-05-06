@@ -25,7 +25,15 @@ module APB_slave_interface(
   );
   
   logic rising_edge_detect;
-  // States of AMBA Interface (in a STATE machine design) : IDLE STATE, SETUP PHASE, WAIT STATE, ACCESS PHASE, ERROR PHASE 
+  
+  // States of AMBA Interface (is a STATE machine design) : IDLE STATE, SETUP PHASE, ACCESS PHASE 1, ACCESS PHASE 2, ERROR PHASE, INTERIM PHASE
+  //IDLE STATE : Interface waits for the master to assert the select line to activate the Slave Processor
+  //SETUP : Master asserts the slave select line to activate the Slave Processor and indicates a Read or Write Transfer with appropriate instruction in Address bus
+  //ACCESS PHASE 1 : Slave reciprocates a Ready Signal and instrcuts the slave chip about valid new instruction with a pulse
+  //ACCESS PHASE 2 : Slave assess the state of the chip to assess if it can service the request. If true, stores the instruction in FIFO
+  //ERROR STATE : Signifies a busy FLoating oint Porcessor Slave for accepting any write instruction or Invalid Result for a Read Transfer Request
+  
+   
   apb_clk_detect DETECT_RISING_EDGE(.apb_clk(apb_clk), .system_clk(clk), .rising_edge_found(rising_edge_detect),.nrst(1'b1));
   typedef enum bit [2:0] {IDLE, SETUP, ACCESS_1, ACCESS_2, ERROR, INTERIM} amba_states;
   amba_states curr_state, next_state;
@@ -61,7 +69,7 @@ module APB_slave_interface(
           else if(!pselec1)
             next_state = IDLE;
           else
-            next_state = ACCESS;
+            next_state = ACCESS_1;
           end
         end
       ACCESS_1 : begin
@@ -76,13 +84,6 @@ module APB_slave_interface(
         else if(rising_edge_detect)
           next_state = INTERIM;
         end
-      /*WAIT : begin
-        pready = 1'b0;
-        if(rising_edge_detect & !wait_sig)
-          next_state = ACCESS;
-        else if(rising_edge_detect && penable && slave_error)
-          next_state = ERROR;
-        end*/
       INTERIM : begin
         if(pselec1)
           next_state = SETUP;

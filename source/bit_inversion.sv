@@ -1,5 +1,5 @@
-//Bit Inversion control block for determining bit inversion for operands
-//Protoicol for eop : 1 for addition and 0 for subtraction
+//Bit Inversion control block for determining bit inversion for operands A and B
+//Protocol for eop : 1 for addition and 0 for subtraction
 module bit_inversion
 (
   input wire [2:0] compare,

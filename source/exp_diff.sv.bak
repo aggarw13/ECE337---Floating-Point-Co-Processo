@@ -14,6 +14,6 @@ module exp_diff(
   
   //CLA_24bit expDiff(.a(Ea) , .(Eb) , .carry_in(1'b0) , .carry_out
   
-  assign Ediff = {1'b0, Ea} - {1'b0, Eb};
+  assign Ediff = Ea - Eb;
   
 endmodule

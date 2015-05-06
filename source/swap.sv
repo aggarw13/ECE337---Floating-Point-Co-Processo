@@ -1,5 +1,5 @@
 
-//Chooses the mantissa for right shifting
+//Chooses the mantissa of smaller exponent for right shifting
 module swap
 (
   input wire [22:0] mantissa_A,

@@ -52,8 +52,8 @@ initial begin //Can add an overflow case (underflow is already present)
   //Test Case 1 : Basic Addition of Same Exponent FP numbers
   //mantissa_A[1] = 23'b00000000001000100000000;
   //mantissa_B[1] = 23'b00000000010001000000010;
-  mantissaA[1] = 23'b01001100110011001100110;
-  mantissaB[1]= 23'b00110011001100110011010;
+  mantissa_A[1] = 23'b01001100110011001100110;
+  mantissa_B[1]= 23'b00110011001100110011010;
   exp_A[1] = 8'h7f;
   exp_B[1] = 8'h80;
   sign_A[1] = 0;

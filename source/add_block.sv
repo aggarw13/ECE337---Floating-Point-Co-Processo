@@ -31,10 +31,6 @@ module add_block(
     if(nreset == '0) 
       reg_status <= '0;
     else begin
-      //Stage Status Registers
-      /*reg_status[3]= reg_status[2];
-      reg_status[2] = reg_status[1];
-      reg_status[1] = reg_inputs[68];*/
       reg_status[1:3] <= {reg_inputs[68], reg_status[1:2]};
     end
   end
@@ -99,13 +95,12 @@ module add_block(
   //Parsing Input data operands and Assigning output signals
   assign expA = reg_inputs[30:23];
   assign expB = reg_inputs[62:55];
-  assign mantissaA = reg_inputs[22:0];//(reg_inputs[62:55] ~^ 8'hff && reg_inputs[54:32] ^ 23'b0)? 1 : reg_inputs[22:0]; 
-  assign mantissaB = reg_inputs[54:32];//(reg_inputs[30:23] ~^ 8'hff && reg_inputs[22:0] ^ 23'b0)? 1 : reg_inputs[54:32];
+  assign mantissaA = reg_inputs[22:0]; 
+  assign mantissaB = reg_inputs[54:32];
   assign signA = reg_inputs[31];
   assign signB = reg_inputs[63];
   assign eop = !(signA ^ signB);
   assign actual_expdiff = (expdiff_s1[8])? {1'b1, 0 - expdiff_s1[7:0]} : expdiff_s1; 
-  //assign result = {sign_out,exp_out,final_mantissa};
   assign result = reg_stage3[31:0];
   assign stage3_shift_dir = reg_stage2[56];
   assign write_enable = reg_status[3];

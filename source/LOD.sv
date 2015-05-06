@@ -1,14 +1,20 @@
-module LOD #(
+//Description : Top-Level Leading One-Detector Module for counting the number of shifts required to normalzie the addition result of operand mantissas
+
+
+module LOD 
+#(
   NUM_BITS = 24,
   BIT_COUNT = 5
   )
-  (
+ (
   input wire [NUM_BITS - 1 : 0] result,
-  output logic [BIT_COUNT - 1 : 0] lzc,
-  output logic status
-  );   
+  output logic [BIT_COUNT - 1 : 0] lzc
+ );   
   
+  //Wrapper Module for Uisng a parametersized LOD for calculating the leading zero count in a bottom-top tree 
+  //Instantiates LOD_2bit.sv and LOD_nbit.sv for calculating leading zero-counts for 2bit,4-bit,8-bit,16-bit and 32-bit binmary number levels
   
+  //Internal signals for zero count and status for all sub-level blocks used
   logic bit2_c1, bit2_c2, bit2_c3, bit2_c4, bit2_c5, bit2_c6, bit2_c7, bit2_c8, bit2_c9, bit2_c10, bit2_c11, bit2_c12; 
   logic bit2_s1, bit2_s2, bit2_s3, bit2_s4, bit2_s5, bit2_s6, bit2_s7, bit2_s8, bit2_s9, bit2_s10, bit2_s11, bit2_s12 ;
   logic [1:0] bit4_c1, bit4_c2, bit4_c3, bit4_c4, bit4_c5, bit4_c6;
@@ -22,8 +28,7 @@ module LOD #(
   assign lod_l1= {{result[23], result[22]}, {result[21], result[20]}, {result[19], result[18]}, {result[17], result[16]},
    {result[15], result[14]}, {result[13], result[12]},{result[11], result[10]},
     {result[9], result[8]},{result[7], result[6]},{result[5], result[4]},
-    {result[3], result[2]}, {result[1], result[0]}}; //breaks parameterization
-  //localparam [1:NUM_BITS / 4][1:0] lod_l2 = {{, result[6]},{result[5], result[4]}, {result[3], result[2]}, {result[1], result[0]}};
+    {result[3], result[2]}, {result[1], result[0]}}; 
   assign bit16_c2 = {0, bit8_c3};
   
   LOD_2bit lod2_l(.res(lod_l1[1]), .count(bit2_c1), .status(bit2_s1));
@@ -53,7 +58,6 @@ module LOD #(
   
   
   LOD_nbit #(16,4) lod16_1 (.status1(bit8_s1), .status2(bit8_s2), .count1(bit8_c1), .count2(bit8_c2), .zcount(bit16_c1), .status(bit16_s1));
-  //LOD_nbit #(16,4) lod16_2 (.status1(bit8_s3), .status2(1'b0), .count1(bit8c_3), .count2(3'b111), .zcount(bit16_c2), .status(bit16_s2));
   
   LOD_nbit #(32,5) lod32_l (.status1(bit16_s1), .status2(bit8_s3), .count1(bit16_c1), .count2(bit16_c2), .zcount(shift), .status(status));
   

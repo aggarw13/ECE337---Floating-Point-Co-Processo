@@ -4,7 +4,7 @@ module swap
 (
   input wire [22:0] mantissa_A,
   input wire [22:0] mantissa_B,
-  input wire [7:0] expdiff_sgn,
+  input wire expdiff_sgn,
   output logic [22:0] larger_mantissa,
   output logic [22:0] smaller_mantissa
 );

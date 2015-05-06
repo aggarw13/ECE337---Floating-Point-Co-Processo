@@ -5,7 +5,6 @@
 // a is less than b, gt = 0, lt = 1, eq = 0
 // a is equal to b, gt = 0, lt = 0, eq = 1
 
-// Use a tab size of 2 spaces for best viewing results
 
 
 module comparator
@@ -23,28 +22,5 @@ module comparator
   assign lt = !({1'b0, a} > {1'b0, b}) & !eq; 
   assign gt = !({1'b0, b} > {1'b0, a}) & !eq;
 
-	/*always @ (a, b) begin: COM
-    lte = 0;
-    gte = 0;
-		if (!(a > b)) begin
-			lte = 1'b1;
-		end
-		if (!(b > a)) begin
-			gte = 1'b1;
-		end
-		if (!(lte == 1'b1))  begin
-			gt = 1'b1;
-			lt = 1'b0;
-			eq = 1'b0;
-		end else if (!(gte == 1)) begin
-			gt = 1'b0;
-			lt = 1'b1;
-			eq = 1'b0;
-		end
-		else begin
-			gt = 1'b0;
-			lt = 1'b0;
-			eq = 1'b1;
-		end
-	end*/
+
 endmodule
