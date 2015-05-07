@@ -1,3 +1,4 @@
+//Almost same as addition block except one of the input is negated as it comes in
 module subtract_block(
   input wire clk,
   input wire nreset,

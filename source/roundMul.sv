@@ -18,6 +18,7 @@ module roundMul
   reg round;
   reg [23:0] round1;
   
+  //Given G, S, L bit, round to nearest the normalized mantissa
   always @(mant,L,G,S) begin
     round = G & (L | S);
     round1 = mant + round;

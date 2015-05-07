@@ -4,7 +4,7 @@
 // Author:      Sung Yeon Choi
 // Lab Section: 337-05
 // Version:     1.0  Initial Design Entry
-// Description: floatingpoint multiplication
+// Description: floatingpoint multiplication pipelined
 
 module multiply
   (
@@ -21,6 +21,7 @@ module multiply
     output reg [3:0] out_dest
   );
   
+  //Signals for pipelining
   reg [22:0] op1mant;
   reg [22:0] op2mant;
   reg [7:0] op1exp;
@@ -70,6 +71,7 @@ module multiply
   assign op1sign = op1[31];
   assign op2sign = op2[31];
   
+  //Checking for NaN input
   always @(op1, op2) begin
     NaN = 1'b0;
     if(op1exp == 8'b11111111 && op1mant != 32'b0)
@@ -78,6 +80,7 @@ module multiply
       NaN = 1'b1;
   end
   
+  //Destination address pipeline
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       stage1dest <= 0;
@@ -96,6 +99,7 @@ module multiply
     end
   end
   
+  //NaN flag pipelined
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       Na1 <= 0;
@@ -107,6 +111,7 @@ module multiply
     end
   end
   
+  //Enable/Done signal pipelined
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       done <= 0;
@@ -125,6 +130,7 @@ module multiply
     end
   end
   
+  //sign bit pipelined
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       sign2 <= 0;
@@ -136,6 +142,7 @@ module multiply
     end
   end
   
+  //setting operands
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       op1 <= 0;
@@ -152,6 +159,7 @@ module multiply
     end
   end
   
+  //exponents bits pipelined
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       exp2 <= 0;
@@ -163,6 +171,7 @@ module multiply
     end
   end
   
+  //Guard bit, Last bit, Sticky bit pipelined
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       G2 <= 0;
@@ -176,6 +185,7 @@ module multiply
     end
   end
   
+  //output pipelined
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0)
       out2 <= 0;
@@ -183,6 +193,7 @@ module multiply
       out2 <= out;
   end
   
+  //Other signals pipelined
   always @(posedge clk, negedge nrst) begin
     if(nrst == 1'b0) begin
       mult2 <= 0;
@@ -196,6 +207,7 @@ module multiply
     end
   end
   
+  //All submodules for multiplication
   signMul SIGN(
     .sign1(op1sign),
     .sign2(op2sign),
@@ -242,6 +254,7 @@ module multiply
     .result(expout)
   );
   
+  //exponent check
   always @(expout) begin
     if(expout == 8'b11111111 && Na2 != 1'b1) //overflow
       expcheck = 1'b1;
@@ -251,6 +264,7 @@ module multiply
       expcheck = 1'b0;
   end
       
+  //Output with NaN check    
   always @(expout,mantout) begin
     out = {signout,expout,mantout};
     if(Na2 == 1'b1)
@@ -259,6 +273,7 @@ module multiply
       out = {signout,expout,23'b0};
   end
   
+  //Output
   assign result = out2;
   //assign mant = out2[22:0];
   //assign exp = out2[30:23];
